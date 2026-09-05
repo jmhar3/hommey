@@ -4,14 +4,16 @@ import { useState } from "react";
 
 import Window from "./components/Window";
 
-import type { Window as WindowType } from "./screens";
+import { menu, type Window as WindowType } from "./screens";
 
 export interface ActiveWindow extends WindowType {
   isOpen: boolean;
 }
 
 function App() {
-  const [activeWindows, setActiveWindows] = useState<ActiveWindow[]>([]);
+  const [activeWindows, setActiveWindows] = useState<ActiveWindow[]>([
+    { ...menu[0].windows[0], isOpen: true },
+  ]);
 
   const setActiveWindow = (window: WindowType, isOpen: boolean) => {
     setActiveWindows((existingWindows) => {
@@ -33,7 +35,7 @@ function App() {
 
   return (
     <Stack w="100vw" h="100vh" bg="linen">
-      <Box h="95vh">
+      <Box h="95vh" p="sm">
         {activeWindows.map(
           (activeWindow) =>
             activeWindow.isOpen && (
