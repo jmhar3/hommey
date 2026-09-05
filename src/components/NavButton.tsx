@@ -6,7 +6,17 @@ interface NavButtonProps {
 }
 
 function NavButton({ label, onClick }: NavButtonProps) {
-  return <Button onClick={onClick}>{label}</Button>;
+  return (
+    <Button
+      bdrs="3"
+      bg="linen"
+      c="crimson"
+      onClick={onClick}
+      bd="solid 2px crimson"
+    >
+      {label.toUpperCase()}
+    </Button>
+  );
 }
 
 export default NavButton;

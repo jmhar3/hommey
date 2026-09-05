@@ -1,16 +1,19 @@
 import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import { MantineProvider } from "@mantine/core";
-import { BrowserRouter, Routes, Route } from "react-router";
 import { Navigate } from "react-router";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router";
+import { MantineProvider, createTheme } from "@mantine/core";
 
 import App from "./App.tsx";
 
 import "./index.css";
+import "@mantine/core/styles.css";
+
+const theme = createTheme({/** Put your mantine theme override here */});
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <MantineProvider>
+    <MantineProvider theme={theme}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />} />

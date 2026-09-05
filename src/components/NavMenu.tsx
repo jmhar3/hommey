@@ -1,4 +1,4 @@
-import { Menu } from "@mantine/core";
+import { Menu, Stack } from "@mantine/core";
 
 import NavButton from "./NavButton";
 import { menu } from "../screens";
@@ -9,12 +9,12 @@ function NavMenu({ setActiveWindow }: NavbarProps) {
   return (
     <Menu>
       <Menu.Target>
-        <NavButton label="Menu" onClick={() => {}} />
+        <NavButton label="Menu" onClick={() => console.log("CLICK")} />
       </Menu.Target>
 
       <Menu.Dropdown>
         {menu.map(({ label, windows }, index) => (
-          <>
+          <Stack key={label}>
             {index !== 0 && <Menu.Divider />}
 
             <Menu.Label>{label}</Menu.Label>
@@ -27,7 +27,7 @@ function NavMenu({ setActiveWindow }: NavbarProps) {
                 {window.title}
               </Menu.Item>
             ))}
-          </>
+          </Stack>
         ))}
       </Menu.Dropdown>
     </Menu>

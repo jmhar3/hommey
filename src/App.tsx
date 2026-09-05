@@ -1,4 +1,4 @@
-import { Box } from "@mantine/core";
+import { Box, Stack } from "@mantine/core";
 import Navbar from "./components/Navbar";
 import { useState } from "react";
 
@@ -6,7 +6,7 @@ import Window from "./components/Window";
 
 import type { Window as WindowType } from "./screens";
 
-interface ActiveWindow extends WindowType {
+export interface ActiveWindow extends WindowType {
   isOpen: boolean;
 }
 
@@ -32,15 +32,17 @@ function App() {
   };
 
   return (
-    <Box w="100vw" h="100vh">
-      {activeWindows.map(
-        (activeWindow) =>
-          activeWindow.isOpen && (
-            <Window window={activeWindow} setActiveWindow={setActiveWindow} />
-          ),
-      )}
+    <Stack w="100vw" h="100vh" bg="linen">
+      <Box h="95vh">
+        {activeWindows.map(
+          (activeWindow) =>
+            activeWindow.isOpen && (
+              <Window window={activeWindow} setActiveWindow={setActiveWindow} />
+            ),
+        )}
+      </Box>
       <Navbar activeWindows={activeWindows} setActiveWindow={setActiveWindow} />
-    </Box>
+    </Stack>
   );
 }
 
