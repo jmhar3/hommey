@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { useMemo } from "react";
-import { Flex, Stack, Text } from "@mantine/core";
+import { Divider, Flex, Stack, Text } from "@mantine/core";
 
 function Greeting() {
   const date = dayjs().format("dddd, D of MMMM");
@@ -18,11 +18,12 @@ function Greeting() {
   }, []);
 
   return (
-    <Flex bg="lightpink" p="xs">
+    <Flex p="xs" bdrs="3" gap="sm" bg="lightpink">
       <Stack gap="0">
         <Text size="1.2em">{date}</Text>
         <Text size="2em">{greeting}</Text>
       </Stack>
+      <Divider size="sm" color="brown" orientation="vertical" />
       <Text>*insert current weather: icon, temp, uv, chance of rain*</Text>
     </Flex>
   );
