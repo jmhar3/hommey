@@ -14,7 +14,7 @@ function NavMenu({ setActiveWindow }: NavbarProps) {
 
       <Menu.Dropdown>
         {menu.map(({ label, windows }, index) => (
-          <Stack key={label}>
+          <Stack key={label} gap="0">
             {index !== 0 && <Menu.Divider />}
 
             <Menu.Label>{label}</Menu.Label>
