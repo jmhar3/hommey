@@ -18,13 +18,14 @@ function Dashboard() {
           </Grid.Col>
           <Grid.Col span={6}>
             <Stack>
-              <InCamera />
               <Hydrangea />
+              <InCamera />
             </Stack>
           </Grid.Col>
           <Grid.Col span={6}>
             <Stack>
               <Recommendations />
+              <ShoppingList />
               <Reminders />
             </Stack>
           </Grid.Col>
@@ -33,7 +34,6 @@ function Dashboard() {
       <Grid.Col span={4}>
         <Stack>
           <Quests />
-          <ShoppingList />
         </Stack>
       </Grid.Col>
     </Grid>
