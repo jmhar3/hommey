@@ -1,7 +1,6 @@
-import { Box, Flex, Stack, Title } from "@mantine/core";
+import { Box, Button, Flex, Stack, Title } from "@mantine/core";
 
 import type { Window as WindowType } from "../screens";
-import NavButton from "./NavButton";
 
 interface WindowProps {
   window: WindowType;
@@ -16,17 +15,46 @@ function Window(props: WindowProps) {
 
   return (
     <Stack bg="brown" p="xs" bdrs="3" h="100%" gap="xs">
-      <Flex p="xs" bg="gold" w="100%" align="center" justify="space-between">
-        <Title>{props.window.title}</Title>
+      <Flex w="100%" align="center" justify="space-between">
+        <Title c="linen">{props.window.title}</Title>
 
         <Flex gap="xs">
-          <NavButton label="-" onClick={minimiseWindow} />
-          <NavButton label="+" onClick={maximiseWindow} />
-          <NavButton label="x" onClick={closeWindow} />
+          <Button
+            p="0"
+            h="3.3em"
+            w="3.3em"
+            c="brown"
+            color="linen"
+            onClick={minimiseWindow}
+          >
+            -
+          </Button>
+
+          <Button
+            p="0"
+            h="3.3em"
+            w="3.3em"
+            c="brown"
+            color="linen"
+            onClick={maximiseWindow}
+          >
+            +
+          </Button>
+
+          <Button
+            p="0"
+            h="3.3em"
+            w="3.3em"
+            c="brown"
+            color="linen"
+            onClick={closeWindow}
+          >
+            x
+          </Button>
         </Flex>
       </Flex>
 
-      <Box h="100%" bg="white">
+      <Box h="100%" bg="white" bdrs="3">
         {props.window.screen}
       </Box>
     </Stack>
