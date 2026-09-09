@@ -9,7 +9,7 @@ function NavMenu({ setActiveWindow }: NavbarProps) {
   return (
     <Menu>
       <Menu.Target>
-        <NavButton label="Menu" onClick={() => console.log("CLICK")} />
+        <NavButton label="Menu" onClick={() => {}} />
       </Menu.Target>
 
       <Menu.Dropdown>
