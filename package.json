@@ -15,11 +15,15 @@
     "@mantine/form": "^8.3.14",
     "@mantine/hooks": "^8.3.14",
     "@mantine/modals": "^8.3.14",
+    "@reduxjs/toolkit": "^2.12.0",
+    "@supabase/supabase-js": "^2.116.0",
     "dayjs": "^1.11.23",
     "embla-carousel": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
+    "openmeteo": "^1.2.3",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-redux": "^9.3.0",
     "react-router": "^7.13.0"
   },
   "devDependencies": {
