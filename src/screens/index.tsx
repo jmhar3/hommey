@@ -1,5 +1,7 @@
 import type { ReactElement } from "react";
+
 import Dashboard from "./Dashboard";
+import Recipes from "./Recipes";
 
 export interface Window {
   title: string;
@@ -28,7 +30,7 @@ export const menu: MenuCategory[] = [
   },
   {
     label: "Browser",
-    windows: [{ title: "Recipes", screen: <Dashboard /> }],
+    windows: [{ title: "Recipes", screen: <Recipes /> }],
   },
   {
     label: "Games",
