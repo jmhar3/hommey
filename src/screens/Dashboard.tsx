@@ -3,7 +3,6 @@ import { Grid, Stack } from "@mantine/core";
 import InCamera from "../components/dashboard/InCamera";
 import Hydrangea from "../components/dashboard/Hydrangea";
 import Recommendations from "../components/dashboard/Recommendations";
-import Reminders from "../components/dashboard/Reminders";
 import Quests from "../components/dashboard/Quests";
 import ShoppingList from "../components/dashboard/ShoppingList";
 import Greeting from "../components/dashboard/Greeting";
@@ -19,14 +18,13 @@ function Dashboard() {
           <Grid.Col span={6}>
             <Stack>
               <Hydrangea />
-              <InCamera />
             </Stack>
           </Grid.Col>
           <Grid.Col span={6}>
             <Stack>
               <Recommendations />
+              <InCamera />
               <ShoppingList />
-              <Reminders />
             </Stack>
           </Grid.Col>
         </Grid>
