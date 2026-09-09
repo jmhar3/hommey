@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import {
   Button,
   Checkbox,
@@ -7,19 +9,14 @@ import {
   TextInput,
   Title,
 } from "@mantine/core";
-import { useState } from "react";
 
-interface ListItem {
-  id: string;
-  label: string;
-  bought: boolean;
-}
+import type { ShoppingListItem } from "../../state/types";
 
 function ShoppingList() {
   const [input, setInput] = useState<string>();
-  const [list, setList] = useState<ListItem[]>([]);
+  const [list, setList] = useState<ShoppingListItem[]>([]);
 
-  const checkItem = (item: ListItem, bought: boolean) => {
+  const checkItem = (item: ShoppingListItem, bought: boolean) => {
     setList((prevList) =>
       prevList.map((listItem) =>
         listItem.id === item.id ? { ...item, bought } : listItem,
