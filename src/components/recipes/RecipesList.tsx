@@ -1,4 +1,4 @@
-import { Badge, Divider, Flex, Stack, Text } from "@mantine/core";
+import { Badge, Flex, Stack, Text } from "@mantine/core";
 
 import type { Recipe } from "../../state/types";
 
@@ -39,20 +39,16 @@ function RecipesList({
   onRecipeClick,
 }: RecipesListProps) {
   return (
-    <Flex h="100%" gap="xs">
-      <Stack gap="xs" w="100%">
-        {recipes.map((recipe) => (
-          <ListItem
-            key={recipe.id}
-            {...recipe}
-            isFocused={recipe.id === focusedRecipe.id}
-            onClick={() => onRecipeClick(recipe)}
-          />
-        ))}
-      </Stack>
-
-      <Divider orientation="vertical" bd="2px solid brown" />
-    </Flex>
+    <Stack gap="xs" w="100%">
+      {recipes.map((recipe) => (
+        <ListItem
+          key={recipe.id}
+          {...recipe}
+          isFocused={recipe.id === focusedRecipe.id}
+          onClick={() => onRecipeClick(recipe)}
+        />
+      ))}
+    </Stack>
   );
 }
 
