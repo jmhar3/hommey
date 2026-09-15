@@ -40,6 +40,7 @@ export const ShoppingListCategory = {
   GreenGrocer: "greengrocer",
   SuperMarket: "supermarket",
   FishMonger: "fishmonger",
+  Bakery: "bakery",
   Other: "other",
 } as const;
 
@@ -47,5 +48,11 @@ export interface ShoppingListItem {
   id: string;
   label: string;
   type?:
-    "deli" | "butcher" | "greengrocer" | "supermarket" | "fishmonger" | "other";
+    | "deli"
+    | "butcher"
+    | "greengrocer"
+    | "supermarket"
+    | "fishmonger"
+    | "bakery"
+    | "other";
 }
