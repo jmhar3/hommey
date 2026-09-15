@@ -5,13 +5,21 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router";
 import { MantineProvider, createTheme } from "@mantine/core";
 
+import "@fontsource/audiowide";
+import "@fontsource/atomic-age";
+
 import App from "./App.tsx";
+
 import { store } from "./state/store.ts";
 
 import "./index.css";
 import "@mantine/core/styles.css";
 
-const theme = createTheme({/** Put your mantine theme override here */});
+const theme = createTheme({
+  fontFamily: "Audiowide, sans-serif",
+  // You can also apply it specifically to headings:
+  headings: { fontFamily: "Atomic Age, sans-serif", fontWeight: "400" },
+});
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
