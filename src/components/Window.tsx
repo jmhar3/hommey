@@ -18,7 +18,16 @@ interface WindowProps {
 
 function Window(props: WindowProps) {
   return (
-    <Stack p="xs" h="100%" gap="xs" bg={colours.mid} {...shadow}>
+    <Stack
+      p="xs"
+      gap="xs"
+      bg={colours.mid}
+      mah={props.window.size === "full" ? "100%" : "fit-content"}
+      // w={props.window.size === "full" ? "100vw" : undefined}
+      maw={props.window.size === "full" ? "100vw" : "60vw"}
+      miw={props.window.size === "full" ? undefined : "40vw"}
+      {...shadow}
+    >
       <Flex
         p="xs"
         w="100%"
@@ -54,7 +63,11 @@ function Window(props: WindowProps) {
         </Flex>
       </Flex>
 
-      <ScrollArea h="90vh" bg={colours.light} {...inset}>
+      <ScrollArea
+        bg={colours.light}
+        h={props.window.size === "full" ? "90vh" : "45vh"}
+        {...inset}
+      >
         {props.window.screen}
       </ScrollArea>
     </Stack>
