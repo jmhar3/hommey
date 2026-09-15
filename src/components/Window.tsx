@@ -1,4 +1,7 @@
-import { Box, Button, Flex, Stack, Title } from "@mantine/core";
+import { ActionIcon, Box, Flex, Stack, Title } from "@mantine/core";
+import { FaCross, FaExpand, FaWindowMinimize } from "react-icons/fa";
+
+import { colours, inset, shadow } from "../helpers/theme";
 
 import type { Window as WindowType } from "../screens";
 
@@ -6,6 +9,7 @@ interface WindowProps {
   window: WindowType;
   setActiveWindow: (window: WindowType, isOpen: boolean) => void;
 }
+
 function Window(props: WindowProps) {
   const minimiseWindow = () => {};
 
@@ -14,47 +18,54 @@ function Window(props: WindowProps) {
   const closeWindow = () => {};
 
   return (
-    <Stack bg="brown" p="xs" bdrs="3" h="100%" gap="xs">
-      <Flex w="100%" align="center" justify="space-between">
-        <Title c="linen">{props.window.title}</Title>
+    <Stack p="xs" h="100%" gap="xs" bg={colours.mid} {...shadow}>
+      <Flex
+        p="xs"
+        w="100%"
+        align="center"
+        justify="space-between"
+        bg={colours.light}
+        {...inset}
+      >
+        <Title c={colours.dark}>{props.window.title}</Title>
 
         <Flex gap="xs">
-          <Button
-            p="0"
-            h="3.3em"
-            w="3.3em"
-            c="brown"
-            color="linen"
+          <ActionIcon
+            bdrs="0"
+            color="dark"
+            size="xl"
+            bd="solid 4px"
+            variant="outline"
             onClick={minimiseWindow}
           >
-            -
-          </Button>
+            <FaWindowMinimize />
+          </ActionIcon>
 
-          <Button
-            p="0"
-            h="3.3em"
-            w="3.3em"
-            c="brown"
-            color="linen"
+          <ActionIcon
+            bdrs="0"
+            color="dark"
+            size="xl"
+            bd="solid 4px"
+            variant="outline"
             onClick={maximiseWindow}
           >
-            +
-          </Button>
+            <FaExpand />
+          </ActionIcon>
 
-          <Button
-            p="0"
-            h="3.3em"
-            w="3.3em"
-            c="brown"
-            color="linen"
+          <ActionIcon
+            bdrs="0"
+            color="dark"
+            size="xl"
+            bd="solid 4px"
+            variant="outline"
             onClick={closeWindow}
           >
-            x
-          </Button>
+            <FaCross />
+          </ActionIcon>
         </Flex>
       </Flex>
 
-      <Box h="100%" bg="white" bdrs="3">
+      <Box h="100%" bg={colours.light} {...inset}>
         {props.window.screen}
       </Box>
     </Stack>
