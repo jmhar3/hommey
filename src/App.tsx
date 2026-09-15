@@ -1,49 +1,40 @@
-import { Box, Stack } from "@mantine/core";
-import Navbar from "./components/Navbar";
 import { useState } from "react";
+import { BackgroundImage, Box, Stack } from "@mantine/core";
 
-import Window from "./components/Window";
+import Navbar from "./components/Navbar";
+import Window, { type WindowType } from "./components/Window";
 
-import { menu, type Window as WindowType } from "./screens";
+import { colours } from "./helpers/theme";
 
-export interface ActiveWindow extends WindowType {
-  isOpen: boolean;
-}
+import airey from "../public/assets/airey.jpg";
+import birdhouse from "../public/assets/birdhouse.jpg";
+import birds from "../public/assets/birds.jpg";
+import magpie from "../public/assets/magpie.jpg";
+import oakland from "../public/assets/oakland.jpg";
+
+const images = [airey, birdhouse, birds, magpie, oakland];
+
+const randomImageNum = Math.floor(Math.random() * images.length);
 
 function App() {
-  const [activeWindows, setActiveWindows] = useState<ActiveWindow[]>([
-    { ...menu[0].windows[0], isOpen: true },
-  ]);
-
-  const setActiveWindow = (window: WindowType, isOpen: boolean) => {
-    setActiveWindows((existingWindows) => {
-      const findExistingWindow = existingWindows.find(
-        (activeWindow) => activeWindow.title === window.title,
-      );
-
-      if (findExistingWindow) {
-        return existingWindows.map((existingWindow) => {
-          if (existingWindow.title === window.title)
-            return { ...existingWindow, isOpen };
-          return existingWindow;
-        });
-      }
-
-      return [...existingWindows, { ...window, isOpen }];
-    });
-  };
+  const [focusedWindow, setFocusedWindow] = useState<WindowType>();
 
   return (
-    <Stack w="100vw" h="100vh" bg="linen">
-      <Box h="95vh" p="sm">
-        {activeWindows.map(
-          (activeWindow) =>
-            activeWindow.isOpen && (
-              <Window window={activeWindow} setActiveWindow={setActiveWindow} />
-            ),
-        )}
+    <Stack w="100vw" h="100vh" bg={colours.light} gap="0">
+      <BackgroundImage src={images[randomImageNum]}>
+        <Box h="94vh" p="sm">
+          {focusedWindow && (
+            <Window
+              window={focusedWindow}
+              setFocusedWindow={setFocusedWindow}
+            />
+          )}
+        </Box>
+      </BackgroundImage>
+
+      <Box h="5vh" bg="red">
+        <Navbar setFocusedWindow={setFocusedWindow} />
       </Box>
-      <Navbar activeWindows={activeWindows} setActiveWindow={setActiveWindow} />
     </Stack>
   );
 }

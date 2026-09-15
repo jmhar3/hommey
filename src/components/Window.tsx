@@ -1,22 +1,22 @@
-import { ActionIcon, Box, Flex, Stack, Title } from "@mantine/core";
-import { FaCross, FaExpand, FaWindowMinimize } from "react-icons/fa";
+import { ActionIcon, Flex, ScrollArea, Stack, Title } from "@mantine/core";
+import { FaTimes, FaWindowMinimize } from "react-icons/fa";
 
 import { colours, inset, shadow } from "../helpers/theme";
 
-import type { Window as WindowType } from "../screens";
+import type { ReactElement } from "react";
+
+export interface WindowType {
+  title: string;
+  screen: ReactElement;
+  size: string;
+}
 
 interface WindowProps {
   window: WindowType;
-  setActiveWindow: (window: WindowType, isOpen: boolean) => void;
+  setFocusedWindow: (window?: WindowType) => void;
 }
 
 function Window(props: WindowProps) {
-  const minimiseWindow = () => {};
-
-  const maximiseWindow = () => {};
-
-  const closeWindow = () => {};
-
   return (
     <Stack p="xs" h="100%" gap="xs" bg={colours.mid} {...shadow}>
       <Flex
@@ -36,7 +36,7 @@ function Window(props: WindowProps) {
             size="xl"
             bd="solid 4px"
             variant="outline"
-            onClick={minimiseWindow}
+            onClick={() => props.setFocusedWindow()}
           >
             <FaWindowMinimize />
           </ActionIcon>
@@ -47,27 +47,16 @@ function Window(props: WindowProps) {
             size="xl"
             bd="solid 4px"
             variant="outline"
-            onClick={maximiseWindow}
+            onClick={() => props.setFocusedWindow()}
           >
-            <FaExpand />
-          </ActionIcon>
-
-          <ActionIcon
-            bdrs="0"
-            color="dark"
-            size="xl"
-            bd="solid 4px"
-            variant="outline"
-            onClick={closeWindow}
-          >
-            <FaCross />
+            <FaTimes />
           </ActionIcon>
         </Flex>
       </Flex>
 
-      <Box h="100%" bg={colours.light} {...inset}>
+      <ScrollArea h="90vh" bg={colours.light} {...inset}>
         {props.window.screen}
-      </Box>
+      </ScrollArea>
     </Stack>
   );
 }
