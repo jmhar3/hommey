@@ -1,18 +1,18 @@
-import { Box, Group, Stack, Title } from "@mantine/core";
+import { Box, Group, Stack } from "@mantine/core";
 
 import Container from "../Container";
+
+import { colours, shadow } from "../../helpers/theme";
 
 function InCamera() {
   return (
     <Container>
       <Stack>
-        <Title>In Camera</Title>
-
         <Group grow>
-          <Box bg="pink" h="6em" w="6em" bdrs="3">
+          <Box p="xs" h="8em" w="6em" bg={colours.light} {...shadow}>
             Harmon Phoenix II in the Nikon F55
           </Box>
-          <Box bg="pink" h="6em" w="6em" bdrs="3">
+          <Box p="xs" h="8em" w="6em" bg={colours.light} {...shadow}>
             Film in the Camera
           </Box>
         </Group>

@@ -2,6 +2,8 @@ import { Box, Button, Group, Stack, Text, Title } from "@mantine/core";
 
 import Container from "../Container";
 
+import { colours, contrastInset, shadow } from "../../helpers/theme";
+
 function Recommendations() {
   return (
     <Container>
@@ -11,13 +13,13 @@ function Recommendations() {
         <Text>It's cold, wet and windy. Perfect day to stay at home.</Text>
 
         <Group grow>
-          <Box bg="pink" h="6em" w="6em" bdrs="3" />
-          <Box bg="pink" h="6em" w="6em" bdrs="3" />
-          <Box bg="pink" h="6em" w="6em" bdrs="3" />
+          <Box p="xs" h="6em" bg={colours.light} {...shadow} />
+          <Box p="xs" h="6em" bg={colours.light} {...shadow} />
+          <Box p="xs" h="6em" bg={colours.light} {...shadow} />
         </Group>
 
         <Group grow>
-          <Button color="pink">Play Adventure Roulette</Button>
+          <Button {...contrastInset}>Play Adventure Roulette</Button>
         </Group>
       </Stack>
     </Container>
