@@ -10,6 +10,8 @@ import {
   Title,
 } from "@mantine/core";
 
+import Container from "../Container";
+
 import type { ShoppingListItem } from "../../state/types";
 
 function ShoppingList() {
@@ -29,42 +31,46 @@ function ShoppingList() {
   };
 
   return (
-    <Stack p="xs" bdrs="3" bd="solid 2px brown">
-      <Title>Shopping List</Title>
+    <Container>
+      <Stack>
+        <Title>Shopping List</Title>
 
-      {list.length > 0 && (
-        <>
-          <Divider size="sm" color="brown" />
+        {list.length > 0 && (
+          <>
+            <Divider size="sm" color="brown" />
 
-          {list.map((item) => (
-            <Checkbox
-              size="lg"
-              key={item.id}
-              color="brown"
-              label={item.label}
-              checked={item.bought}
-              onChange={(event) => checkItem(item, event.currentTarget.checked)}
-            />
-          ))}
-        </>
-      )}
+            {list.map((item) => (
+              <Checkbox
+                size="lg"
+                key={item.id}
+                color="brown"
+                label={item.label}
+                checked={item.bought}
+                onChange={(event) =>
+                  checkItem(item, event.currentTarget.checked)
+                }
+              />
+            ))}
+          </>
+        )}
 
-      <Divider size="sm" color="brown" />
+        <Divider size="sm" color="brown" />
 
-      <Flex gap="xs" align="center">
-        <TextInput
-          w="100%"
-          size="lg"
-          placeholder="Add New Item"
-          value={input}
-          onChange={(event) => setInput(event.currentTarget.value)}
-        />
+        <Flex gap="xs" align="center">
+          <TextInput
+            w="100%"
+            size="lg"
+            placeholder="Add New Item"
+            value={input}
+            onChange={(event) => setInput(event.currentTarget.value)}
+          />
 
-        <Button p="0" size="lg" w="3.3em" color="brown" onClick={addNewItem}>
-          +
-        </Button>
-      </Flex>
-    </Stack>
+          <Button p="0" size="lg" w="3.3em" color="brown" onClick={addNewItem}>
+            +
+          </Button>
+        </Flex>
+      </Stack>
+    </Container>
   );
 }
 

@@ -1,9 +1,25 @@
-import dayjs from "dayjs";
 import { useMemo } from "react";
-import { Divider, Flex, Stack, Text } from "@mantine/core";
+import { FaCloud, FaSun, FaThermometerHalf } from "react-icons/fa";
+import advancedFormat from "dayjs/plugin/advancedFormat";
+import dayjs from "dayjs";
+
+import {
+  ActionIcon,
+  Divider,
+  Flex,
+  Grid,
+  Stack,
+  Text,
+  Title,
+} from "@mantine/core";
+
+import Container from "../Container";
+import { colours } from "../../helpers/theme";
+
+dayjs.extend(advancedFormat);
 
 function Greeting() {
-  const date = dayjs().format("dddd, D of MMMM");
+  const date = dayjs().format("dddd, Do of MMMM");
 
   const greeting = useMemo(() => {
     const hour = dayjs().hour();
@@ -18,14 +34,40 @@ function Greeting() {
   }, []);
 
   return (
-    <Flex p="xs" bdrs="3" gap="sm" bg="lightpink">
-      <Stack gap="0">
-        <Text size="1.2em">{date}</Text>
-        <Text size="2em">{greeting}</Text>
-      </Stack>
-      <Divider size="sm" color="brown" orientation="vertical" />
-      <Text>*insert current weather: icon, temp, uv, chance of rain*</Text>
-    </Flex>
+    <Container>
+      <Grid>
+        <Grid.Col span={5}>
+          <Flex>
+            <Stack gap="0">
+              <Text size="1em">{date.toUpperCase()}</Text>
+              <Title size="2.4em">{greeting}</Title>
+            </Stack>
+
+            <Divider
+              mx="xl"
+              size="lg"
+              color={colours.contrast}
+              orientation="vertical"
+            />
+          </Flex>
+        </Grid.Col>
+
+        <Grid.Col span={7}>
+          {/*INSERT CURRENT WEATHER: ICONS, TEMP, UV, CHANCE OF RAIN*/}
+          <ActionIcon>
+            <FaThermometerHalf />
+          </ActionIcon>
+
+          <ActionIcon>
+            <FaSun />
+          </ActionIcon>
+
+          <ActionIcon>
+            <FaCloud />
+          </ActionIcon>
+        </Grid.Col>
+      </Grid>
+    </Container>
   );
 }
 
