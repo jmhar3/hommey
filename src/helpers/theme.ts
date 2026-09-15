@@ -12,7 +12,7 @@ export const inset = {
   c: colours.dark,
   bd: `solid 4px ${colours.dark}`,
   style: {
-    boxShadow: `inset -1px -1px 0px 1px , inset 1px 1px 0px 1px crimson`,
+    boxShadow: `inset -1px -1px 0px 1px ${colours.blue}, inset 1px 1px 0px 1px crimson`,
   },
 };
 
@@ -42,6 +42,16 @@ export const contrastInset = {
   bd: `solid 4px ${colours.dark}`,
   style: {
     boxShadow: `inset -3px -3px 0px 1px ${colours.contrast}`,
+  },
+};
+
+export const contrastShadow = {
+  bdrs: "0",
+  c: colours.dark,
+  bg: colours.light,
+  bd: `solid 4px ${colours.dark}`,
+  style: {
+    boxShadow: `3px 3px 0px 1px ${colours.contrast}`,
   },
 };
 
