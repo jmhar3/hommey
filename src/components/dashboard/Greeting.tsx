@@ -36,7 +36,7 @@ function Greeting() {
   return (
     <Container>
       <Grid>
-        <Grid.Col span={5}>
+        <Grid.Col span={6}>
           <Flex>
             <Stack gap="0">
               <Text size="1em">{date.toUpperCase()}</Text>
@@ -52,7 +52,7 @@ function Greeting() {
           </Flex>
         </Grid.Col>
 
-        <Grid.Col span={7}>
+        <Grid.Col span={6}>
           {/*INSERT CURRENT WEATHER: ICONS, TEMP, UV, CHANCE OF RAIN*/}
           <ActionIcon>
             <FaThermometerHalf />
