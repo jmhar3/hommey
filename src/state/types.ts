@@ -9,9 +9,18 @@ export interface Recipe {
   tags?: string[];
 }
 
+export const ShoppingListCategory = {
+  Deli: "deli",
+  Butcher: "butcher",
+  GreenGrocer: "greengrocer",
+  SuperMarket: "supermarket",
+  FishMonger: "fishmonger",
+  Other: "other",
+} as const;
+
 export interface ShoppingListItem {
   id: string;
   label: string;
-  bought: boolean;
-  category?: "deli" | "butcher" | "greengrocer" | "supermarket" | "fishmonger";
+  type?:
+    "deli" | "butcher" | "greengrocer" | "supermarket" | "fishmonger" | "other";
 }

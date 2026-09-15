@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { FaPlus } from "react-icons/fa";
 
 import {
-  Button,
+  ActionIcon,
   Checkbox,
   Divider,
   Flex,
+  Select,
   Stack,
   TextInput,
   Title,
@@ -12,22 +14,56 @@ import {
 
 import Container from "../Container";
 
-import type { ShoppingListItem } from "../../state/types";
+import { useAppDispatch, useAppSelector } from "../../state/hooks";
+
+import {
+  addShoppingListItem,
+  deleteShoppingListItem,
+  fetchShoppingList,
+} from "../../state/shoppingList/shoppingListThunks";
+
+import {
+  selectShoppingList,
+  selectShoppingListStatus,
+} from "../../state/shoppingList/shoppingListSlice";
+
+import { colours, inset } from "../../helpers/theme";
 
 function ShoppingList() {
-  const [input, setInput] = useState<string>();
-  const [list, setList] = useState<ShoppingListItem[]>([]);
+  const dispatch = useAppDispatch();
 
-  const checkItem = (item: ShoppingListItem, bought: boolean) => {
-    setList((prevList) =>
-      prevList.map((listItem) =>
-        listItem.id === item.id ? { ...item, bought } : listItem,
-      ),
-    );
+  const shoppingListStatus = useAppSelector(selectShoppingListStatus);
+  const shoppingList = useAppSelector(selectShoppingList);
+
+  useEffect(() => {
+    if (shoppingListStatus === "idle") {
+      dispatch(fetchShoppingList());
+    }
+  }, [dispatch, shoppingListStatus]);
+
+  const [label, setLabel] = useState<string>();
+  const [category, setCategory] = useState<
+    "deli" | "butcher" | "greengrocer" | "supermarket" | "fishmonger" | "other"
+  >();
+
+  const checkItem = (id: string) => {
+    dispatch(deleteShoppingListItem(id));
   };
 
   const addNewItem = () => {
-    if (input) setList([...list, { id: "", label: input, bought: false }]);
+    if (label && category)
+      dispatch(
+        addShoppingListItem({
+          label: label,
+          type: category.toLowerCase() as
+            | "deli"
+            | "butcher"
+            | "greengrocer"
+            | "supermarket"
+            | "fishmonger"
+            | "other",
+        }),
+      );
   };
 
   return (
@@ -35,20 +71,17 @@ function ShoppingList() {
       <Stack>
         <Title>Shopping List</Title>
 
-        {list.length > 0 && (
+        {shoppingList.length > 0 && (
           <>
             <Divider size="sm" color="brown" />
 
-            {list.map((item) => (
+            {shoppingList.map((item) => (
               <Checkbox
                 size="lg"
                 key={item.id}
                 color="brown"
                 label={item.label}
-                checked={item.bought}
-                onChange={(event) =>
-                  checkItem(item, event.currentTarget.checked)
-                }
+                onChange={() => checkItem(item.id)}
               />
             ))}
           </>
@@ -56,19 +89,55 @@ function ShoppingList() {
 
         <Divider size="sm" color="brown" />
 
-        <Flex gap="xs" align="center">
+        <Stack>
           <TextInput
-            w="100%"
-            size="lg"
+            pl="sm"
+            size="md"
+            variant="unstyled"
+            {...inset}
             placeholder="Add New Item"
-            value={input}
-            onChange={(event) => setInput(event.currentTarget.value)}
+            value={label}
+            onChange={(event) => setLabel(event.currentTarget.value)}
           />
 
-          <Button p="0" size="lg" w="3.3em" color="brown" onClick={addNewItem}>
-            +
-          </Button>
-        </Flex>
+          <Flex gap="xs" align="center">
+            <Select
+              pl="sm"
+              size="md"
+              variant="unstyled"
+              placeholder="Select category"
+              onChange={(value) =>
+                setCategory(
+                  value as
+                    | "deli"
+                    | "butcher"
+                    | "greengrocer"
+                    | "supermarket"
+                    | "fishmonger"
+                    | "other",
+                )
+              }
+              data={[
+                "Deli",
+                "Butcher",
+                "GreenGrocer",
+                "SuperMarket",
+                "FishMonger",
+                "Other",
+              ]}
+              {...inset}
+            />
+
+            <ActionIcon
+              size="xl"
+              bg={colours.light}
+              onClick={addNewItem}
+              {...inset}
+            >
+              <FaPlus />
+            </ActionIcon>
+          </Flex>
+        </Stack>
       </Stack>
     </Container>
   );

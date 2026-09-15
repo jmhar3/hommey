@@ -9,6 +9,7 @@ import "@fontsource/audiowide";
 import "@fontsource/atomic-age";
 
 import App from "./App.tsx";
+import ShoppingList from "./screens/ShoppingList.tsx";
 
 import { store } from "./state/store.ts";
 
@@ -28,6 +29,7 @@ createRoot(document.getElementById("root")!).render(
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<App />} />
+            <Route path="/shopping-list" element={<ShoppingList />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </BrowserRouter>

@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import recipesReducer from "./recipes/recipesSlice";
+import shoppingListReducer from "./shoppingList/shoppingListSlice";
 
 import type { Action, ThunkAction } from "@reduxjs/toolkit";
 
 export const store = configureStore({
   reducer: {
     recipes: recipesReducer,
+    shoppingList: shoppingListReducer,
   },
 });
 
