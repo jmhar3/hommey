@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BackgroundImage, Box, Stack } from "@mantine/core";
+import { BackgroundImage, Box, Center, Stack } from "@mantine/core";
 
 import Navbar from "./components/Navbar";
 import Window, { type WindowType } from "./components/Window";
@@ -22,14 +22,14 @@ function App() {
   return (
     <Stack w="100vw" h="100vh" bg={colours.light} gap="0">
       <BackgroundImage src={images[randomImageNum]}>
-        <Box h="94vh" p="sm">
+        <Center h="94vh" p="sm">
           {focusedWindow && (
             <Window
               window={focusedWindow}
               setFocusedWindow={setFocusedWindow}
             />
           )}
-        </Box>
+        </Center>
       </BackgroundImage>
 
       <Box h="5vh" bg="red">
