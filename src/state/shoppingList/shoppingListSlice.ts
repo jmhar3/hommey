@@ -65,9 +65,6 @@ export default shoppingListSlice.reducer;
 
 export const selectShoppingList = (state: RootState) => state.shoppingList.data;
 
-export const selectSectionById = (state: RootState, sectionId: string) =>
-  state.shoppingList.data.find((section) => section.id === sectionId);
-
 export const selectShoppingListStatus = (state: RootState) =>
   state.shoppingList.status;
 
