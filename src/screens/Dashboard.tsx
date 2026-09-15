@@ -17,14 +17,14 @@ function Dashboard() {
           </Grid.Col>
           <Grid.Col span={6}>
             <Stack>
-              <Hydrangea />
+              <Recommendations />
+              <ShoppingList />
             </Stack>
           </Grid.Col>
           <Grid.Col span={6}>
             <Stack>
-              <Recommendations />
               <InCamera />
-              <ShoppingList />
+              <Hydrangea />
             </Stack>
           </Grid.Col>
         </Grid>
