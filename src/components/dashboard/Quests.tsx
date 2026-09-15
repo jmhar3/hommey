@@ -11,6 +11,7 @@ import {
   selectQuestsStatus,
 } from "../../state/quests/questsSlice";
 import dayjs from "dayjs";
+import { colours, shadow } from "../../helpers/theme";
 
 function Quests() {
   const dispatch = useAppDispatch();
@@ -47,16 +48,16 @@ function Quests() {
         </Stack>
 
         <Group grow gap="xs">
-          <Box bg="pink" h="12.5em" bdrs="3">
+          <Box h="12.5em" bg={colours.light} {...shadow}>
             BOSS
           </Box>
 
           <Stack gap="xs">
-            <Box bg="pink" h="6em" bdrs="3">
+            <Box h="6em" bg={colours.light} {...shadow}>
               Wah
             </Box>
 
-            <Box bg="pink" h="6em" bdrs="3">
+            <Box h="6em" bg={colours.light} {...shadow}>
               Fae
             </Box>
           </Stack>
