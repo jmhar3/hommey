@@ -1,13 +1,18 @@
 import { Stack } from "@mantine/core";
 
-import ListComponent from "../components/dashboard/ShoppingList";
+import ShoppingListItems from "../components/ShoppingListItems";
+import ShoppingListItemForm from "../components/ShoppingListItemForm";
 
-import { colours, shadow } from "../helpers/theme";
+import Container from "../components/Container";
 
 function ShoppingList() {
   return (
-    <Stack p="xs" h="100vh" gap="xs" bg={colours.mid} {...shadow}>
-      <ListComponent />
+    <Stack p="xs" gap="0">
+      <Container>
+        <ShoppingListItemForm />
+      </Container>
+
+      <ShoppingListItems />
     </Stack>
   );
 }
