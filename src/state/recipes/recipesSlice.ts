@@ -39,14 +39,14 @@ const recipesSlice = createSlice({
         (state, { payload }: { payload: Recipe[] }) => {
           state.status = "succeeded";
 
-          const newSections: Recipe[] = [];
-          const oldSections: Recipe[] = [];
+          const newRecipes: Recipe[] = [];
+          const oldRecipes: Recipe[] = [];
 
           payload.forEach((item: Recipe) => {
             if (state.data.find(({ id }) => id === item.id)) {
-              oldSections.push(item);
+              oldRecipes.push(item);
             } else {
-              newSections.push(item);
+              newRecipes.push(item);
             }
           });
 
@@ -54,7 +54,7 @@ const recipesSlice = createSlice({
             ({ id: id1 }) => !payload.find(({ id: id2 }) => id1 === id2),
           );
 
-          state.data = [...filteredState, ...oldSections, ...newSections];
+          state.data = [...filteredState, ...oldRecipes, ...newRecipes];
         },
       )
       .addCase(upsertRecipes.rejected, (state) => {
@@ -77,8 +77,8 @@ export default recipesSlice.reducer;
 
 export const selectRecipes = (state: RootState) => state.recipes.data;
 
-export const selectSectionById = (state: RootState, sectionId: string) =>
-  state.recipes.data.find((section) => section.id === sectionId);
+export const selectRecipeById = (state: RootState, recipeId: string) =>
+  state.recipes.data.find((recipe) => recipe.id === recipeId);
 
 export const selectRecipesStatus = (state: RootState) => state.recipes.status;
 
