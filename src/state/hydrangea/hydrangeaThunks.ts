@@ -10,7 +10,7 @@ export const fetchHydrangea = createAsyncThunk(
     const { data, error } = await supabase
       .from("hydrangea")
       .select(`*`)
-      .order("created_at");
+      .order("created_at", { ascending: false });
 
     if (error) {
       console.error(error);
@@ -21,13 +21,14 @@ export const fetchHydrangea = createAsyncThunk(
   },
 );
 
-export const upsertHydrangea = createAsyncThunk(
-  "hydrangea/upsertHydrangea",
-  async (hydrangea: Partial<Hydrangea>[]) => {
+export const insertHydrangea = createAsyncThunk(
+  "hydrangea/insertHydrangea",
+  async (hydrangea: Partial<Hydrangea>) => {
     const { data, error } = await supabase
       .from("hydrangea")
-      .upsert(hydrangea)
-      .select(`*`);
+      .insert(hydrangea)
+      .select(`*`)
+      .order("created_at", { ascending: false });
 
     if (error) {
       console.error(error);

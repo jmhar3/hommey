@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   fetchHydrangea,
   deleteHydrangea,
-  upsertHydrangea,
+  insertHydrangea,
 } from "./hydrangeaThunks";
 
 import type { RootState } from "../store";
@@ -35,11 +35,11 @@ const hydrangeaSlice = createSlice({
       .addCase(fetchHydrangea.rejected, (state) => {
         state.status = "failed";
       })
-      .addCase(upsertHydrangea.pending, (state) => {
+      .addCase(insertHydrangea.pending, (state) => {
         state.status = "pending";
       })
       .addCase(
-        upsertHydrangea.fulfilled,
+        insertHydrangea.fulfilled,
         (state, { payload }: { payload: Hydrangea[] }) => {
           state.status = "succeeded";
 
@@ -61,7 +61,7 @@ const hydrangeaSlice = createSlice({
           state.data = [...filteredState, ...oldSections, ...newSections];
         },
       )
-      .addCase(upsertHydrangea.rejected, (state) => {
+      .addCase(insertHydrangea.rejected, (state) => {
         state.status = "failed";
       })
       .addCase(deleteHydrangea.pending, (state) => {
