@@ -10,17 +10,8 @@ import { colours, contrastInset } from "../../helpers/theme";
 function ShoppingListItemForm({ onComplete }: { onComplete?: () => void }) {
   const dispatch = useAppDispatch();
 
-  const [label, setLabel] = useState<string>();
-  const [category, setCategory] = useState<
-    | "deli"
-    | "butcher"
-    | "greengrocer"
-    | "supermarket"
-    | "fishmonger"
-    | "bakery"
-    | "chemist"
-    | "other"
-  >();
+  const [label, setLabel] = useState<string>("");
+  const [category, setCategory] = useState<string | null>(null);
 
   const addNewItem = () => {
     if (label && category)
@@ -28,20 +19,20 @@ function ShoppingListItemForm({ onComplete }: { onComplete?: () => void }) {
         addShoppingListItem({
           label: label,
           type: category.toLowerCase() as
+            | "other"
             | "deli"
             | "butcher"
             | "greengrocer"
             | "supermarket"
             | "fishmonger"
             | "bakery"
-            | "chemist"
-            | "other",
+            | "chemist",
         }),
       ).then((data) => {
         if (data.payload) {
           if (onComplete) onComplete();
-          setCategory(undefined);
-          setLabel(undefined);
+          setCategory(null);
+          setLabel("");
         }
       });
   };
@@ -68,21 +59,10 @@ function ShoppingListItemForm({ onComplete }: { onComplete?: () => void }) {
           pl="sm"
           h="44px"
           w="100%"
+          value={category}
           variant="unstyled"
           placeholder="Select category"
-          onChange={(value) =>
-            setCategory(
-              value as
-                | "deli"
-                | "butcher"
-                | "greengrocer"
-                | "supermarket"
-                | "fishmonger"
-                | "bakery"
-                | "chemist"
-                | "other",
-            )
-          }
+          onChange={(value) => setCategory(value)}
           data={[
             "SUPERMARKET",
             "GREENGROCER",
@@ -110,12 +90,7 @@ function ShoppingListItemForm({ onComplete }: { onComplete?: () => void }) {
           }}
         />
 
-        <ActionIcon
-          size="xl"
-          // bg={colours.light}
-          onClick={addNewItem}
-          {...contrastInset}
-        >
+        <ActionIcon size="xl" onClick={addNewItem} {...contrastInset}>
           <FaPlus />
         </ActionIcon>
       </Flex>
