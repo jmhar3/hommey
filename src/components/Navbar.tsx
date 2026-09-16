@@ -18,8 +18,8 @@ const windows = [
   { title: "Film", screen: <Film />, size: "full" },
   { title: "Recipes", screen: <Recipes />, size: "full" },
   { title: "Battle", screen: <Quests />, size: "full" },
-  { title: "MeatCute Roulette", screen: <Roulette />, size: "full" },
-  { title: "Shopping List", screen: <ShoppingList />, size: "small" },
+  { title: "Roulette", screen: <Roulette />, size: "full" },
+  { title: "Grocery List", screen: <ShoppingList />, size: "small" },
 ];
 
 export interface NavbarProps {
