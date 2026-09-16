@@ -79,14 +79,13 @@ function ShoppingListItems({ view }: ShoppingListItemsProps) {
         {!view && (
           <Flex align="center" justify="center" gap="xs">
             <Text size="lg" w="100%" ta="right">
-              VIEW CATEGORIES
+              CATEGORIES
             </Text>
 
             <Switch
               size="lg"
               radius={0}
               checked={showList}
-              // label="VIEW CATEGORIES"
               color={colours.contrast}
               withThumbIndicator={false}
               onChange={(event) => setShowList(event.currentTarget.checked)}
@@ -104,7 +103,7 @@ function ShoppingListItems({ view }: ShoppingListItemsProps) {
             />
 
             <Text size="lg" w="100%">
-              VIEW LIST
+              LIST
             </Text>
           </Flex>
         )}
