@@ -1,10 +1,28 @@
-import { Box, Button, Group, Stack, Text, Title } from "@mantine/core";
+import {
+  ActionIcon,
+  Box,
+  Button,
+  Group,
+  Stack,
+  Text,
+  Title,
+} from "@mantine/core";
 
 import Container from "../Container";
 
 import { colours, contrastInset, shadow } from "../../helpers/theme";
+import { useState } from "react";
+import {
+  FaBrain,
+  FaHamsa,
+  FaHandHolding,
+  FaHandHoldingHeart,
+  FaHeart,
+} from "react-icons/fa";
 
 function Recommendations() {
+  const [selection, setSelection] = useState<"chill" | "brain" | "body">();
+
   return (
     <Container>
       <Stack>
@@ -12,15 +30,42 @@ function Recommendations() {
 
         <Text>It's cold, wet and windy. Perfect day to stay at home.</Text>
 
-        <Group grow>
-          <Box p="xs" h="6em" bg={colours.light} {...shadow} />
-          <Box p="xs" h="6em" bg={colours.light} {...shadow} />
-          <Box p="xs" h="6em" bg={colours.light} {...shadow} />
-        </Group>
+        {selection ? (
+          <>
+            {selection === "chill" && <Text>Chill</Text>}
+            {selection === "brain" && <Text>Brain</Text>}
+            {selection === "body" && <Text>Body</Text>}
+          </>
+        ) : (
+          <Group grow>
+            <ActionIcon
+              p="xs"
+              h="6em"
+              onClick={() => setSelection("chill")}
+              {...contrastInset}
+            >
+              <FaHandHoldingHeart size="lg" />
+            </ActionIcon>
 
-        <Group grow>
-          <Button {...contrastInset}>Play Adventure Roulette</Button>
-        </Group>
+            <ActionIcon
+              p="xs"
+              h="6em"
+              onClick={() => setSelection("brain")}
+              {...contrastInset}
+            >
+              <FaBrain size="lg" />
+            </ActionIcon>
+
+            <ActionIcon
+              p="xs"
+              h="6em"
+              onClick={() => setSelection("body")}
+              {...contrastInset}
+            >
+              <FaHeart size="lg" />
+            </ActionIcon>
+          </Group>
+        )}
       </Stack>
     </Container>
   );
