@@ -1,24 +1,10 @@
-import {
-  ActionIcon,
-  Box,
-  Button,
-  Group,
-  Stack,
-  Text,
-  Title,
-} from "@mantine/core";
+import { useState } from "react";
+import { FaBrain, FaHandHoldingHeart, FaHeart } from "react-icons/fa";
+import { ActionIcon, Group, Stack, Text, Title } from "@mantine/core";
 
 import Container from "../Container";
 
-import { colours, contrastInset, shadow } from "../../helpers/theme";
-import { useState } from "react";
-import {
-  FaBrain,
-  FaHamsa,
-  FaHandHolding,
-  FaHandHoldingHeart,
-  FaHeart,
-} from "react-icons/fa";
+import { contrastInset } from "../../helpers/theme";
 
 function Recommendations() {
   const [selection, setSelection] = useState<"chill" | "brain" | "body">();
