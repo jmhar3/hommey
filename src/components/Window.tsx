@@ -1,7 +1,7 @@
 import { ActionIcon, Flex, ScrollArea, Stack, Title } from "@mantine/core";
 import { FaTimes, FaWindowMinimize } from "react-icons/fa";
 
-import { colours, inset, shadow } from "../helpers/theme";
+import { colours, inset, contrastInset, shadow } from "../helpers/theme";
 
 import type { ReactElement } from "react";
 
@@ -23,7 +23,6 @@ function Window(props: WindowProps) {
       gap="xs"
       bg={colours.mid}
       mah={props.window.size === "full" ? "100%" : "fit-content"}
-      // w={props.window.size === "full" ? "100vw" : undefined}
       maw={props.window.size === "full" ? "100vw" : "60vw"}
       miw={props.window.size === "full" ? undefined : "40vw"}
       {...shadow}
@@ -40,22 +39,16 @@ function Window(props: WindowProps) {
 
         <Flex gap="xs">
           <ActionIcon
-            bdrs="0"
-            color="dark"
             size="xl"
-            bd="solid 4px"
-            variant="outline"
+            {...contrastInset}
             onClick={() => props.setFocusedWindow()}
           >
             <FaWindowMinimize />
           </ActionIcon>
 
           <ActionIcon
-            bdrs="0"
-            color="dark"
             size="xl"
-            bd="solid 4px"
-            variant="outline"
+            {...contrastInset}
             onClick={() => props.setFocusedWindow()}
           >
             <FaTimes />
