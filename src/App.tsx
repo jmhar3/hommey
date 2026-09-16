@@ -22,7 +22,7 @@ function App() {
   return (
     <Stack w="100vw" h="100vh" bg={colours.light} gap="0">
       <BackgroundImage src={images[randomImageNum]}>
-        <Center h="94vh" p="sm">
+        <Center h="93vh" p="sm">
           {focusedWindow && (
             <Window
               window={focusedWindow}

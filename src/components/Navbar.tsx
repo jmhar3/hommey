@@ -30,7 +30,7 @@ function Navbar({ setFocusedWindow }: NavbarProps) {
   return (
     <Flex
       px="xs"
-      h="6vh"
+      h="7vh"
       w="100vw"
       align="center"
       bg={colours.mid}
