@@ -34,6 +34,7 @@ import {
 } from "../../state/shoppingList/shoppingListSlice";
 
 import { colours, lightInset } from "../../helpers/theme";
+import ShoppingListItem from "./ShoppingListItem";
 
 const categories = [
   { category: "Fishmonger", icon: <FaFish /> },
@@ -120,21 +121,7 @@ function ShoppingListItems({ view }: ShoppingListItemsProps) {
             <Divider mb="5" bd={`2px solid ${colours.contrast}`} />
 
             {shoppingList.map((item) => (
-              <Checkbox
-                size="lg"
-                key={item.id}
-                color="brown"
-                label={item.label.toUpperCase()}
-                onChange={() => checkItem(item.id)}
-                styles={{
-                  input: {
-                    borderRadius: 0,
-                    background: colours.mid,
-                    border: `solid 4px ${colours.dark}`,
-                    boxShadow: `3px 3px 0px 1px ${colours.contrast}`,
-                  },
-                }}
-              />
+              <ShoppingListItem key={item.id} {...item} />
             ))}
           </Stack>
         ) : (
