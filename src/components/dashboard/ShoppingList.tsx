@@ -1,9 +1,7 @@
-import { Divider, Stack, Title } from "@mantine/core";
+import { Stack, Title } from "@mantine/core";
 
 import Container from "../Container";
 import ShoppingListItems from "../shoppingList/ShoppingListItems";
-
-import { colours } from "../../helpers/theme";
 
 function ShoppingList() {
   return (
