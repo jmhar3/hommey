@@ -1,4 +1,5 @@
-import { Checkbox } from "@mantine/core";
+import { Checkbox, type CheckboxProps } from "@mantine/core";
+import { FaDotCircle, FaLine } from "react-icons/fa";
 
 import { useAppDispatch } from "../../state/hooks";
 import { deleteShoppingListItem } from "../../state/shoppingList/shoppingListThunks";
@@ -14,11 +15,15 @@ function ShoppingListItem(item: ShoppingListItemType) {
     dispatch(deleteShoppingListItem(item.id));
   };
 
+  const CheckboxIcon: CheckboxProps["icon"] = ({ indeterminate, ...others }) =>
+    indeterminate ? <FaLine {...others} /> : <FaDotCircle {...others} />;
+
   return (
     <Checkbox
       w="100%"
       size="lg"
       key={item.id}
+      icon={CheckboxIcon}
       color={colours.contrast}
       iconColor={colours.dark}
       label={item.label.toUpperCase()}
