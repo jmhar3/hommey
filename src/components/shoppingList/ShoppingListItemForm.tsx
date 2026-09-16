@@ -7,7 +7,7 @@ import { addShoppingListItem } from "../../state/shoppingList/shoppingListThunks
 
 import { colours, contrastInset } from "../../helpers/theme";
 
-function ShoppingListItemForm() {
+function ShoppingListItemForm({ onComplete }: { onComplete?: () => void }) {
   const dispatch = useAppDispatch();
 
   const [label, setLabel] = useState<string>();
@@ -37,7 +37,9 @@ function ShoppingListItemForm() {
             | "chemist"
             | "other",
         }),
-      );
+      ).then((data) => {
+        if (data.payload && onComplete) onComplete();
+      });
   };
 
   return (
