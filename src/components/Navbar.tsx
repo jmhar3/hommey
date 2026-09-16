@@ -1,16 +1,17 @@
 import dayjs from "dayjs";
-import { Button, Divider, Flex } from "@mantine/core";
+import { Divider, Flex } from "@mantine/core";
 
 import Dashboard from "../screens/Dashboard";
 import Recipes from "../screens/Recipes";
-
-import { colours, contrastInset, inset } from "../helpers/theme";
+import NavButton from "./NavButton";
 
 import ShoppingList from "../screens/ShoppingList";
 import Roulette from "../screens/Roulette";
 import Quests from "../screens/Quests";
 import Clock from "../screens/Clock";
 import Film from "../screens/Film";
+
+import { colours, inset } from "../helpers/theme";
 
 import type { WindowType } from "./Window";
 
@@ -19,7 +20,7 @@ const windows = [
   { title: "Recipes", screen: <Recipes />, size: "full" },
   { title: "Battle", screen: <Quests />, size: "full" },
   { title: "Roulette", screen: <Roulette />, size: "full" },
-  { title: "Grocery List", screen: <ShoppingList />, size: "small" },
+  { title: "Grocery  List", screen: <ShoppingList />, size: "small" },
 ];
 
 export interface NavbarProps {
@@ -30,7 +31,7 @@ function Navbar({ setFocusedWindow }: NavbarProps) {
   return (
     <Flex
       px="xs"
-      h="7vh"
+      h="8vh"
       w="100vw"
       align="center"
       bg={colours.mid}
@@ -38,7 +39,8 @@ function Navbar({ setFocusedWindow }: NavbarProps) {
       {...inset}
     >
       <Flex align="center" gap="sm">
-        <Button
+        <NavButton
+          label="DASHBOARD"
           onClick={() =>
             setFocusedWindow({
               title: "Dashboard",
@@ -46,29 +48,24 @@ function Navbar({ setFocusedWindow }: NavbarProps) {
               size: "full",
             })
           }
-          {...contrastInset}
-        >
-          DASHBOARD
-        </Button>
+        />
 
         <Divider orientation="vertical" bd={`2px solid ${colours.contrast}`} />
 
         {windows.map((window) => (
-          <Button
+          <NavButton
             key={window.title}
+            label={window.title.toUpperCase()}
             onClick={() => setFocusedWindow(window)}
-            {...contrastInset}
-          >
-            {window.title.toUpperCase()}
-          </Button>
+          />
         ))}
       </Flex>
 
       <Flex align="center" gap="sm">
         <Divider orientation="vertical" bd={`2px solid ${colours.contrast}`} />
 
-        <Button
-          px="xs"
+        <NavButton
+          label={dayjs().format("h:mmA")}
           onClick={() =>
             setFocusedWindow({
               title: "Clock",
@@ -76,10 +73,7 @@ function Navbar({ setFocusedWindow }: NavbarProps) {
               size: "small",
             })
           }
-          {...contrastInset}
-        >
-          {dayjs().format("h:mmA")}
-        </Button>
+        />
       </Flex>
     </Flex>
   );
