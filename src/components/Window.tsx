@@ -24,7 +24,7 @@ function Window(props: WindowProps) {
       bg={colours.mid}
       mah={props.window.size === "full" ? "100%" : "fit-content"}
       maw={props.window.size === "full" ? "100vw" : "60vw"}
-      miw={props.window.size === "full" ? undefined : "40vw"}
+      miw={props.window.size === "full" ? undefined : "45vw"}
       {...shadow}
     >
       <Flex
@@ -58,7 +58,7 @@ function Window(props: WindowProps) {
 
       <ScrollArea
         bg={colours.light}
-        h={props.window.size === "full" ? "90vh" : "45vh"}
+        h={props.window.size === "full" ? "90vh" : "60vh"}
         {...inset}
       >
         {props.window.screen}
