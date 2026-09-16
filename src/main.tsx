@@ -33,7 +33,7 @@ createRoot(document.getElementById("root")!).render(
             <Route
               path="/shopping-list"
               element={
-                <Box {...inset}>
+                <Box {...inset} h="100vh">
                   <ShoppingList />
                 </Box>
               }
