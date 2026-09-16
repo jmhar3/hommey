@@ -38,7 +38,11 @@ function ShoppingListItemForm({ onComplete }: { onComplete?: () => void }) {
             | "other",
         }),
       ).then((data) => {
-        if (data.payload && onComplete) onComplete();
+        if (data.payload) {
+          if (onComplete) onComplete();
+          setCategory(undefined);
+          setLabel(undefined);
+        }
       });
   };
 
