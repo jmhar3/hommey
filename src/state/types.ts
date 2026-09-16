@@ -41,6 +41,7 @@ export const ShoppingListCategory = {
   SuperMarket: "supermarket",
   FishMonger: "fishmonger",
   Bakery: "bakery",
+  Chemist: "chemist",
   Other: "other",
 } as const;
 
@@ -54,5 +55,6 @@ export interface ShoppingListItem {
     | "supermarket"
     | "fishmonger"
     | "bakery"
+    | "chemist"
     | "other";
 }
