@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 
+import weatherReducer from "./weather/weatherSlice";
 import questsReducer from "./quests/questsSlice";
 import recipesReducer from "./recipes/recipesSlice";
 import hydrangeaReducer from "./hydrangea/hydrangeaSlice";
@@ -9,6 +10,7 @@ import type { Action, ThunkAction } from "@reduxjs/toolkit";
 
 export const store = configureStore({
   reducer: {
+    weather: weatherReducer,
     quests: questsReducer,
     recipes: recipesReducer,
     hydrangea: hydrangeaReducer,

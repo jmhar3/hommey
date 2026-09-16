@@ -58,3 +58,35 @@ export interface ShoppingListItem {
     | "chemist"
     | "other";
 }
+
+interface HourlyWeather {
+  time?: Date[];
+  dew_point_2m?: Float32Array<ArrayBufferLike> | null;
+  precipitation?: Float32Array<ArrayBufferLike> | null;
+  weather_code?: Float32Array<ArrayBufferLike> | null;
+  wind_gusts_10m?: Float32Array<ArrayBufferLike> | null;
+  temperature_2m?: Float32Array<ArrayBufferLike> | null;
+  relative_humidity_2m?: Float32Array<ArrayBufferLike> | null;
+  apparent_temperature?: Float32Array<ArrayBufferLike> | null;
+}
+
+interface DailyWeather {
+  time?: Date[];
+  sunrise?: Date[];
+  sunset?: Date[];
+  weather_code?: Float32Array<ArrayBufferLike> | null;
+  uv_index_max?: Float32Array<ArrayBufferLike> | null;
+  wind_speed_10m_max?: Float32Array<ArrayBufferLike> | null;
+  wind_gusts_10m_max?: Float32Array<ArrayBufferLike> | null;
+  precipitation_sum?: Float32Array<ArrayBufferLike> | null;
+  precipitation_hours?: Float32Array<ArrayBufferLike> | null;
+  temperature_2m_max?: Float32Array<ArrayBufferLike> | null;
+  temperature_2m_min?: Float32Array<ArrayBufferLike> | null;
+  apparent_temperature_max?: Float32Array<ArrayBufferLike> | null;
+  apparent_temperature_min?: Float32Array<ArrayBufferLike> | null;
+}
+
+export interface Weather {
+  hourly: HourlyWeather;
+  daily: DailyWeather;
+}
