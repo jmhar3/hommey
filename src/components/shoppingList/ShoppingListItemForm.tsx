@@ -5,7 +5,7 @@ import { Flex, Stack, Select, TextInput, ActionIcon } from "@mantine/core";
 import { useAppDispatch } from "../../state/hooks";
 import { addShoppingListItem } from "../../state/shoppingList/shoppingListThunks";
 
-import { contrastInset } from "../../helpers/theme";
+import { colours, contrastInset } from "../../helpers/theme";
 
 function ShoppingListItemForm() {
   const dispatch = useAppDispatch();
@@ -41,22 +41,27 @@ function ShoppingListItemForm() {
   };
 
   return (
-    <Stack>
+    <Stack gap="xs">
       <TextInput
         pl="sm"
-        size="md"
+        h="44px"
         value={label}
         variant="unstyled"
         placeholder="Add New Item"
         onChange={(event) => setLabel(event.currentTarget.value.toUpperCase())}
         {...contrastInset}
+        styles={{
+          input: {
+            fontSize: "1.1em",
+          },
+        }}
       />
 
       <Flex gap="xs" align="center">
         <Select
           pl="sm"
+          h="44px"
           w="100%"
-          size="md"
           variant="unstyled"
           placeholder="Select category"
           onChange={(value) =>
@@ -83,6 +88,20 @@ function ShoppingListItemForm() {
             "OTHER",
           ]}
           {...contrastInset}
+          styles={{
+            dropdown: {
+              borderRadius: 0,
+              background: colours.light,
+              border: `solid 4px ${colours.dark}`,
+              boxShadow: `inset -3px -3px 0px 1px ${colours.mid}`,
+            },
+            input: {
+              fontSize: "1.1em",
+            },
+            option: {
+              fontSize: "1.1em",
+            },
+          }}
         />
 
         <ActionIcon
