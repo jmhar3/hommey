@@ -5,7 +5,7 @@ import Container from "../Container";
 import ShoppingListItems from "../shoppingList/ShoppingListItems";
 import ShoppingListItemForm from "../shoppingList/ShoppingListItemForm";
 
-import { colours, contrastInset } from "../../helpers/theme";
+import { colours, contrastShadow } from "../../helpers/theme";
 
 function ShoppingList() {
   const [showForm, { open, close }] = useDisclosure();
@@ -22,7 +22,7 @@ function ShoppingList() {
         {showForm ? (
           <ShoppingListItemForm onComplete={close} />
         ) : (
-          <Button {...contrastInset} onClick={open}>
+          <Button {...contrastShadow} onClick={open}>
             ADD NEW ITEM
           </Button>
         )}

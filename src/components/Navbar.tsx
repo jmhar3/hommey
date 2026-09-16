@@ -30,7 +30,7 @@ export interface NavbarProps {
 function Navbar({ setFocusedWindow }: NavbarProps) {
   return (
     <Flex
-      px="xs"
+      p="xs"
       h="8vh"
       w="100vw"
       align="center"

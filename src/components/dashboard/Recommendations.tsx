@@ -4,7 +4,7 @@ import { ActionIcon, Group, Stack, Text, Title } from "@mantine/core";
 
 import Container from "../Container";
 
-import { contrastInset } from "../../helpers/theme";
+import { contrastShadow } from "../../helpers/theme";
 
 function Recommendations() {
   const [selection, setSelection] = useState<"chill" | "brain" | "body">();
@@ -28,7 +28,7 @@ function Recommendations() {
               p="xs"
               h="6em"
               onClick={() => setSelection("chill")}
-              {...contrastInset}
+              {...contrastShadow}
             >
               <FaHandHoldingHeart size="lg" />
             </ActionIcon>
@@ -37,7 +37,7 @@ function Recommendations() {
               p="xs"
               h="6em"
               onClick={() => setSelection("brain")}
-              {...contrastInset}
+              {...contrastShadow}
             >
               <FaBrain size="lg" />
             </ActionIcon>
@@ -46,7 +46,7 @@ function Recommendations() {
               p="xs"
               h="6em"
               onClick={() => setSelection("body")}
-              {...contrastInset}
+              {...contrastShadow}
             >
               <FaHeart size="lg" />
             </ActionIcon>

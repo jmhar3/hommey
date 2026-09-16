@@ -1,6 +1,6 @@
 import { Button } from "@mantine/core";
 
-import { contrastInset } from "../helpers/theme";
+import { contrastShadow } from "../helpers/theme";
 
 export interface NavButtonProps {
   label: string;
@@ -9,7 +9,7 @@ export interface NavButtonProps {
 
 function NavButton({ label, onClick }: NavButtonProps) {
   return (
-    <Button px="sm" h="44px" fz="1em" onClick={onClick} {...contrastInset}>
+    <Button px="sm" h="44px" fz="1em" onClick={onClick} {...contrastShadow}>
       {label}
     </Button>
   );

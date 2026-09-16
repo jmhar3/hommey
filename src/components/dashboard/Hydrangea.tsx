@@ -15,7 +15,7 @@ import {
   selectHydrangeaStatus,
 } from "../../state/hydrangea/hydrangeaSlice";
 
-import { colours, contrastInset, lightInset } from "../../helpers/theme";
+import { colours, contrastShadow, lightInset } from "../../helpers/theme";
 
 import hydrangea from "../../../public/assets/hydrangea.png";
 
@@ -70,9 +70,9 @@ function Hydrangea() {
           <Button
             p="0"
             h="44px"
-            {...contrastInset}
+            {...contrastShadow}
             style={{
-              boxShadow: `inset -3px -3px 0px 1px ${colours.blue}`,
+              boxShadow: `3px 3px 0px 1px ${colours.blue}`,
             }}
             onClick={() => onDrink("lil_drink", hydrangeaData.value - lilDrink)}
           >
@@ -82,9 +82,9 @@ function Hydrangea() {
           <Button
             p="0"
             h="44px"
-            {...contrastInset}
+            {...contrastShadow}
             style={{
-              boxShadow: `inset -3px -3px 0px 1px ${colours.blue}`,
+              boxShadow: `3px 3px 0px 1px ${colours.blue}`,
             }}
             onClick={() => onDrink("big_drink", hydrangeaData.value - bigDrink)}
           >
@@ -94,9 +94,9 @@ function Hydrangea() {
           <Button
             p="0"
             h="44px"
-            {...contrastInset}
+            {...contrastShadow}
             style={{
-              boxShadow: "inset -3px -3px 0px 1px crimson",
+              boxShadow: "3px 3px 0px 1px crimson",
             }}
             onClick={() => onDrink("refill", hydrangeaData.value + refill)}
           >
