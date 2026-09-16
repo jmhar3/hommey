@@ -2,10 +2,10 @@ import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { Flex, Stack, Select, TextInput, ActionIcon } from "@mantine/core";
 
-import { useAppDispatch } from "../state/hooks";
-import { addShoppingListItem } from "../state/shoppingList/shoppingListThunks";
+import { useAppDispatch } from "../../state/hooks";
+import { addShoppingListItem } from "../../state/shoppingList/shoppingListThunks";
 
-import { colours, inset } from "../helpers/theme";
+import { contrastInset } from "../../helpers/theme";
 
 function ShoppingListItemForm() {
   const dispatch = useAppDispatch();
@@ -18,6 +18,7 @@ function ShoppingListItemForm() {
     | "supermarket"
     | "fishmonger"
     | "bakery"
+    | "chemist"
     | "other"
   >();
 
@@ -33,6 +34,7 @@ function ShoppingListItemForm() {
             | "supermarket"
             | "fishmonger"
             | "bakery"
+            | "chemist"
             | "other",
         }),
       );
@@ -46,8 +48,8 @@ function ShoppingListItemForm() {
         value={label}
         variant="unstyled"
         placeholder="Add New Item"
-        onChange={(event) => setLabel(event.currentTarget.value)}
-        {...inset}
+        onChange={(event) => setLabel(event.currentTarget.value.toUpperCase())}
+        {...contrastInset}
       />
 
       <Flex gap="xs" align="center">
@@ -65,25 +67,29 @@ function ShoppingListItemForm() {
                 | "greengrocer"
                 | "supermarket"
                 | "fishmonger"
+                | "bakery"
+                | "chemist"
                 | "other",
             )
           }
           data={[
-            "Deli",
-            "Butcher",
-            "GreenGrocer",
-            "SuperMarket",
-            "FishMonger",
-            "Other",
+            "SUPERMARKET",
+            "GREENGROCER",
+            "FISHMONGER",
+            "BUTCHER",
+            "BAKERY",
+            "DELI",
+            "CHEMIST",
+            "OTHER",
           ]}
-          {...inset}
+          {...contrastInset}
         />
 
         <ActionIcon
           size="xl"
-          bg={colours.light}
+          // bg={colours.light}
           onClick={addNewItem}
-          {...inset}
+          {...contrastInset}
         >
           <FaPlus />
         </ActionIcon>
