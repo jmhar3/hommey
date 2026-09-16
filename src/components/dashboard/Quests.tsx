@@ -1,5 +1,6 @@
+import dayjs from "dayjs";
 import { useEffect, useMemo } from "react";
-import { Box, Group, Stack, Text, Title } from "@mantine/core";
+import { Stack, Text, Title } from "@mantine/core";
 
 import Container from "../Container";
 
@@ -10,8 +11,6 @@ import {
   selectQuests,
   selectQuestsStatus,
 } from "../../state/quests/questsSlice";
-import dayjs from "dayjs";
-import { colours, shadow } from "../../helpers/theme";
 
 function Quests() {
   const dispatch = useAppDispatch();
@@ -46,22 +45,6 @@ function Quests() {
             <Text key={quest.id}>{quest.label}</Text>
           ))}
         </Stack>
-
-        <Group grow gap="xs">
-          <Box h="12.5em" bg={colours.light} {...shadow}>
-            BOSS
-          </Box>
-
-          <Stack gap="xs">
-            <Box h="6em" bg={colours.light} {...shadow}>
-              Wah
-            </Box>
-
-            <Box h="6em" bg={colours.light} {...shadow}>
-              Fae
-            </Box>
-          </Stack>
-        </Group>
       </Stack>
     </Container>
   );
