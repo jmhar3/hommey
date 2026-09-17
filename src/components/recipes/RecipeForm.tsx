@@ -5,14 +5,20 @@ import { FaStar, FaTrash } from "react-icons/fa";
 import {
   ActionIcon,
   Button,
-  Chip,
   Flex,
-  Group,
   Stack,
   TagsInput,
-  Textarea,
+  Text,
   TextInput,
 } from "@mantine/core";
+
+import {
+  input,
+  shadow,
+  button,
+  colours,
+  contrastShadow,
+} from "../../helpers/theme";
 
 import type { Recipe } from "../../state/types";
 
@@ -28,163 +34,58 @@ function RecipeForm(props: RecipeFormProps) {
     favourite: false,
   });
 
-  // notes?: string[];
-
   return (
-    <Stack>
-      <Group grow>
-        <Stack align="flex-start" justify="flex-start" w="100%">
-          <Flex gap="xs" w="100%" align="flex-end">
-            <TextInput
-              w="100%"
-              withAsterisk
-              label="Title"
-              value={form.title}
-              onChange={(event) =>
-                setForm((prevForm) => ({
-                  ...prevForm,
-                  title: event.target.value,
-                }))
-              }
-            />
+    <Stack gap="xs">
+      <Flex gap="xs" w="100%" align="flex-end">
+        <TextInput
+          {...input}
+          withAsterisk
+          placeholder="Title"
+          value={form.title}
+          onChange={(event) =>
+            setForm((prevForm) => ({
+              ...prevForm,
+              title: event.target.value,
+            }))
+          }
+        />
 
-            <Chip
-              size="lg"
-              radius="sm"
-              color="brown"
-              icon={<FaStar />}
-              checked={form.favourite}
-              onChange={() =>
-                setForm((prevForm) => ({
-                  ...prevForm,
-                  favourite: !prevForm.favourite,
-                }))
-              }
-            >
-              Favourite
-            </Chip>
-          </Flex>
-
-          <TextInput
-            w="100%"
-            withAsterisk
-            label="Source"
-            value={form.source}
-            onChange={(event) =>
-              setForm((prevForm) => ({
-                ...prevForm,
-                source: event.target.value,
-              }))
-            }
-          />
-        </Stack>
-
-        <Stack>
-          {form.ingredients.map((ingredient, index) => (
-            <TextInput
-              withAsterisk
-              key={uuid()}
-              value={ingredient}
-              label={index === 0 ? "Ingredients" : ""}
-              onChange={(event) =>
-                setForm((prevForm) => ({
-                  ...prevForm,
-                  ingredients: prevForm.ingredients.map((ing, ind) =>
-                    index === ind ? event.target.value : ing,
-                  ),
-                }))
-              }
-              rightSection={
-                <ActionIcon
-                  color="brown"
-                  onClick={() =>
-                    setForm((prevForm) => ({
-                      ...prevForm,
-                      ingredients: prevForm.ingredients.flatMap((ing, ind) =>
-                        index === ind ? [] : ing,
-                      ),
-                    }))
-                  }
-                >
-                  <FaTrash />
-                </ActionIcon>
-              }
-            />
-          ))}
-
-          <Button
-            color="brown"
-            onClick={() =>
-              setForm((prevForm) => ({
-                ...prevForm,
-                ingredients: [...prevForm.ingredients, ""],
-              }))
-            }
-          >
-            Add Ingredient
-          </Button>
-        </Stack>
-      </Group>
-
-      <Stack>
-        {form.steps.map((ingredient, index) => (
-          <TextInput
-            withAsterisk
-            key={uuid()}
-            value={ingredient}
-            leftSection={`${index + 1}.`}
-            label={index === 0 ? "Steps" : ""}
-            onChange={(event) =>
-              setForm((prevForm) => ({
-                ...prevForm,
-                steps: prevForm.steps.map((ing, ind) =>
-                  index === ind ? event.target.value : ing,
-                ),
-              }))
-            }
-            rightSection={
-              <ActionIcon
-                color="brown"
-                onClick={() =>
-                  setForm((prevForm) => ({
-                    ...prevForm,
-                    steps: prevForm.steps.flatMap((ing, ind) =>
-                      index === ind ? [] : ing,
-                    ),
-                  }))
-                }
-              >
-                <FaTrash />
-              </ActionIcon>
-            }
-          />
-        ))}
-
-        <Button
-          color="brown"
+        <ActionIcon
+          size="xl"
           onClick={() =>
             setForm((prevForm) => ({
               ...prevForm,
-              steps: [...prevForm.steps, ""],
+              favourite: !prevForm.favourite,
             }))
           }
+          {...contrastShadow}
+          bg={form.favourite ? colours.contrast : colours.white}
+          style={{
+            boxShadow: form.favourite
+              ? "none"
+              : `3px 3px 0px 1px ${colours.contrast}`,
+          }}
         >
-          Add Step
-        </Button>
-      </Stack>
+          <FaStar />
+        </ActionIcon>
+      </Flex>
 
-      <Textarea
-        label="Notes"
+      <TextInput
+        {...input}
+        withAsterisk
+        placeholder="Source"
         value={form.source}
         onChange={(event) =>
-          setForm((prevForm) => ({ ...prevForm, source: event.target.value }))
+          setForm((prevForm) => ({
+            ...prevForm,
+            source: event.target.value,
+          }))
         }
       />
 
       <TagsInput
-        w="100%"
         label="Tags"
-        color="brown"
+        {...input}
         value={form.tags}
         onChange={(tags) =>
           setForm((prevForm) => ({
@@ -197,12 +98,164 @@ function RecipeForm(props: RecipeFormProps) {
         }
       />
 
-      <Flex gap="xs" justify="flex-end">
-        <Button color="brown" variant="outline" onClick={props.onClose}>
-          Cancel
+      <Stack p="xs" gap="xs" my="3px" {...shadow} bg={colours.white}>
+        <Text>INGREDIENTS</Text>
+
+        {form.ingredients.map((ingredient, index) => (
+          <TextInput
+            {...input}
+            withAsterisk
+            key={uuid()}
+            value={ingredient}
+            onChange={(event) =>
+              setForm((prevForm) => ({
+                ...prevForm,
+                ingredients: prevForm.ingredients.map((ing, ind) =>
+                  index === ind ? event.target.value : ing,
+                ),
+              }))
+            }
+            rightSection={
+              index === 0 ? undefined : (
+                <ActionIcon
+                  {...contrastShadow}
+                  onClick={() =>
+                    setForm((prevForm) => ({
+                      ...prevForm,
+                      ingredients: prevForm.ingredients.flatMap((ing, ind) =>
+                        index === ind ? [] : ing,
+                      ),
+                    }))
+                  }
+                >
+                  <FaTrash />
+                </ActionIcon>
+              )
+            }
+          />
+        ))}
+
+        <Button
+          {...button}
+          onClick={() =>
+            setForm((prevForm) => ({
+              ...prevForm,
+              ingredients: [...prevForm.ingredients, ""],
+            }))
+          }
+        >
+          ADD INGREDIENT
         </Button>
-        <Button color="brown" onClick={props.onClose}>
-          Save
+      </Stack>
+
+      <Stack p="xs" gap="xs" my="3px" {...shadow} bg={colours.white}>
+        <Text>STEPS</Text>
+
+        {form.steps.map((ingredient, index) => (
+          <TextInput
+            {...input}
+            withAsterisk
+            key={uuid()}
+            value={ingredient}
+            leftSection={`${index + 1}.`}
+            onChange={(event) =>
+              setForm((prevForm) => ({
+                ...prevForm,
+                steps: prevForm.steps.map((ing, ind) =>
+                  index === ind ? event.target.value : ing,
+                ),
+              }))
+            }
+            rightSection={
+              index === 0 ? undefined : (
+                <ActionIcon
+                  {...contrastShadow}
+                  onClick={() =>
+                    setForm((prevForm) => ({
+                      ...prevForm,
+                      steps: prevForm.steps.flatMap((ing, ind) =>
+                        index === ind ? [] : ing,
+                      ),
+                    }))
+                  }
+                >
+                  <FaTrash />
+                </ActionIcon>
+              )
+            }
+          />
+        ))}
+
+        <Button
+          {...button}
+          onClick={() =>
+            setForm((prevForm) => ({
+              ...prevForm,
+              steps: [...prevForm.steps, ""],
+            }))
+          }
+        >
+          ADD STEP
+        </Button>
+      </Stack>
+
+      <Stack p="xs" gap="xs" my="3px" {...shadow} bg={colours.white}>
+        <Text>NOTES</Text>
+
+        {form.notes?.map((note, index) => (
+          <TextInput
+            {...input}
+            withAsterisk
+            key={uuid()}
+            value={note}
+            onChange={(event) =>
+              setForm((prevForm) => ({
+                ...prevForm,
+                notes: prevForm.notes
+                  ? prevForm.notes.map((ing, ind) =>
+                      index === ind ? event.target.value : ing,
+                    )
+                  : [event.target.value],
+              }))
+            }
+            rightSection={
+              <ActionIcon
+                {...contrastShadow}
+                onClick={() =>
+                  setForm((prevForm) => ({
+                    ...prevForm,
+                    notes: prevForm.notes?.flatMap((ing, ind) =>
+                      index === ind ? [] : ing,
+                    ),
+                  }))
+                }
+              >
+                <FaTrash />
+              </ActionIcon>
+            }
+          />
+        ))}
+
+        <Button
+          {...button}
+          onClick={() =>
+            setForm((prevForm) => ({
+              ...prevForm,
+              notes: prevForm.notes ? [...prevForm.notes, ""] : [""],
+            }))
+          }
+        >
+          ADD NOTE
+        </Button>
+      </Stack>
+
+      <Flex gap="xs" justify="flex-end">
+        <Button onClick={props.onClose} {...button}>
+          CANCEL
+        </Button>
+
+        <Button onClick={props.onClose} {...button}>
+          SAVE
         </Button>
       </Flex>
     </Stack>

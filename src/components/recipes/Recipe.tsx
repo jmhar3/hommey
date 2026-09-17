@@ -1,29 +1,47 @@
-import { ActionIcon, Badge, Flex, List, Stack, Title } from "@mantine/core";
+import {
+  ActionIcon,
+  Badge,
+  Checkbox,
+  Divider,
+  Flex,
+  Group,
+  List,
+  Stack,
+  Title,
+} from "@mantine/core";
 import { FaCartPlus, FaEdit, FaStar } from "react-icons/fa";
 
 import type { Recipe as RecipeType } from "../../state/types";
+import { colours, contrastShadow, lightInset } from "../../helpers/theme";
 
 function Recipe(recipe: RecipeType) {
   const onFavourite = () => {};
 
   return (
-    <Stack>
+    <Stack gap="xs">
       <Flex align="center" justify="space-between">
         <Title>{recipe.title}</Title>
 
         <Flex align="center" gap="xs">
           <ActionIcon
+            size="xl"
             onClick={onFavourite}
-            color={recipe.favourite ? "gold" : "grey"}
+            {...contrastShadow}
+            bg={recipe.favourite ? colours.contrast : colours.white}
+            style={{
+              boxShadow: recipe.favourite
+                ? "none"
+                : `3px 3px 0px 1px ${colours.contrast}`,
+            }}
           >
             <FaStar />
           </ActionIcon>
 
-          <ActionIcon color="brown">
+          <ActionIcon size="xl" {...contrastShadow}>
             <FaCartPlus />
           </ActionIcon>
 
-          <ActionIcon color="brown">
+          <ActionIcon size="xl" {...contrastShadow}>
             <FaEdit />
           </ActionIcon>
         </Flex>
@@ -32,22 +50,41 @@ function Recipe(recipe: RecipeType) {
       {recipe.tags && (
         <Flex gap="xs">
           {recipe.tags.map((tag) => (
-            <Badge key={tag} radius="xs">
+            <Badge key={tag} py="xs" {...lightInset}>
               {tag}
             </Badge>
           ))}
         </Flex>
       )}
 
+      <Divider size="lg" color={colours.blue} />
+
       <Title>Ingredients</Title>
-      <List>
+
+      <Group>
         {recipe.ingredients.map((ingredient) => (
-          <List.Item key={ingredient}>{ingredient}</List.Item>
+          <Checkbox
+            size="lg"
+            key={ingredient}
+            label={ingredient}
+            color={colours.contrast}
+            styles={{
+              input: {
+                borderRadius: 0,
+                background: colours.mid,
+                border: `solid 4px ${colours.dark}`,
+                boxShadow: `3px 3px 0px 1px ${colours.contrast}`,
+              },
+            }}
+          />
         ))}
-      </List>
+      </Group>
+
+      <Divider size="lg" color={colours.blue} />
 
       <Title>Steps</Title>
-      <List>
+
+      <List type="ordered">
         {recipe.steps.map((step) => (
           <List.Item key={step}>{step}</List.Item>
         ))}
@@ -55,7 +92,10 @@ function Recipe(recipe: RecipeType) {
 
       {recipe.notes && (
         <>
+          <Divider size="lg" color={colours.blue} />
+
           <Title>Notes</Title>
+
           <List>
             {recipe.notes.map((note) => (
               <List.Item key={note}>{note}</List.Item>

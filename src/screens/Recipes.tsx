@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
-import { FaPlus } from "react-icons/fa";
+import { FaFilter, FaPlus } from "react-icons/fa";
 
 import {
+  ActionIcon,
   Button,
   Center,
   Divider,
@@ -26,6 +27,8 @@ import {
   selectRecipesStatus,
 } from "../state/recipes/recipesSlice";
 
+import { button, colours, contrastShadow } from "../helpers/theme";
+
 import type { Recipe as RecipeType } from "../state/types";
 
 function Recipes() {
@@ -44,29 +47,52 @@ function Recipes() {
 
   const [focusedRecipe, setFocusedRecipe] = useState(recipes[0]);
 
+  const onFocusRecipeClick = (recipe: RecipeType) => {
+    close();
+    setFocusedRecipe(recipe);
+  };
+
+  const onFilterClick = () => {};
+
   if (!focusedRecipe && recipes.length > 0) setFocusedRecipe(recipes[0]);
 
   if (recipes.length > 0)
     return (
       <Grid p="xs" h="100%">
-        <Grid.Col span={3}>
+        <Grid.Col span={4}>
           <Flex h="100%" gap="xs">
             <Stack w="100%">
-              <Button color="brown" onClick={open} leftSection={<FaPlus />}>
-                Add New Recipe
-              </Button>
+              <Flex w="100%" gap="xs">
+                <Button
+                  w="100%"
+                  onClick={open}
+                  leftSection={<FaPlus />}
+                  {...button}
+                >
+                  NEW RECIPE
+                </Button>
+
+                <ActionIcon
+                  size="xl"
+                  {...contrastShadow}
+                  onClick={onFilterClick}
+                >
+                  <FaFilter />
+                </ActionIcon>
+              </Flex>
+
               <RecipesList
                 recipes={recipes}
                 focusedRecipe={focusedRecipe}
-                onRecipeClick={(recipe: RecipeType) => setFocusedRecipe(recipe)}
+                onRecipeClick={onFocusRecipeClick}
               />
             </Stack>
 
-            <Divider orientation="vertical" bd="2px solid brown" />
+            <Divider size="lg" orientation="vertical" color={colours.blue} />
           </Flex>
         </Grid.Col>
 
-        <Grid.Col span={9}>
+        <Grid.Col span={8}>
           <ScrollArea h="100%" type="always" offsetScrollbars>
             {showForm ? (
               <RecipeForm onClose={close} />
@@ -79,7 +105,7 @@ function Recipes() {
     );
 
   return (
-    <Center h="100%">
+    <Center h="80vh">
       <Stack gap="md" align="center">
         <Loader color="brown" />
         <Title>Fetching Recipes...</Title>
