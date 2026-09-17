@@ -1,12 +1,20 @@
-import { Stack } from "@mantine/core";
-
-import { colours, shadow } from "../helpers/theme";
+import { Container, Grid, Text } from "@mantine/core";
 
 function Film() {
   return (
-    <Stack p="xs" h="100vh" gap="xs" bg={colours.mid} {...shadow}>
-      Film
-    </Stack>
+    <Grid p="xs" h="100vh">
+      <Grid.Col span={4}>
+        <Container>
+          <Text>Stacked list of all available cameras</Text>
+        </Container>
+      </Grid.Col>
+
+      <Grid.Col span={8}>
+        <Container>
+          <Text>Flex list of all available film</Text>
+        </Container>
+      </Grid.Col>
+    </Grid>
   );
 }
 
