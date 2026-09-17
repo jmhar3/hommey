@@ -73,7 +73,7 @@ function Greeting() {
             <Text pt="xs">HOW ARE YOU FEELING?</Text>
           </Stack>
 
-          <Divider size="lg" color={colours.contrast} orientation="vertical" />
+          <Divider size="lg" color={colours.blue} orientation="vertical" />
 
           <Flex w="fit-content" gap="xs">
             {/*INSERT CURRENT WEATHER: ICONS, TEMP, UV, CHANCE OF RAIN*/}
