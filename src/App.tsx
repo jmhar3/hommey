@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BackgroundImage, Box, Center, Stack } from "@mantine/core";
 
 import Navbar from "./components/Navbar";
@@ -11,6 +11,7 @@ import birdhouse from "../public/assets/birdhouse.jpg";
 import birds from "../public/assets/birds.jpg";
 import magpie from "../public/assets/magpie.jpg";
 import oakland from "../public/assets/oakland.jpg";
+import clickSound from "../public/assets/click2.wav";
 
 const images = [airey, birdhouse, birds, magpie, oakland];
 
@@ -18,6 +19,26 @@ const randomImageNum = Math.floor(Math.random() * images.length);
 
 function App() {
   const [focusedWindow, setFocusedWindow] = useState<WindowType>();
+
+  useEffect(() => {
+    const audio = new Audio(clickSound);
+
+    const handleGlobalClick = () => {
+      audio.currentTime = 0;
+      audio.play().catch((error) => {
+        console.warn(
+          "Audio playback failed or was blocked by the browser:",
+          error,
+        );
+      });
+    };
+
+    window.addEventListener("click", handleGlobalClick);
+
+    return () => {
+      window.removeEventListener("click", handleGlobalClick);
+    };
+  }, []);
 
   return (
     <Stack w="100vw" h="100vh" bg={colours.light} gap="0">
