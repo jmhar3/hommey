@@ -28,7 +28,7 @@ function Hydrangea() {
   const dispatch = useAppDispatch();
 
   const hydrangeaStatus = useAppSelector(selectHydrangeaStatus);
-  const hydrangeaData = useAppSelector(selectHydrangea);
+  const hydrangeaValue = useAppSelector(selectHydrangea);
 
   useEffect(() => {
     if (hydrangeaStatus === "idle") {
@@ -37,8 +37,8 @@ function Hydrangea() {
   }, [dispatch, hydrangeaStatus]);
 
   const hydrangeaPercent = useMemo(() => {
-    if (hydrangeaData) return (hydrangeaData.value / totalCapacity) * 100;
-  }, [hydrangeaData]);
+    if (hydrangeaValue) return (hydrangeaValue / totalCapacity) * 100;
+  }, [hydrangeaValue]);
 
   const onDrink = (
     type: "lil_drink" | "big_drink" | "refill",
@@ -74,7 +74,7 @@ function Hydrangea() {
             style={{
               boxShadow: `3px 3px 0px 1px ${colours.blue}`,
             }}
-            onClick={() => onDrink("lil_drink", hydrangeaData.value - lilDrink)}
+            onClick={() => onDrink("lil_drink", hydrangeaValue - lilDrink)}
           >
             LIL DRINK
           </Button>
@@ -86,7 +86,7 @@ function Hydrangea() {
             style={{
               boxShadow: `3px 3px 0px 1px ${colours.blue}`,
             }}
-            onClick={() => onDrink("big_drink", hydrangeaData.value - bigDrink)}
+            onClick={() => onDrink("big_drink", hydrangeaValue - bigDrink)}
           >
             BIG DRINK
           </Button>
@@ -98,7 +98,7 @@ function Hydrangea() {
             style={{
               boxShadow: "3px 3px 0px 1px crimson",
             }}
-            onClick={() => onDrink("refill", hydrangeaData.value + refill)}
+            onClick={() => onDrink("refill", hydrangeaValue + refill)}
           >
             REFILL
           </Button>
