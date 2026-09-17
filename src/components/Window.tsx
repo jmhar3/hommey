@@ -23,6 +23,7 @@ function Window(props: WindowProps) {
       gap="xs"
       bg={colours.mid}
       mah={props.window.size === "full" ? "100%" : "fit-content"}
+      w={props.window.size === "full" ? "100vw" : undefined}
       maw={props.window.size === "full" ? "100vw" : "60vw"}
       miw={props.window.size === "full" ? undefined : "45vw"}
       {...shadow}
