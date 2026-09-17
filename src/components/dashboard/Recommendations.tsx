@@ -12,9 +12,9 @@ function Recommendations() {
   return (
     <Container>
       <Stack>
-        <Title>Feeling Breezy</Title>
+        <Title>Rise & Shine</Title>
 
-        <Text>It's cold, wet and windy. Perfect day to stay at home.</Text>
+        <Text>How are you feeling?</Text>
 
         {selection ? (
           <>
