@@ -1,79 +1,98 @@
-import { Flex, Grid, Group, Stack, Text, Title } from "@mantine/core";
+import { Flex, Grid, Stack, Text, Title } from "@mantine/core";
+
 import Container from "../components/Container";
+
+import { lightInset } from "../helpers/theme";
 
 function Weather() {
   return (
     <Stack p="xs" h="100vh" gap="xs">
       <Grid>
         <Grid.Col span={8}>
-          <Stack>
-            <Container>
-              <Stack>
-                <Title>Todays Forecast (hourly)</Title>
-                <Flex>
-                  <Text>Temp / Feels Like</Text>
-                  <Text>Chance of Rain</Text>
-                  <Text>UV</Text>
-                  <Text>Gust Speeds km/h</Text>
-                </Flex>
-              </Stack>
-            </Container>
+          <Grid>
+            <Grid.Col span={6}>
+              <Container>
+                <Stack>
+                  <Title>Temp + Feels Liks</Title>
+                </Stack>
+              </Container>
+            </Grid.Col>
 
-            <Group grow align="flex-start">
+            <Grid.Col span={6}>
+              <Container>
+                <Stack>
+                  <Title>Chance of Rain</Title>
+                </Stack>
+              </Container>
+            </Grid.Col>
+
+            <Grid.Col span={6}>
+              <Container>
+                <Stack>
+                  <Title>UV w peak</Title>
+                </Stack>
+              </Container>
+            </Grid.Col>
+
+            <Grid.Col span={6}>
+              <Container>
+                <Stack>
+                  <Title>Wind Gusts w peak</Title>
+                </Stack>
+              </Container>
+            </Grid.Col>
+
+            <Grid.Col span={6}>
+              <Container>
+                <Stack>
+                  <Title>Humidity w Dew Point</Title>
+                </Stack>
+              </Container>
+            </Grid.Col>
+
+            <Grid.Col span={6}>
               <Container>
                 <Stack>
                   <Title>Sunrise + Sunset</Title>
                 </Stack>
               </Container>
+            </Grid.Col>
 
+            <Grid.Col span={12}>
               <Container>
                 <Stack>
-                  <Title>Humidity / Calculate chance of fog</Title>
+                  <Title>Hourly Forecast</Title>
+
+                  <Flex>
+                    <Text>Temp / Feels Like</Text>
+                    <Text>Chance of Rain</Text>
+                  </Flex>
                 </Stack>
               </Container>
-            </Group>
-          </Stack>
+            </Grid.Col>
+          </Grid>
         </Grid.Col>
 
         <Grid.Col span={4}>
           <Container>
-            <Stack>
-              <Title>This Weeks Forecast (daily)</Title>
-              <Flex>
-                <Text>Monday, 31st August 2026</Text>
-                <Text>High / Low</Text>
-                <Text>Chance of Rain</Text>
-              </Flex>
-              <Flex>
-                <Text>Tuesday, 1st September 2026</Text>
-                <Text>High / Low</Text>
-                <Text>Chance of Rain</Text>
-              </Flex>
-              <Flex>
-                <Text>Wednesday, 2nd September 2026</Text>
-                <Text>High / Low</Text>
-                <Text>Chance of Rain</Text>
-              </Flex>
-              <Flex>
-                <Text>Thursday, 3rd September 2026</Text>
-                <Text>High / Low</Text>
-                <Text>Chance of Rain</Text>
-              </Flex>
-              <Flex>
-                <Text>Friday, 4th September 2026</Text>
-                <Text>High / Low</Text>
-                <Text>Chance of Rain</Text>
-              </Flex>
-              <Flex>
-                <Text>Saturday, 5th September 2026</Text>
-                <Text>High / Low</Text>
-                <Text>Chance of Rain</Text>
-              </Flex>
-              <Flex>
-                <Text>Sunday, 6th September 2026</Text>
-                <Text>High / Low</Text>
-                <Text>Chance of Rain</Text>
-              </Flex>
+            <Stack h="69vh">
+              <Title>This Weeks Forecast</Title>
+
+              {[
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday",
+              ].map((day) => (
+                <Flex key={day} h="100%" {...lightInset}>
+                  <Text>{day}</Text>
+                  <Text>High / Low</Text>
+                  <Text>Weather Icon</Text>
+                </Flex>
+              ))}
             </Stack>
           </Container>
         </Grid.Col>
