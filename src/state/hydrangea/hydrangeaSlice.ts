@@ -1,21 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import {
-  fetchHydrangea,
-  deleteHydrangea,
-  insertHydrangea,
-} from "./hydrangeaThunks";
+import { fetchHydrangea, insertHydrangea } from "./hydrangeaThunks";
 
 import type { RootState } from "../store";
-import type { Hydrangea } from "../types";
 
 export interface HydrangeaState {
-  data: Hydrangea[];
+  data: number;
   status: "idle" | "pending" | "succeeded" | "failed";
 }
 
 const initialState: HydrangeaState = {
-  data: [],
+  data: 0,
   status: "idle",
 };
 
@@ -38,40 +33,11 @@ const hydrangeaSlice = createSlice({
       .addCase(insertHydrangea.pending, (state) => {
         state.status = "pending";
       })
-      .addCase(
-        insertHydrangea.fulfilled,
-        (state, { payload }: { payload: Hydrangea[] }) => {
-          state.status = "succeeded";
-
-          const newSections: Hydrangea[] = [];
-          const oldSections: Hydrangea[] = [];
-
-          payload.forEach((item: Hydrangea) => {
-            if (state.data.find(({ id }) => id === item.id)) {
-              oldSections.push(item);
-            } else {
-              newSections.push(item);
-            }
-          });
-
-          const filteredState = state.data.filter(
-            ({ id: id1 }) => !payload.find(({ id: id2 }) => id1 === id2),
-          );
-
-          state.data = [...filteredState, ...oldSections, ...newSections];
-        },
-      )
-      .addCase(insertHydrangea.rejected, (state) => {
-        state.status = "failed";
-      })
-      .addCase(deleteHydrangea.pending, (state) => {
-        state.status = "pending";
-      })
-      .addCase(deleteHydrangea.fulfilled, (state, { payload }) => {
+      .addCase(insertHydrangea.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.data = state.data.filter(({ id }) => id !== payload);
+        state.data = action.payload;
       })
-      .addCase(deleteHydrangea.rejected, (state) => {
+      .addCase(insertHydrangea.rejected, (state) => {
         state.status = "failed";
       });
   },
@@ -79,7 +45,7 @@ const hydrangeaSlice = createSlice({
 
 export default hydrangeaSlice.reducer;
 
-export const selectHydrangea = (state: RootState) => state.hydrangea.data[0];
+export const selectHydrangea = (state: RootState) => state.hydrangea.data;
 
 export const selectAllHydrangea = (state: RootState) => state.hydrangea.data;
 

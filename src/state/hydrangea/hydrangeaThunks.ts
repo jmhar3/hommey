@@ -17,7 +17,7 @@ export const fetchHydrangea = createAsyncThunk(
       throw Error(error.message);
     }
 
-    return data;
+    return data[0].value;
   },
 );
 
@@ -35,20 +35,6 @@ export const insertHydrangea = createAsyncThunk(
       throw Error(error.message);
     }
 
-    return data;
-  },
-);
-
-export const deleteHydrangea = createAsyncThunk(
-  "hydrangea/deleteHydrangea",
-  async (id: string) => {
-    const { error } = await supabase.from("hydrangea").delete().eq("id", id);
-
-    if (error) {
-      console.error(error);
-      throw Error(error.message);
-    }
-
-    return id;
+    return data[0].value;
   },
 );
