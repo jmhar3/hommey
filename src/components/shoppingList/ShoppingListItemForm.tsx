@@ -5,7 +5,7 @@ import { Flex, Stack, Select, TextInput, ActionIcon } from "@mantine/core";
 import { useAppDispatch } from "../../state/hooks";
 import { addShoppingListItem } from "../../state/shoppingList/shoppingListThunks";
 
-import { colours, contrastInset } from "../../helpers/theme";
+import { colours, contrastShadow, input } from "../../helpers/theme";
 
 function ShoppingListItemForm({ onComplete }: { onComplete?: () => void }) {
   const dispatch = useAppDispatch();
@@ -40,27 +40,16 @@ function ShoppingListItemForm({ onComplete }: { onComplete?: () => void }) {
   return (
     <Stack gap="xs">
       <TextInput
-        pl="sm"
-        h="44px"
         value={label}
-        variant="unstyled"
         placeholder="Add New Item"
         onChange={(event) => setLabel(event.currentTarget.value.toUpperCase())}
-        {...contrastInset}
-        styles={{
-          input: {
-            fontSize: "1.1em",
-          },
-        }}
+        {...input}
       />
 
       <Flex gap="xs" align="center">
         <Select
-          pl="sm"
-          h="44px"
-          w="100%"
+          {...input}
           value={category}
-          variant="unstyled"
           placeholder="Select category"
           onChange={(value) => setCategory(value)}
           data={[
@@ -73,7 +62,6 @@ function ShoppingListItemForm({ onComplete }: { onComplete?: () => void }) {
             "CHEMIST",
             "OTHER",
           ]}
-          {...contrastInset}
           styles={{
             dropdown: {
               borderRadius: 0,
@@ -90,7 +78,7 @@ function ShoppingListItemForm({ onComplete }: { onComplete?: () => void }) {
           }}
         />
 
-        <ActionIcon size="xl" onClick={addNewItem} {...contrastInset}>
+        <ActionIcon size="xl" onClick={addNewItem} {...contrastShadow}>
           <FaPlus />
         </ActionIcon>
       </Flex>

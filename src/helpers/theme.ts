@@ -64,3 +64,23 @@ export const lightShadow = {
     boxShadow: `3px 3px 0px 1px ${colours.mid}`,
   },
 };
+
+export const input = {
+  w: "100%",
+  pl: "sm",
+  h: "44px",
+  variant: "unstyled",
+  styles: {
+    input: {
+      fontSize: "1.1em",
+    },
+  },
+  ...contrastInset,
+};
+
+export const button = {
+  px: "sm",
+  h: "44px",
+  fz: "1em",
+  ...contrastShadow,
+};
