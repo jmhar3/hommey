@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { Divider, Flex } from "@mantine/core";
+import { ActionIcon, Divider, Flex } from "@mantine/core";
 
 import Dashboard from "../screens/Dashboard";
 import Recipes from "../screens/Recipes";
@@ -12,9 +12,10 @@ import Quests from "../screens/Quests";
 import Clock from "../screens/Clock";
 import Film from "../screens/Film";
 
-import { colours, inset } from "../helpers/theme";
+import { colours, contrastShadow, inset } from "../helpers/theme";
 
 import type { WindowType } from "./Window";
+import { FaRedo } from "react-icons/fa";
 
 const windows = [
   { title: "Weather", screen: <Weather />, size: "full" },
@@ -40,7 +41,7 @@ function Navbar({ setFocusedWindow }: NavbarProps) {
       justify="space-between"
       {...inset}
     >
-      <Flex align="center" gap="sm">
+      <Flex align="center" gap="xs">
         <NavButton
           label="DASHBOARD"
           onClick={() =>
@@ -63,7 +64,7 @@ function Navbar({ setFocusedWindow }: NavbarProps) {
         ))}
       </Flex>
 
-      <Flex align="center" gap="sm">
+      <Flex align="center" gap="xs">
         <Divider orientation="vertical" bd={`2px solid ${colours.blue}`} />
 
         <NavButton
@@ -76,6 +77,15 @@ function Navbar({ setFocusedWindow }: NavbarProps) {
             })
           }
         />
+
+        <ActionIcon
+          h="44px"
+          size="xl"
+          onClick={() => window.location.reload()}
+          {...contrastShadow}
+        >
+          <FaRedo />
+        </ActionIcon>
       </Flex>
     </Flex>
   );
