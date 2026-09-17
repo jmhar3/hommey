@@ -5,6 +5,7 @@ import Dashboard from "../screens/Dashboard";
 import Recipes from "../screens/Recipes";
 import NavButton from "./NavButton";
 
+import Weather from "../screens/Weather";
 import ShoppingList from "../screens/ShoppingList";
 import Roulette from "../screens/Roulette";
 import Quests from "../screens/Quests";
@@ -16,11 +17,12 @@ import { colours, inset } from "../helpers/theme";
 import type { WindowType } from "./Window";
 
 const windows = [
-  { title: "Film", screen: <Film />, size: "full" },
+  { title: "Weather", screen: <Weather />, size: "full" },
+  { title: "Groceries", screen: <ShoppingList />, size: "small" },
   { title: "Recipes", screen: <Recipes />, size: "full" },
-  { title: "Battle", screen: <Quests />, size: "full" },
+  { title: "Quests", screen: <Quests />, size: "full" },
   { title: "Roulette", screen: <Roulette />, size: "full" },
-  { title: "Grocery  List", screen: <ShoppingList />, size: "small" },
+  { title: "Film", screen: <Film />, size: "small" },
 ];
 
 export interface NavbarProps {
@@ -50,7 +52,7 @@ function Navbar({ setFocusedWindow }: NavbarProps) {
           }
         />
 
-        <Divider orientation="vertical" bd={`2px solid ${colours.contrast}`} />
+        <Divider orientation="vertical" bd={`2px solid ${colours.blue}`} />
 
         {windows.map((window) => (
           <NavButton
@@ -62,7 +64,7 @@ function Navbar({ setFocusedWindow }: NavbarProps) {
       </Flex>
 
       <Flex align="center" gap="sm">
-        <Divider orientation="vertical" bd={`2px solid ${colours.contrast}`} />
+        <Divider orientation="vertical" bd={`2px solid ${colours.blue}`} />
 
         <NavButton
           label={dayjs().format("h:mmA")}
