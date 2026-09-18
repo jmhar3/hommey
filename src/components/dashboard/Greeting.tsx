@@ -1,29 +1,22 @@
-import { useMemo, useState } from "react";
-import {
-  Flex,
-  Text,
-  Stack,
-  Title,
-  Divider,
-  Button,
-  ActionIcon,
-  Group,
-} from "@mantine/core";
-import {
-  FaBrain,
-  FaCloudRain,
-  FaHandHoldingHeart,
-  FaHeart,
-  FaSun,
-  FaThermometerHalf,
-  FaWind,
-} from "react-icons/fa";
-import advancedFormat from "dayjs/plugin/advancedFormat";
 import dayjs from "dayjs";
+import { useMemo, useState } from "react";
+import advancedFormat from "dayjs/plugin/advancedFormat";
+import { Flex, Text, Stack, Title, ActionIcon, Group } from "@mantine/core";
+
+import {
+  FaSun,
+  FaWind,
+  FaBrain,
+  FaHeart,
+  FaCloudRain,
+  FaThermometerHalf,
+  FaHandHoldingHeart,
+} from "react-icons/fa";
 
 import Container from "../Container";
+import GreetingButton from "./GreetingButton";
 
-import { colours, contrastShadow } from "../../helpers/theme";
+import Theme from "../../helpers/theme";
 
 // import { useAppDispatch, useAppSelector } from "../../state/hooks";
 // import { fetchWeather } from "../../state/weather/weatherThunks";
@@ -36,6 +29,8 @@ import { colours, contrastShadow } from "../../helpers/theme";
 dayjs.extend(advancedFormat);
 
 function Greeting() {
+  const { contrastShadow } = Theme();
+
   // const dispatch = useAppDispatch();
 
   // const weatherStatus = useAppSelector(selectWeatherStatus);
@@ -73,40 +68,25 @@ function Greeting() {
             <Text pt="xs">HOW ARE YOU FEELING?</Text>
           </Stack>
 
-          <Divider size="lg" color={colours.blue} orientation="vertical" />
-
           <Flex w="fit-content" gap="xs">
-            {/*INSERT CURRENT WEATHER: ICONS, TEMP, UV, CHANCE OF RAIN*/}
-            <Button pb="0" pt="xs" px="xs" h="fit-content" {...contrastShadow}>
-              <Stack gap="xs" align="center" justify="center">
-                <FaThermometerHalf size="2.4em" />
-                <Text size="1.5em">
-                  28°C
-                  {/*{weatherData?.hourly.apparent_temperature}°C*/}
-                </Text>
-              </Stack>
-            </Button>
+            {/*{weatherData?.hourly.apparent_temperature}°C*/}
+            <GreetingButton
+              icon={<FaThermometerHalf size="2.4em" />}
+              value="28°C"
+            />
 
-            <Button pb="0" pt="xs" px="xs" h="fit-content" {...contrastShadow}>
-              <Stack gap="xs" align="center" justify="center">
-                <FaWind size="2.4em" />
-                <Text size="1.5em">28k</Text>
-              </Stack>
-            </Button>
+            <GreetingButton icon={<FaWind size="2.4em" />} value="24k" />
 
-            <Button pb="0" pt="xs" px="xs" h="fit-content" {...contrastShadow}>
-              <Stack gap="xs" align="center" justify="center">
-                <FaSun size="2.4em" />
-                <Text size="1.5em">2UV</Text>
-              </Stack>
-            </Button>
+            <GreetingButton icon={<FaSun size="2.4em" />} value="2UV" />
 
-            <Button pb="0" pt="xs" px="xs" h="fit-content" {...contrastShadow}>
+            <GreetingButton icon={<FaCloudRain size="2.4em" />} value="2mm" />
+
+            {/*<Button pb="0" pt="xs" px="xs" h="fit-content" {...contrastShadow}>
               <Stack gap="xs" align="center" justify="center">
                 <FaCloudRain size="2.4em" />
                 <Text size="1.5em">2mm</Text>
               </Stack>
-            </Button>
+            </Button>*/}
           </Flex>
         </Flex>
 
