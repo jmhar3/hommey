@@ -31,7 +31,7 @@ import {
   selectShoppingListStatus,
 } from "../../state/shoppingList/shoppingListSlice";
 
-import { colours, lightInset } from "../../helpers/theme";
+import { colours, lightInset, switchStyle } from "../../helpers/theme";
 
 const categories = [
   { category: "Fishmonger", icon: <FaFish /> },
@@ -83,23 +83,9 @@ function ShoppingListItems({ view }: ShoppingListItemsProps) {
             </Text>
 
             <Switch
-              size="lg"
-              radius={0}
               checked={showList}
-              color={colours.contrast}
-              withThumbIndicator={false}
+              {...switchStyle(showList)}
               onChange={(event) => setShowList(event.currentTarget.checked)}
-              styles={{
-                track: {
-                  padding: "1.5em",
-                  background: colours.white,
-                  border: `solid 3px ${colours.dark}`,
-                },
-                thumb: {
-                  background: showList ? "crimson" : colours.blue,
-                  border: `solid 3px ${colours.dark}`,
-                },
-              }}
             />
 
             <Text size="lg" w="100%">

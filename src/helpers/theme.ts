@@ -84,3 +84,21 @@ export const button = {
   fz: "1em",
   ...contrastShadow,
 };
+
+export const switchStyle = (checked: boolean) => ({
+  radius: 0,
+  size: "lg",
+  color: colours.contrast,
+  withThumbIndicator: false,
+  styles: {
+    track: {
+      padding: "1.5em",
+      background: colours.white,
+      border: `solid 4px ${colours.dark}`,
+    },
+    thumb: {
+      background: checked ? "crimson" : colours.blue,
+      border: `solid 4px ${colours.dark}`,
+    },
+  },
+});
