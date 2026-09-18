@@ -1,10 +1,10 @@
 import dayjs from "dayjs";
+import { FaCog } from "react-icons/fa";
 import { ActionIcon, Divider, Flex } from "@mantine/core";
 
+import NavButton from "./NavButton";
 import Dashboard from "../screens/Dashboard";
 import Recipes from "../screens/Recipes";
-import NavButton from "./NavButton";
-
 import Weather from "../screens/Weather";
 import ShoppingList from "../screens/ShoppingList";
 import Roulette from "../screens/Roulette";
@@ -15,7 +15,7 @@ import Film from "../screens/Film";
 import { colours, contrastShadow, inset } from "../helpers/theme";
 
 import type { WindowType } from "./Window";
-import { FaRedo } from "react-icons/fa";
+import Settings from "../screens/Settings";
 
 const windows = [
   { title: "Weather", screen: <Weather />, size: "full" },
@@ -81,10 +81,16 @@ function Navbar({ setFocusedWindow }: NavbarProps) {
         <ActionIcon
           h="44px"
           size="xl"
-          onClick={() => window.location.reload()}
+          onClick={() =>
+            setFocusedWindow({
+              title: "Settings",
+              screen: <Settings />,
+              size: "small",
+            })
+          }
           {...contrastShadow}
         >
-          <FaRedo />
+          <FaCog />
         </ActionIcon>
       </Flex>
     </Flex>
