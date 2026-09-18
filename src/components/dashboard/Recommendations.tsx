@@ -4,9 +4,11 @@ import { ActionIcon, Group, Stack, Text, Title } from "@mantine/core";
 
 import Container from "../Container";
 
-import { contrastShadow } from "../../helpers/theme";
+import Theme from "../../helpers/theme";
 
 function Recommendations() {
+  const { contrastShadow } = Theme();
+
   const [selection, setSelection] = useState<"chill" | "brain" | "body">();
 
   return (

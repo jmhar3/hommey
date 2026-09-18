@@ -12,7 +12,7 @@ import Quests from "../screens/Quests";
 import Clock from "../screens/Clock";
 import Film from "../screens/Film";
 
-import { colours, contrastShadow, inset } from "../helpers/theme";
+import Theme from "../helpers/theme";
 
 import type { WindowType } from "./Window";
 import Settings from "../screens/Settings";
@@ -31,6 +31,7 @@ export interface NavbarProps {
 }
 
 function Navbar({ setFocusedWindow }: NavbarProps) {
+  const { colours, contrastShadow, inset } = Theme();
   return (
     <Flex
       p="xs"

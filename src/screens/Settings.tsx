@@ -1,13 +1,18 @@
-import { useState } from "react";
 import { FaRedo } from "react-icons/fa";
 import { ActionIcon, Flex, Stack, Switch, Text } from "@mantine/core";
 
 import Container from "../components/Container";
 
-import { contrastShadow, switchStyle } from "../helpers/theme";
+import Theme from "../helpers/theme";
+
+import { useAppDispatch, useAppSelector } from "../state/hooks";
+import { toggleDarkMode, selectDarkMode } from "../state/darkModeSlice";
 
 function Settings() {
-  const [darkMode, setDarkMode] = useState(true);
+  const { contrastShadow, switchStyle } = Theme();
+
+  const dispatch = useAppDispatch();
+  const darkMode = useAppSelector(selectDarkMode);
 
   return (
     <Stack p="xs" h="100vh" gap="xs">
@@ -37,7 +42,7 @@ function Settings() {
           <Switch
             checked={darkMode}
             {...switchStyle(darkMode)}
-            onChange={(event) => setDarkMode(event.currentTarget.checked)}
+            onChange={() => dispatch(toggleDarkMode(!darkMode))}
           />
 
           <Text size="lg" w="100%">

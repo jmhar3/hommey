@@ -5,9 +5,11 @@ import Container from "../Container";
 import ShoppingListItems from "../shoppingList/ShoppingListItems";
 import ShoppingListItemForm from "../shoppingList/ShoppingListItemForm";
 
-import { colours, contrastShadow } from "../../helpers/theme";
+import Theme from "../../helpers/theme";
 
 function ShoppingList() {
+  const { colours, contrastShadow } = Theme();
+
   const [showForm, { open, close }] = useDisclosure();
 
   return (

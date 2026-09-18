@@ -27,11 +27,13 @@ import {
   selectRecipesStatus,
 } from "../state/recipes/recipesSlice";
 
-import { button, colours, contrastShadow } from "../helpers/theme";
+import Theme from "../helpers/theme";
 
 import type { Recipe as RecipeType } from "../state/types";
 
 function Recipes() {
+  const { button, colours, contrastShadow } = Theme();
+
   const dispatch = useAppDispatch();
 
   const recipesStatus = useAppSelector(selectRecipesStatus);

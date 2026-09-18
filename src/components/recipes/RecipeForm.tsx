@@ -12,13 +12,7 @@ import {
   TextInput,
 } from "@mantine/core";
 
-import {
-  input,
-  shadow,
-  button,
-  colours,
-  contrastShadow,
-} from "../../helpers/theme";
+import Theme from "../../helpers/theme";
 
 import type { Recipe } from "../../state/types";
 
@@ -27,6 +21,8 @@ interface RecipeFormProps {
 }
 
 function RecipeForm(props: RecipeFormProps) {
+  const { input, shadow, button, colours, contrastShadow } = Theme();
+
   const [form, setForm] = useState<Recipe | Omit<Recipe, "id">>({
     title: "",
     ingredients: [""],

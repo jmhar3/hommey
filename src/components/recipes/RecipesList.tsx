@@ -1,7 +1,7 @@
 import { Badge, Flex, Stack, Text } from "@mantine/core";
 
 import type { Recipe } from "../../state/types";
-import { colours, contrastShadow, lightInset } from "../../helpers/theme";
+import Theme from "../../helpers/theme";
 
 interface ListItemProps extends Recipe {
   onClick: () => void;
@@ -9,6 +9,8 @@ interface ListItemProps extends Recipe {
 }
 
 function ListItem(recipe: ListItemProps) {
+  const { colours, contrastShadow, lightInset } = Theme();
+
   return (
     <Stack
       p="xs"

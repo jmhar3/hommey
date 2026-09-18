@@ -12,11 +12,13 @@ import {
   selectQuestsStatus,
 } from "../../state/quests/questsSlice";
 
-import { contrastShadow, lightInset } from "../../helpers/theme";
+import Theme from "../../helpers/theme";
 
 import type { Quest } from "../../state/types";
 
 function Quests() {
+  const { contrastShadow, lightInset } = Theme();
+
   const dispatch = useAppDispatch();
 
   const questsStatus = useAppSelector(selectQuestsStatus);

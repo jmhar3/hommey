@@ -5,9 +5,11 @@ import { Flex, Stack, Select, TextInput, ActionIcon } from "@mantine/core";
 import { useAppDispatch } from "../../state/hooks";
 import { addShoppingListItem } from "../../state/shoppingList/shoppingListThunks";
 
-import { colours, contrastShadow, input } from "../../helpers/theme";
+import Theme from "../../helpers/theme";
 
 function ShoppingListItemForm({ onComplete }: { onComplete?: () => void }) {
+  const { colours, contrastShadow, input } = Theme();
+
   const dispatch = useAppDispatch();
 
   const [label, setLabel] = useState<string>("");

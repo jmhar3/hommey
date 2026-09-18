@@ -2,9 +2,11 @@ import { Flex, Grid, Stack, Text, Title } from "@mantine/core";
 
 import Container from "../components/Container";
 
-import { lightInset } from "../helpers/theme";
+import Theme from "../helpers/theme";
 
 function Weather() {
+  const { lightInset } = Theme();
+
   return (
     <Stack p="xs" h="100vh" gap="xs">
       <Grid>

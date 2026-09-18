@@ -1,7 +1,7 @@
 import { ActionIcon, Flex, ScrollArea, Stack, Title } from "@mantine/core";
 import { FaTimes, FaWindowMinimize } from "react-icons/fa";
 
-import { colours, inset, contrastShadow } from "../helpers/theme";
+import Theme from "../helpers/theme";
 
 import type { ReactElement } from "react";
 
@@ -17,6 +17,8 @@ interface WindowProps {
 }
 
 function Window(props: WindowProps) {
+  const { colours, inset, contrastShadow } = Theme();
+
   return (
     <Stack
       p="xs"

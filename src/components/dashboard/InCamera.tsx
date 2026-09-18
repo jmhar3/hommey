@@ -2,9 +2,11 @@ import { Box, Group, Stack } from "@mantine/core";
 
 import Container from "../Container";
 
-import { contrastShadow } from "../../helpers/theme";
+import Theme from "../../helpers/theme";
 
 function InCamera() {
+  const { contrastShadow } = Theme();
+
   return (
     <Container>
       <Stack>

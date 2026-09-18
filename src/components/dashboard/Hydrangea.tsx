@@ -15,7 +15,7 @@ import {
   selectHydrangeaStatus,
 } from "../../state/hydrangea/hydrangeaSlice";
 
-import { colours, contrastShadow, lightInset } from "../../helpers/theme";
+import Theme from "../../helpers/theme";
 
 import hydrangea from "../../../public/assets/hydrangea.png";
 
@@ -25,6 +25,8 @@ const bigDrink = 1100;
 const totalCapacity = 12000;
 
 function Hydrangea() {
+  const { colours, contrastShadow, lightInset } = Theme();
+
   const dispatch = useAppDispatch();
 
   const hydrangeaStatus = useAppSelector(selectHydrangeaStatus);

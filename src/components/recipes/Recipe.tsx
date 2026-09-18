@@ -1,3 +1,5 @@
+import { FaCartPlus, FaEdit, FaStar } from "react-icons/fa";
+
 import {
   ActionIcon,
   Badge,
@@ -9,12 +11,14 @@ import {
   Stack,
   Title,
 } from "@mantine/core";
-import { FaCartPlus, FaEdit, FaStar } from "react-icons/fa";
+
+import Theme from "../../helpers/theme";
 
 import type { Recipe as RecipeType } from "../../state/types";
-import { colours, contrastShadow, lightInset } from "../../helpers/theme";
 
 function Recipe(recipe: RecipeType) {
+  const { colours, contrastShadow, lightInset } = Theme();
+
   const onFavourite = () => {};
 
   return (

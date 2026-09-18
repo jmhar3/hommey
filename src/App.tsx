@@ -4,7 +4,7 @@ import { BackgroundImage, Box, Center, Stack } from "@mantine/core";
 import Navbar from "./components/Navbar";
 import Window, { type WindowType } from "./components/Window";
 
-import { colours } from "./helpers/theme";
+import Theme from "./helpers/theme";
 
 import airey from "../public/assets/airey.jpg";
 import birdhouse from "../public/assets/birdhouse.jpg";
@@ -18,6 +18,8 @@ const images = [airey, birdhouse, birds, magpie, oakland];
 const randomImageNum = Math.floor(Math.random() * images.length);
 
 function App() {
+  const { colours } = Theme();
+
   const [focusedWindow, setFocusedWindow] = useState<WindowType>();
 
   useEffect(() => {

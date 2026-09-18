@@ -31,7 +31,7 @@ import {
   selectShoppingListStatus,
 } from "../../state/shoppingList/shoppingListSlice";
 
-import { colours, lightInset, switchStyle } from "../../helpers/theme";
+import Theme from "../../helpers/theme";
 
 const categories = [
   { category: "Fishmonger", icon: <FaFish /> },
@@ -49,6 +49,8 @@ interface ShoppingListItemsProps {
 }
 
 function ShoppingListItems({ view }: ShoppingListItemsProps) {
+  const { colours, lightInset, switchStyle } = Theme();
+
   const dispatch = useAppDispatch();
 
   const shoppingListStatus = useAppSelector(selectShoppingListStatus);
@@ -98,9 +100,13 @@ function ShoppingListItems({ view }: ShoppingListItemsProps) {
           <Stack gap="xs">
             <Divider mb="5" bd={`2px solid ${colours.contrast}`} />
 
-            {shoppingList.map((item) => (
-              <ShoppingListItem key={item.id} {...item} />
-            ))}
+            {categorisedList.flatMap(({ items }) =>
+              items.length > 0
+                ? items.map((item) => (
+                    <ShoppingListItem key={item.id} {...item} />
+                  ))
+                : undefined,
+            )}
           </Stack>
         ) : (
           <Accordion

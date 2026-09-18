@@ -4,11 +4,13 @@ import { FaDotCircle, FaLine } from "react-icons/fa";
 import { useAppDispatch } from "../../state/hooks";
 import { deleteShoppingListItem } from "../../state/shoppingList/shoppingListThunks";
 
-import { colours } from "../../helpers/theme";
+import Theme from "../../helpers/theme";
 
 import type { ShoppingListItem as ShoppingListItemType } from "../../state/types";
 
 function ShoppingListItem(item: ShoppingListItemType) {
+  const { colours } = Theme();
+
   const dispatch = useAppDispatch();
 
   const checkItem = () => {
