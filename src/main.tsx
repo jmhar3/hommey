@@ -3,16 +3,15 @@ import { Provider } from "react-redux";
 import { Navigate } from "react-router";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router";
-import { Box, MantineProvider, createTheme } from "@mantine/core";
+import { MantineProvider, createTheme } from "@mantine/core";
 
 import "@fontsource/audiowide";
 import "@fontsource/atomic-age";
 
 import App from "./App.tsx";
-import ShoppingList from "./screens/ShoppingList.tsx";
+import ShoppingList from "./pages/ShoppingList.tsx";
 
 import { store } from "./state/store.ts";
-import { inset } from "./helpers/theme.ts";
 
 import "./index.css";
 import "@mantine/core/styles.css";
@@ -30,14 +29,7 @@ createRoot(document.getElementById("root")!).render(
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<App />} />
-            <Route
-              path="/shopping-list"
-              element={
-                <Box {...inset} h="100vh">
-                  <ShoppingList />
-                </Box>
-              }
-            />
+            <Route path="/shopping-list" element={<ShoppingList />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </BrowserRouter>
