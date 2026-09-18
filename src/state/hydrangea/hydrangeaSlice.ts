@@ -5,12 +5,12 @@ import { fetchHydrangea, insertHydrangea } from "./hydrangeaThunks";
 import type { RootState } from "../store";
 
 export interface HydrangeaState {
-  data: number;
+  value: number;
   status: "idle" | "pending" | "succeeded" | "failed";
 }
 
 const initialState: HydrangeaState = {
-  data: 0,
+  value: 0,
   status: "idle",
 };
 
@@ -25,7 +25,7 @@ const hydrangeaSlice = createSlice({
       })
       .addCase(fetchHydrangea.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.data = action.payload;
+        state.value = action.payload;
       })
       .addCase(fetchHydrangea.rejected, (state) => {
         state.status = "failed";
@@ -35,7 +35,7 @@ const hydrangeaSlice = createSlice({
       })
       .addCase(insertHydrangea.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.data = action.payload;
+        state.value = action.payload;
       })
       .addCase(insertHydrangea.rejected, (state) => {
         state.status = "failed";
@@ -45,9 +45,9 @@ const hydrangeaSlice = createSlice({
 
 export default hydrangeaSlice.reducer;
 
-export const selectHydrangea = (state: RootState) => state.hydrangea.data;
+export const selectHydrangea = (state: RootState) => state.hydrangea.value;
 
-export const selectAllHydrangea = (state: RootState) => state.hydrangea.data;
+export const selectAllHydrangea = (state: RootState) => state.hydrangea.value;
 
 export const selectHydrangeaStatus = (state: RootState) =>
   state.hydrangea.status;
