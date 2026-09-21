@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
 import { FaFilter, FaPlus, FaTimes } from "react-icons/fa";
 
@@ -53,6 +53,14 @@ function Recipes() {
   const [showForm, { open, close }] = useDisclosure();
   const [showFilter, { open: openFilter, close: closeFilter }] =
     useDisclosure();
+
+  const filteredRecipes = useMemo(
+    () =>
+      recipes.filter((recipe) =>
+        recipe.tags?.some((tag) => filters.some((filter) => filter === tag)),
+      ),
+    [recipes, filters],
+  );
 
   const onFocusRecipeClick = (recipe: RecipeType) => {
     close();
@@ -122,10 +130,10 @@ function Recipes() {
                 )}
 
                 <RecipesList
-                  recipes={recipes}
                   focusedRecipe={focusedRecipe}
-                  onRecipeClick={onFocusRecipeClick}
                   onFilterClick={onSelectFilter}
+                  onRecipeClick={onFocusRecipeClick}
+                  recipes={filters.length === 0 ? recipes : filteredRecipes}
                 />
               </Stack>
             </ScrollArea>
