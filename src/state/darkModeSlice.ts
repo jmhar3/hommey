@@ -1,6 +1,6 @@
 import { createAction, createSlice } from "@reduxjs/toolkit";
 
-import type { RootState } from "../store";
+import type { RootState } from "./store";
 
 export interface DarkModeState {
   value: boolean;
