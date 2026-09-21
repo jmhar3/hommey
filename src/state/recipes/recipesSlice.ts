@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { fetchRecipes, deleteRecipe, upsertRecipes } from "./recipesThunks";
+import {
+  fetchRecipes,
+  deleteRecipe,
+  updateRecipe,
+  insertRecipe,
+} from "./recipesThunks";
 
 import type { RootState } from "../store";
 import type { Recipe } from "../types";
@@ -31,33 +36,34 @@ const recipesSlice = createSlice({
       .addCase(fetchRecipes.rejected, (state) => {
         state.status = "failed";
       })
-      .addCase(upsertRecipes.pending, (state) => {
+      .addCase(insertRecipe.pending, (state) => {
         state.status = "pending";
       })
       .addCase(
-        upsertRecipes.fulfilled,
-        (state, { payload }: { payload: Recipe[] }) => {
+        insertRecipe.fulfilled,
+        (state, { payload }: { payload: Recipe }) => {
           state.status = "succeeded";
 
-          const newRecipes: Recipe[] = [];
-          const oldRecipes: Recipe[] = [];
-
-          payload.forEach((item: Recipe) => {
-            if (state.data.find(({ id }) => id === item.id)) {
-              oldRecipes.push(item);
-            } else {
-              newRecipes.push(item);
-            }
-          });
-
-          const filteredState = state.data.filter(
-            ({ id: id1 }) => !payload.find(({ id: id2 }) => id1 === id2),
-          );
-
-          state.data = [...filteredState, ...oldRecipes, ...newRecipes];
+          state.data = [...state.data, payload];
         },
       )
-      .addCase(upsertRecipes.rejected, (state) => {
+      .addCase(insertRecipe.rejected, (state) => {
+        state.status = "failed";
+      })
+      .addCase(updateRecipe.pending, (state) => {
+        state.status = "pending";
+      })
+      .addCase(
+        updateRecipe.fulfilled,
+        (state, { payload }: { payload: Recipe }) => {
+          state.status = "succeeded";
+
+          state.data = state.data.map((recipe) =>
+            recipe.id === payload.id ? payload : recipe,
+          );
+        },
+      )
+      .addCase(updateRecipe.rejected, (state) => {
         state.status = "failed";
       })
       .addCase(deleteRecipe.pending, (state) => {

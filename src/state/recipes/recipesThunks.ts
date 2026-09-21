@@ -7,7 +7,10 @@ import type { Recipe } from "../types";
 export const fetchRecipes = createAsyncThunk(
   "recipes/fetchRecipes",
   async () => {
-    const { data, error } = await supabase.from("recipes").select(`*`);
+    const { data, error } = await supabase
+      .from("recipes")
+      .select(`*`)
+      .order("created_at");
 
     if (error) {
       console.error(error);
@@ -18,12 +21,12 @@ export const fetchRecipes = createAsyncThunk(
   },
 );
 
-export const upsertRecipes = createAsyncThunk(
-  "recipes/upsertRecipes",
-  async (recipes: Partial<Recipe>[]) => {
+export const insertRecipe = createAsyncThunk(
+  "recipes/insertRecipe",
+  async (recipe: Recipe) => {
     const { data, error } = await supabase
       .from("recipes")
-      .upsert(recipes)
+      .insert(recipe)
       .select(`*`);
 
     if (error) {
@@ -31,7 +34,25 @@ export const upsertRecipes = createAsyncThunk(
       throw Error(error.message);
     }
 
-    return data;
+    return data[0];
+  },
+);
+
+export const updateRecipe = createAsyncThunk(
+  "recipes/updateRecipe",
+  async ({ id, ...recipe }: Recipe) => {
+    const { error } = await supabase
+      .from("recipes")
+      .update(recipe)
+      .eq("id", id)
+      .select(`*`);
+
+    if (error) {
+      console.error(error);
+      throw Error(error.message);
+    }
+
+    return { id: id, ...recipe };
   },
 );
 
