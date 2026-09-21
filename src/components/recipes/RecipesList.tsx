@@ -1,15 +1,17 @@
 import { Badge, Flex, Stack, Text } from "@mantine/core";
 
 import type { Recipe } from "../../state/types";
+
 import Theme from "../../helpers/theme";
 
 interface ListItemProps extends Recipe {
   onClick: () => void;
   isFocused: boolean;
+  onFilterClick: (tag: string) => void;
 }
 
 function ListItem(recipe: ListItemProps) {
-  const { colours, contrastShadow, lightInset } = Theme();
+  const { colours, contrastShadow } = Theme();
 
   return (
     <Stack
@@ -24,7 +26,12 @@ function ListItem(recipe: ListItemProps) {
       {recipe.tags && (
         <Flex gap="xs">
           {recipe.tags.map((tag) => (
-            <Badge key={tag} py="xs" {...lightInset}>
+            <Badge
+              py="xs"
+              key={tag}
+              {...contrastShadow}
+              onClick={() => recipe.onFilterClick(tag)}
+            >
               {tag}
             </Badge>
           ))}
@@ -37,10 +44,12 @@ function ListItem(recipe: ListItemProps) {
 interface RecipesListProps {
   recipes: Recipe[];
   focusedRecipe: Recipe;
+  onFilterClick: (tag: string) => void;
   onRecipeClick: (recipe: Recipe) => void;
 }
 function RecipesList({
   recipes,
+  onFilterClick,
   focusedRecipe,
   onRecipeClick,
 }: RecipesListProps) {
@@ -50,6 +59,7 @@ function RecipesList({
         <ListItem
           {...recipe}
           key={recipe.id}
+          onFilterClick={onFilterClick}
           onClick={() => onRecipeClick(recipe)}
           isFocused={recipe.id === focusedRecipe.id}
         />
