@@ -7,6 +7,8 @@ import { MantineProvider, createTheme } from "@mantine/core";
 
 import "@fontsource/audiowide";
 import "@fontsource/atomic-age";
+import "@fontsource-variable/bodoni-moda";
+import "@fontsource/manufacturing-consent";
 
 import App from "./App.tsx";
 import ShoppingList from "./pages/ShoppingList.tsx";
