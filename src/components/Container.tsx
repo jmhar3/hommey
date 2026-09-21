@@ -4,11 +4,15 @@ import Theme from "../helpers/theme";
 
 import type { PropsWithChildren } from "react";
 
-function Container({ children }: PropsWithChildren) {
+interface ContainerProps extends PropsWithChildren {
+  style?: object;
+}
+
+function Container({ style, children }: ContainerProps) {
   const { colours, lightInset } = Theme();
 
   return (
-    <Box p="xs" w="100%" {...lightInset} bg={colours.white}>
+    <Box p="xs" w="100%" {...lightInset} bg={colours.white} style={style}>
       {children}
     </Box>
   );
