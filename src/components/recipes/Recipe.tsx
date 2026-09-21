@@ -13,29 +13,37 @@ import {
 } from "@mantine/core";
 
 import Theme from "../../helpers/theme";
+import { useAppDispatch } from "../../state/hooks";
+import { updateRecipe } from "../../state/recipes/recipesThunks";
 
 import type { Recipe as RecipeType } from "../../state/types";
 
 function Recipe(recipe: RecipeType) {
   const { colours, contrastShadow, lightInset } = Theme();
 
-  const onFavourite = () => {};
+  const dispatch = useAppDispatch();
+
+  const onFavourite = () => {
+    dispatch(updateRecipe({ ...recipe, favourite: !recipe.favourite }));
+  };
 
   return (
     <Stack gap="xs">
       <Flex align="center" justify="space-between">
         <Title>{recipe.title}</Title>
 
-        <Flex align="center" gap="xs">
+        <Flex align="center" gap="xs" pr="4px">
           <ActionIcon
             size="xl"
             onClick={onFavourite}
             {...contrastShadow}
-            bg={recipe.favourite ? colours.contrast : colours.white}
             style={{
-              boxShadow: recipe.favourite
-                ? "none"
-                : `3px 3px 0px 1px ${colours.contrast}`,
+              boxShadow: `3px 3px 0px 1px ${recipe.favourite ? colours.blue : colours.contrast}`,
+            }}
+            styles={{
+              icon: {
+                color: recipe.favourite ? colours.blue : colours.dark,
+              },
             }}
           >
             <FaStar />
@@ -63,7 +71,7 @@ function Recipe(recipe: RecipeType) {
 
       <Divider size="lg" color={colours.blue} />
 
-      <Title>Ingredients</Title>
+      <Title size="1.6em">Ingredients</Title>
 
       <Group>
         {recipe.ingredients.map((ingredient) => (
@@ -73,6 +81,7 @@ function Recipe(recipe: RecipeType) {
             label={ingredient}
             color={colours.contrast}
             styles={{
+              icon: { color: colours.blue },
               input: {
                 borderRadius: 0,
                 background: colours.mid,
@@ -86,7 +95,7 @@ function Recipe(recipe: RecipeType) {
 
       <Divider size="lg" color={colours.blue} />
 
-      <Title>Steps</Title>
+      <Title size="1.6em">Steps</Title>
 
       <List type="ordered">
         {recipe.steps.map((step) => (
