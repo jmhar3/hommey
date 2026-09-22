@@ -23,7 +23,7 @@ export const fetchRecipes = createAsyncThunk(
 
 export const insertRecipe = createAsyncThunk(
   "recipes/insertRecipe",
-  async (recipe: Recipe) => {
+  async (recipe: Omit<Recipe, "id">) => {
     const { data, error } = await supabase
       .from("recipes")
       .insert(recipe)
