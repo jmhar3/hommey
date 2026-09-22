@@ -79,7 +79,7 @@ function Quests() {
           <Divider bd={`2px solid ${colours.contrast}`} />
 
           <ScrollArea
-            h="61vh"
+            h="62vh"
             type="auto"
             offsetScrollbars
             styles={{
@@ -122,6 +122,8 @@ function Quests() {
               ))}
             </Stack>
           </ScrollArea>
+
+          <Divider bd={`2px solid ${colours.contrast}`} />
         </Stack>
       </Stack>
     </Container>
