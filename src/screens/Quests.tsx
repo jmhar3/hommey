@@ -12,17 +12,24 @@ import {
 import Theme from "../helpers/theme";
 
 function BossBattle() {
-  const { lightInset } = Theme();
+  const { button, lightInset } = Theme();
 
   return (
     <Stack p="xs" h="100vh" gap="xs">
       <Grid>
         <Grid.Col span={6}>
-          <Stack>
-            <Title>Savings Throws</Title>
+          <Stack p="xs" {...lightInset}>
+            <Title>Daily Challenges</Title>
 
-            <Flex>
-              <Button></Button>
+            <Flex gap="xs">
+              <Button {...button}>BRUSH</Button>
+              <Button {...button}>WALK</Button>
+              <Button {...button}>ROBOVAC</Button>
+            </Flex>
+
+            <Flex gap="xs">
+              <Button {...button}>RELOAD DISHWASHER</Button>
+              <Button {...button}>WIPE BENCH</Button>
             </Flex>
           </Stack>
         </Grid.Col>
@@ -32,10 +39,6 @@ function BossBattle() {
         </Grid.Col>
 
         <Grid.Col span={4}>
-          <Grid.Col span={4}>
-            <Text>Activity</Text>
-          </Grid.Col>
-
           <Container>
             <Stack align="center">
               <Box h="12.5em" w="100%" {...lightInset}>
