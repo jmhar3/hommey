@@ -5,10 +5,10 @@ import ShoppingListScreen from "../screens/ShoppingList.tsx";
 import Theme from "../helpers/theme.ts";
 
 function ShoppingList() {
-  const { inset } = Theme();
+  const { colours } = Theme();
 
   return (
-    <Box {...inset} h="100vh">
+    <Box bg={colours.mid} mih="100vh">
       <ShoppingListScreen />
     </Box>
   );
