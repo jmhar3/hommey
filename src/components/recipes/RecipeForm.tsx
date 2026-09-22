@@ -3,32 +3,49 @@ import { v4 as uuid } from "uuid";
 import { FaStar, FaTrash } from "react-icons/fa";
 
 import {
-  ActionIcon,
-  Button,
   Flex,
-  Stack,
-  TagsInput,
   Text,
+  Stack,
+  Button,
+  TagsInput,
   TextInput,
+  ActionIcon,
 } from "@mantine/core";
 
 import Theme from "../../helpers/theme";
 
 import type { Recipe } from "../../state/types";
+import { useAppDispatch } from "../../state/hooks";
+import { insertRecipe, updateRecipe } from "../../state/recipes/recipesThunks";
 
 interface RecipeFormProps {
+  recipe?: Recipe;
   onClose: () => void;
 }
+
+const blankRecipe = {
+  title: "",
+  ingredients: [""],
+  steps: [""],
+  favourite: false,
+};
 
 function RecipeForm(props: RecipeFormProps) {
   const { input, shadow, button, colours, contrastShadow } = Theme();
 
-  const [form, setForm] = useState<Recipe | Omit<Recipe, "id">>({
-    title: "",
-    ingredients: [""],
-    steps: [""],
-    favourite: false,
-  });
+  const dispatch = useAppDispatch();
+
+  const [form, setForm] = useState<Recipe | Omit<Recipe, "id">>(
+    props.recipe || blankRecipe,
+  );
+
+  const onUpsertRecipe = () => {
+    if (props.recipe) {
+      dispatch(updateRecipe({ ...form, id: props.recipe.id }));
+    } else {
+      dispatch(insertRecipe(form));
+    }
+  };
 
   return (
     <Stack gap="xs">
@@ -112,7 +129,7 @@ function RecipeForm(props: RecipeFormProps) {
               }))
             }
             rightSection={
-              index === 0 ? undefined : (
+              form.ingredients.length > 1 ? (
                 <ActionIcon
                   {...contrastShadow}
                   onClick={() =>
@@ -126,7 +143,7 @@ function RecipeForm(props: RecipeFormProps) {
                 >
                   <FaTrash />
                 </ActionIcon>
-              )
+              ) : undefined
             }
           />
         ))}
@@ -147,12 +164,12 @@ function RecipeForm(props: RecipeFormProps) {
       <Stack p="xs" gap="xs" my="3px" {...shadow} bg={colours.white}>
         <Text>STEPS</Text>
 
-        {form.steps.map((ingredient, index) => (
+        {form.steps.map((step, index) => (
           <TextInput
             {...input}
             withAsterisk
             key={uuid()}
-            value={ingredient}
+            value={step}
             leftSection={`${index + 1}.`}
             onChange={(event) =>
               setForm((prevForm) => ({
@@ -163,7 +180,7 @@ function RecipeForm(props: RecipeFormProps) {
               }))
             }
             rightSection={
-              index === 0 ? undefined : (
+              form.steps.length > 1 ? (
                 <ActionIcon
                   {...contrastShadow}
                   onClick={() =>
@@ -177,7 +194,7 @@ function RecipeForm(props: RecipeFormProps) {
                 >
                   <FaTrash />
                 </ActionIcon>
-              )
+              ) : undefined
             }
           />
         ))}
@@ -245,12 +262,12 @@ function RecipeForm(props: RecipeFormProps) {
         </Button>
       </Stack>
 
-      <Flex gap="xs" justify="flex-end">
+      <Flex p="4px" gap="xs" justify="flex-end">
         <Button onClick={props.onClose} {...button}>
           CANCEL
         </Button>
 
-        <Button onClick={props.onClose} {...button}>
+        <Button onClick={onUpsertRecipe} {...button}>
           SAVE
         </Button>
       </Flex>

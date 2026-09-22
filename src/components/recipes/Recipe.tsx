@@ -18,7 +18,12 @@ import { updateRecipe } from "../../state/recipes/recipesThunks";
 
 import type { Recipe as RecipeType } from "../../state/types";
 
-function Recipe(recipe: RecipeType) {
+interface RecipeProps {
+  recipe: RecipeType;
+  onEditRecipe: () => void;
+}
+
+function Recipe({ recipe, onEditRecipe }: RecipeProps) {
   const { colours, contrastShadow, lightInset } = Theme();
 
   const dispatch = useAppDispatch();
@@ -53,7 +58,7 @@ function Recipe(recipe: RecipeType) {
             <FaCartPlus />
           </ActionIcon>
 
-          <ActionIcon size="xl" {...contrastShadow}>
+          <ActionIcon size="xl" {...contrastShadow} onClick={onEditRecipe}>
             <FaEdit />
           </ActionIcon>
         </Flex>

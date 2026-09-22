@@ -4,7 +4,6 @@ import { FaFilter, FaPlus, FaTimes } from "react-icons/fa";
 
 import {
   ActionIcon,
-  Box,
   Button,
   Center,
   Flex,
@@ -48,7 +47,8 @@ function Recipes() {
   }, [dispatch, recipesStatus]);
 
   const [filters, setFilters] = useState<string[]>([]);
-  const [focusedRecipe, setFocusedRecipe] = useState(recipes[0]);
+  const [focusedRecipe, setFocusedRecipe] = useState<RecipeType>(recipes[0]);
+  const [editFocusedRecipe, setEditFocusedRecipe] = useState(false);
 
   const [showForm, { open, close }] = useDisclosure();
   const [showFilter, { open: openFilter, close: closeFilter }] =
@@ -77,79 +77,97 @@ function Recipes() {
     setFilters([]);
   };
 
+  const onEditRecipe = () => {
+    setEditFocusedRecipe(true);
+    open();
+  };
+
+  const onCloseForm = () => {
+    setEditFocusedRecipe(false);
+    close();
+  };
+
   if (!focusedRecipe && recipes.length > 0) setFocusedRecipe(recipes[0]);
 
   if (recipes.length > 0)
     return (
       <Grid p="xs" h="100%" gutter="xs">
-        <Grid.Col span={4}>
-          <Container>
-            <ScrollArea h="69vh">
-              <Stack w="100%">
-                <Flex w="100%" gap="xs" pr="4px">
-                  <Button
-                    w="100%"
-                    onClick={open}
-                    leftSection={<FaPlus />}
-                    {...button}
-                  >
-                    NEW RECIPE
-                  </Button>
+        {!showForm && (
+          <Grid.Col span={4}>
+            <Container>
+              <ScrollArea h="69vh">
+                <Stack w="100%">
+                  <Flex w="100%" gap="xs" pr="4px">
+                    <Button
+                      w="100%"
+                      onClick={open}
+                      leftSection={<FaPlus />}
+                      {...button}
+                    >
+                      NEW RECIPE
+                    </Button>
 
-                  <ActionIcon
-                    size="xl"
-                    {...contrastShadow}
-                    onClick={showFilter ? onClearFilters : openFilter}
-                  >
-                    {showFilter ? <FaTimes /> : <FaFilter />}
-                  </ActionIcon>
-                </Flex>
+                    <ActionIcon
+                      size="xl"
+                      {...contrastShadow}
+                      onClick={showFilter ? onClearFilters : openFilter}
+                    >
+                      {showFilter ? <FaTimes /> : <FaFilter />}
+                    </ActionIcon>
+                  </Flex>
 
-                {showFilter && (
-                  <MultiSelect
-                    px="xs"
-                    value={filters.map((filter) => filter.toUpperCase())}
-                    hidePickedOptions
-                    variant="unstyled"
-                    onChange={setFilters}
-                    placeholder="PICK FILTERS"
-                    data={recipes.flatMap(({ tags }) => (tags ? tags : []))}
-                    {...contrastInset}
-                    styles={{
-                      pill: {
-                        height: "28px",
-                        padding: "xs",
-                        borderRadius: 0,
-                        color: colours.dark,
-                        background: colours.light,
-                        border: `solid 4px ${colours.dark}`,
-                        boxShadow: `inset -3px -3px 0px 1px ${colours.mid}`,
-                      },
-                    }}
+                  {showFilter && (
+                    <MultiSelect
+                      px="xs"
+                      value={filters.map((filter) => filter.toUpperCase())}
+                      hidePickedOptions
+                      variant="unstyled"
+                      onChange={setFilters}
+                      placeholder="PICK FILTERS"
+                      data={recipes.flatMap(({ tags }) => (tags ? tags : []))}
+                      {...contrastInset}
+                      styles={{
+                        pill: {
+                          height: "28px",
+                          padding: "xs",
+                          borderRadius: 0,
+                          color: colours.dark,
+                          background: colours.light,
+                          border: `solid 4px ${colours.dark}`,
+                          boxShadow: `inset -3px -3px 0px 1px ${colours.mid}`,
+                        },
+                      }}
+                    />
+                  )}
+
+                  <RecipesList
+                    focusedRecipe={focusedRecipe}
+                    onFilterClick={onSelectFilter}
+                    onRecipeClick={onFocusRecipeClick}
+                    recipes={filters.length === 0 ? recipes : filteredRecipes}
                   />
-                )}
+                </Stack>
+              </ScrollArea>
+            </Container>
+          </Grid.Col>
+        )}
 
-                <RecipesList
-                  focusedRecipe={focusedRecipe}
-                  onFilterClick={onSelectFilter}
-                  onRecipeClick={onFocusRecipeClick}
-                  recipes={filters.length === 0 ? recipes : filteredRecipes}
-                />
-              </Stack>
+        <Grid.Col span={showForm ? 12 : 8}>
+          {showForm ? (
+            <RecipeForm
+              onClose={onCloseForm}
+              recipe={editFocusedRecipe ? focusedRecipe : undefined}
+            />
+          ) : (
+            <ScrollArea
+              p="xs"
+              w="100%"
+              h="72.5vh"
+              bd={`dotted 4px ${colours.blue}`}
+            >
+              <Recipe recipe={focusedRecipe} onEditRecipe={onEditRecipe} />
             </ScrollArea>
-          </Container>
-        </Grid.Col>
-
-        <Grid.Col span={8}>
-          <Box w="100%" p="xs" bd={`dotted 4px ${colours.blue}`}>
-            <ScrollArea h="69vh">
-              {showForm ? (
-                <RecipeForm onClose={close} />
-              ) : (
-                <Recipe {...focusedRecipe} />
-              )}
-            </ScrollArea>
-          </Box>
+          )}
         </Grid.Col>
       </Grid>
     );
