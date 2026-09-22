@@ -1,4 +1,4 @@
-import { Box, Button } from "@mantine/core";
+import { Box, Button, Stack } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
 import QuestForm from "../components/quests/QuestForm.tsx";
@@ -12,9 +12,11 @@ function Quests() {
   const [showForm, { open }] = useDisclosure();
 
   return (
-    <Box bg={colours.mid} mih="100vh">
+    <Stack bg={colours.mid} mih="100vh" p="xs" gap="xs">
       {showForm ? (
-        <QuestForm onComplete={close} />
+        <Box bd={`dotted 2px ${colours.blue}`}>
+          <QuestForm onComplete={close} />
+        </Box>
       ) : (
         <Button {...contrastShadow} onClick={open}>
           ADD NEW QUEST
@@ -22,7 +24,7 @@ function Quests() {
       )}
 
       <QuestList />
-    </Box>
+    </Stack>
   );
 }
 
