@@ -1,11 +1,10 @@
+import { useEffect, useMemo, useState } from "react";
+import { Button } from "@mantine/core";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 
 dayjs.extend(duration);
 
-import Container from "./Container";
-import { ActionIcon, Text } from "@mantine/core";
-import { FaTimes } from "react-icons/fa";
 import Theme from "../helpers/theme";
 
 interface TimerProps {
@@ -14,34 +13,52 @@ interface TimerProps {
 }
 
 function Timer({ timerInSeconds, closeTimer }: TimerProps) {
-  const { button } = Theme();
+  const { button, colours } = Theme();
 
-  const endTime = dayjs().add(timerInSeconds, "second");
+  const [count, setCount] = useState(timerInSeconds);
 
-  const timerInterval = setInterval(() => {
-    const now = dayjs();
-    const diff = endTime.diff(now); // Difference in milliseconds
+  useEffect(() => {
+    if (count > 0) {
+      const interval = setInterval(() => {
+        setCount((prevCount) => prevCount - 1);
+      }, 1000);
 
-    if (diff <= 0) {
-      clearInterval(timerInterval);
-      console.log("Timer finished!");
-      return;
+      return () => clearInterval(interval);
+    }
+  }, [count]);
+
+  const formattedTimer = useMemo(() => {
+    const minutes = Math.floor(count / 60);
+    const hours = Math.floor(count / 60 / 60);
+
+    if (hours >= 1) {
+      const minutesMinusHours = minutes - hours * 60;
+      const secondsMinusMinutesAndHours =
+        count - hours * 60 * 60 - minutesMinusHours * 60;
+      return {
+        hours: hours,
+        minutes: minutesMinusHours,
+        seconds: secondsMinusMinutesAndHours,
+      };
     }
 
-    // Convert difference to a duration object
-    const timeLeft = dayjs.duration(diff);
+    if (minutes >= 1) {
+      return { minutes: minutes, seconds: count - minutes * 60 };
+    }
 
-    // Format output (e.g., 09:59)
-    return `${timeLeft.minutes()}:${timeLeft.seconds()}`;
-  }, 1000);
+    return { seconds: count };
+  }, [count]);
 
   return (
-    <Container>
-      <ActionIcon onClick={closeTimer} {...button}>
-        <FaTimes />
-      </ActionIcon>
-      <Text>{timerInterval}</Text>
-    </Container>
+    <Button
+      {...button}
+      c={count <= 0 ? "crimson" : colours.dark}
+      onClick={closeTimer}
+    >
+      {count <= 0
+        ? "COUNTDOWN COMPLETE"
+        : `${formattedTimer.hours || "00"}:${formattedTimer.minutes || "00"}:${formattedTimer.seconds || "00"}`}
+    </Button>
   );
 }
 
