@@ -43,7 +43,7 @@ function ShoppingListItemForm({ onComplete }: { onComplete?: () => void }) {
     <Stack gap="xs">
       <TextInput
         value={label}
-        placeholder="Add New Item"
+        placeholder="ADD NEW ITEM"
         onChange={(event) => setLabel(event.currentTarget.value.toUpperCase())}
         {...input}
       />
@@ -52,7 +52,7 @@ function ShoppingListItemForm({ onComplete }: { onComplete?: () => void }) {
         <Select
           {...input}
           value={category}
-          placeholder="Select category"
+          placeholder="SELECT SHOP"
           onChange={(value) => setCategory(value)}
           data={[
             "SUPERMARKET",
