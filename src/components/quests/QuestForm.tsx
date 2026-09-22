@@ -25,9 +25,6 @@ function QuestForm({ onComplete }: { onComplete?: () => void }) {
 
   const blankForm: Partial<Quest> = {
     label: "",
-    frequency: 0,
-    value: 0,
-    mana_cost: 0,
   };
 
   const [questForm, setQuestForm] = useState(blankForm);
