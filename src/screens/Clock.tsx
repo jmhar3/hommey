@@ -1,20 +1,30 @@
 import { v4 as uuid } from "uuid";
 import { useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
-import { Button, Flex, Group, NumberInput, Stack } from "@mantine/core";
+import {
+  ActionIcon,
+  Button,
+  Flex,
+  Group,
+  NumberInput,
+  Stack,
+} from "@mantine/core";
 
 import Theme from "../helpers/theme";
 import Timer from "../components/Timer";
+import { FaClock } from "react-icons/fa";
+
+interface TimerType {
+  hours?: number;
+  minutes?: number;
+  seconds?: number;
+}
 
 function Clock() {
-  const { input, button, lightInset } = Theme();
+  const { input, button, colours, contrastShadow } = Theme();
   const [showCustomForm, { toggle: toggleCustomForm }] = useDisclosure();
 
-  const [timerInputs, setTimerInputs] = useState({
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
+  const [timerInputs, setTimerInputs] = useState<TimerType>();
 
   const [timers, setTimers] = useState<
     { id: string; timerInSeconds: number }[]
@@ -22,6 +32,22 @@ function Clock() {
 
   const addTimer = (timerInSeconds: number) =>
     setTimers([...timers, { id: uuid(), timerInSeconds: timerInSeconds }]);
+
+  const addCustomTimer = () => {
+    const hoursInSeconds = (timerInputs?.hours || 0) * 60 * 60;
+    const minutesInSeconds = (timerInputs?.minutes || 0) * 60;
+
+    setTimers([
+      {
+        id: uuid(),
+        timerInSeconds:
+          (timerInputs?.seconds || 0) + minutesInSeconds + hoursInSeconds,
+      },
+      ...timers,
+    ]);
+
+    setTimerInputs(undefined);
+  };
 
   return (
     <Stack p="xs" h="100vh" gap="xs">
@@ -44,25 +70,23 @@ function Clock() {
       </Group>
 
       {showCustomForm && (
-        <Flex gap="xs" p="xs" {...lightInset}>
+        <Flex gap="xs" p="xs" bd={`dotted 4px ${colours.blue}`}>
           <NumberInput
             min={0}
-            size="lg"
             radius={0}
             placeholder="HOURS"
-            value={timerInputs.hours}
+            value={timerInputs?.hours}
             onChange={(value) =>
-              setTimerInputs({ ...timerInputs, hours: Number(value) })
+              setTimerInputs({ hours: Number(value), ...timerInputs })
             }
             {...input}
           />
 
           <NumberInput
             min={0}
-            size="lg"
             radius={0}
             placeholder="MINUTES"
-            value={timerInputs.minutes}
+            value={timerInputs?.minutes}
             onChange={(value) =>
               setTimerInputs({ ...timerInputs, minutes: Number(value) })
             }
@@ -71,15 +95,18 @@ function Clock() {
 
           <NumberInput
             min={0}
-            size="lg"
             radius={0}
             placeholder="SECONDS"
-            value={timerInputs.seconds}
+            value={timerInputs?.seconds}
             onChange={(value) =>
               setTimerInputs({ ...timerInputs, seconds: Number(value) })
             }
             {...input}
           />
+
+          <ActionIcon size="xl" {...contrastShadow} onClick={addCustomTimer}>
+            <FaClock />
+          </ActionIcon>
         </Flex>
       )}
 
@@ -87,7 +114,7 @@ function Clock() {
         <Timer
           key={timer.id}
           timerInSeconds={timer.timerInSeconds}
-          closeTimer={() => timers.filter(({ id }) => id === timer.id)}
+          closeTimer={() => timers.filter(({ id }) => id !== timer.id)}
         />
       ))}
     </Stack>
