@@ -14,7 +14,7 @@ function Quests() {
   return (
     <Stack bg={colours.mid} mih="100vh" p="xs" gap="xs">
       {showForm ? (
-        <Box bd={`dotted 2px ${colours.blue}`}>
+        <Box px="xs" bd={`dotted 4px ${colours.blue}`}>
           <QuestForm onComplete={close} />
         </Box>
       ) : (

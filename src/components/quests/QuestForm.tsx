@@ -71,7 +71,7 @@ function QuestForm({ onComplete }: { onComplete?: () => void }) {
         {...input}
       />
 
-      <Group grow>
+      <Group grow gap="xs">
         <NumberInput
           value={questForm.value}
           placeholder="DAMAGE DEALT"
