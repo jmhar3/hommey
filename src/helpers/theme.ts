@@ -193,6 +193,25 @@ function Theme() {
     ...contrastShadow,
   };
 
+  const scrollBar = {
+    offsetScrollbars: true,
+    // scrollbarSize="xl"
+    styles: {
+      scrollbar: {
+        padding: 0,
+        paddingRight: "3px",
+        borderRadius: 0,
+        background: colours.light,
+        border: `solid 4px ${colours.dark}`,
+      },
+      thumb: {
+        borderRadius: 0,
+        background: colours.contrast,
+        border: `solid 2px ${colours.contrast}`,
+      },
+    },
+  };
+
   const switchStyle = (checked: boolean) => ({
     radius: 0,
     size: "lg",
@@ -220,6 +239,7 @@ function Theme() {
     contrastShadow: contrastShadow,
     contrastInset: contrastInset,
     switchStyle: switchStyle,
+    scrollBar: scrollBar,
     button: button,
     input: input,
   };
