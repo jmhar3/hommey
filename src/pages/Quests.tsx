@@ -7,14 +7,14 @@ import Theme from "../helpers/theme.ts";
 import QuestList from "../components/quests/QuestList.tsx";
 
 function Quests() {
-  const { colours, contrastShadow } = Theme();
+  const { colours, lightInset, contrastShadow } = Theme();
 
   const [showForm, { open }] = useDisclosure();
 
   return (
     <Stack bg={colours.mid} mih="100vh" p="xs" gap="xs">
       {showForm ? (
-        <Box px="xs" bd={`dotted 4px ${colours.blue}`}>
+        <Box p="xs" {...lightInset}>
           <QuestForm onComplete={close} />
         </Box>
       ) : (
@@ -23,7 +23,9 @@ function Quests() {
         </Button>
       )}
 
-      <QuestList />
+      <Box px="xs" bd={`dotted 4px ${colours.blue}`}>
+        <QuestList />
+      </Box>
     </Stack>
   );
 }
