@@ -17,6 +17,7 @@ import { store } from "./state/store.ts";
 
 import "./index.css";
 import "@mantine/core/styles.css";
+import Quests from "./pages/Quests.tsx";
 
 const theme = createTheme({
   fontFamily: "Audiowide, sans-serif",
@@ -31,6 +32,7 @@ createRoot(document.getElementById("root")!).render(
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<App />} />
+            <Route path="/quests" element={<Quests />} />
             <Route path="/shopping-list" element={<ShoppingList />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
