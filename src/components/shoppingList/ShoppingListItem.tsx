@@ -1,4 +1,4 @@
-import { Checkbox, type CheckboxProps } from "@mantine/core";
+import { Checkbox } from "@mantine/core";
 import { FaDotCircle, FaLine } from "react-icons/fa";
 
 import { useAppDispatch } from "../../state/hooks";
@@ -6,6 +6,7 @@ import { deleteShoppingListItem } from "../../state/shoppingList/shoppingListThu
 
 import Theme from "../../helpers/theme";
 
+import type { CheckboxProps } from "@mantine/core";
 import type { ShoppingListItem as ShoppingListItemType } from "../../state/types";
 
 function ShoppingListItem(item: ShoppingListItemType) {
