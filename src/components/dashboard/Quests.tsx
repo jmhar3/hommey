@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { useEffect, useMemo } from "react";
-import { Box, Button, ScrollArea, Stack, Title } from "@mantine/core";
+import { Button, Divider, ScrollArea, Stack, Title } from "@mantine/core";
 
 import Container from "../Container";
 
@@ -17,7 +17,7 @@ import Theme from "../../helpers/theme";
 import type { Quest } from "../../state/types";
 
 function Quests() {
-  const { contrastShadow, lightInset } = Theme();
+  const { colours, contrastShadow, lightInset } = Theme();
 
   const dispatch = useAppDispatch();
 
@@ -75,9 +75,29 @@ function Quests() {
       <Stack gap="xs">
         <Title>Quest Log</Title>
 
-        <Box {...lightInset}>
-          <ScrollArea h="62vh">
-            <Stack p="xs">
+        <Stack gap={0}>
+          <Divider bd={`2px solid ${colours.contrast}`} />
+
+          <ScrollArea
+            h="61vh"
+            type="auto"
+            offsetScrollbars
+            styles={{
+              scrollbar: {
+                padding: 0,
+                paddingRight: "3px",
+                borderRadius: 0,
+                background: colours.light,
+                border: `solid 4px ${colours.dark}`,
+              },
+              thumb: {
+                borderRadius: 0,
+                background: colours.contrast,
+                border: `solid 2px ${colours.contrast}`,
+              },
+            }}
+          >
+            <Stack pr="xs" pt="xs">
               {[...healQuests, ...powerUpQuests, ...attackQuests].map(
                 (quest) => (
                   <Button
@@ -102,7 +122,7 @@ function Quests() {
               ))}
             </Stack>
           </ScrollArea>
-        </Box>
+        </Stack>
       </Stack>
     </Container>
   );
