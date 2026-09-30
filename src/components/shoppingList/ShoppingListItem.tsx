@@ -29,7 +29,7 @@ function ShoppingListItem(item: ShoppingListItemType) {
       icon={CheckboxIcon}
       color={colours.contrast}
       iconColor={colours.dark}
-      label={item.label.toUpperCase()}
+      label={item.item.label.toUpperCase()}
       onChange={checkItem}
       styles={{
         input: {

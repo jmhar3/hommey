@@ -1,6 +1,5 @@
 import { useEffect } from "react";
-import { useDisclosure } from "@mantine/hooks";
-import { Button, Divider, ScrollArea, Stack, Title } from "@mantine/core";
+import { Divider, ScrollArea, Stack, Title } from "@mantine/core";
 
 import Container from "../Container";
 import ShoppingListItem from "../shoppingList/ShoppingListItem";
@@ -17,9 +16,7 @@ import {
 import Theme from "../../helpers/theme";
 
 function ShoppingList() {
-  const { colours, contrastShadow } = Theme();
-
-  const [showForm, { open, close }] = useDisclosure();
+  const { colours } = Theme();
 
   const dispatch = useAppDispatch();
 
@@ -41,7 +38,7 @@ function ShoppingList() {
           <Divider bd={`2px solid ${colours.contrast}`} />
 
           <ScrollArea
-            h="25vh"
+            mah="25vh"
             type="auto"
             offsetScrollbars
             styles={{
@@ -69,13 +66,7 @@ function ShoppingList() {
           <Divider bd={`2px solid ${colours.contrast}`} />
         </Stack>
 
-        {showForm ? (
-          <ShoppingListItemForm onComplete={close} />
-        ) : (
-          <Button {...contrastShadow} onClick={open}>
-            ADD NEW ITEM
-          </Button>
-        )}
+        <ShoppingListItemForm />
       </Stack>
     </Container>
   );

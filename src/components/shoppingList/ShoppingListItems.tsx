@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 import {
   Accordion,
@@ -10,39 +10,13 @@ import {
   Text,
 } from "@mantine/core";
 
-import {
-  FaDog,
-  FaFish,
-  FaCarrot,
-  FaCheese,
-  FaBreadSlice,
-  FaCookieBite,
-  FaDrumstickBite,
-  FaClinicMedical,
-} from "react-icons/fa";
-
 import ShoppingListItem from "./ShoppingListItem";
 
-import { useAppDispatch, useAppSelector } from "../../state/hooks";
-import { fetchShoppingList } from "../../state/shoppingList/shoppingListThunks";
-
-import {
-  selectShoppingList,
-  selectShoppingListStatus,
-} from "../../state/shoppingList/shoppingListSlice";
+import { useAppSelector } from "../../state/hooks";
+import { selectShops } from "../../state/shops/shopsSlice";
+import { selectShoppingList } from "../../state/shoppingList/shoppingListSlice";
 
 import Theme from "../../helpers/theme";
-
-const categories = [
-  { category: "Fishmonger", icon: <FaFish /> },
-  { category: "Butcher", icon: <FaDrumstickBite /> },
-  { category: "Supermarket", icon: <FaCookieBite /> },
-  { category: "Deli", icon: <FaCheese /> },
-  { category: "Bakery", icon: <FaBreadSlice /> },
-  { category: "GreenGrocer", icon: <FaCarrot /> },
-  { category: "Chemist", icon: <FaClinicMedical /> },
-  { category: "Other", icon: <FaDog /> },
-];
 
 interface ShoppingListItemsProps {
   view?: "list" | "categories";
@@ -51,28 +25,18 @@ interface ShoppingListItemsProps {
 function ShoppingListItems({ view }: ShoppingListItemsProps) {
   const { colours, lightInset, switchStyle } = Theme();
 
-  const dispatch = useAppDispatch();
-
-  const shoppingListStatus = useAppSelector(selectShoppingListStatus);
   const shoppingList = useAppSelector(selectShoppingList);
-
-  useEffect(() => {
-    if (shoppingListStatus === "idle") {
-      dispatch(fetchShoppingList());
-    }
-  }, [dispatch, shoppingListStatus]);
+  const shops = useAppSelector(selectShops);
 
   const [showList, setShowList] = useState(view === "list");
 
   const categorisedList = useMemo(
     () =>
-      categories.map((category) => ({
-        items: shoppingList.filter(
-          (item) => item.type === category.category.toLowerCase(),
-        ),
-        ...category,
+      shops.map((shop) => ({
+        items: shoppingList.filter((item) => item.item.shop.id === shop.id),
+        ...shop,
       })),
-    [shoppingList],
+    [shops, shoppingList],
   );
 
   if (categorisedList.length > 0)
@@ -113,21 +77,21 @@ function ShoppingListItems({ view }: ShoppingListItemsProps) {
             radius={0}
             variant="separated"
             defaultValue={
-              categorisedList.find(({ items }) => items.length > 0)?.category
+              categorisedList.find(({ items }) => items.length > 0)?.id
             }
           >
             {categorisedList.map(
               (categoryList) =>
                 categoryList.items.length > 0 && (
                   <Accordion.Item
-                    my="xs"
+                    mt="xs"
                     {...lightInset}
                     bg={colours.white}
-                    key={categoryList.category}
-                    value={categoryList.category}
+                    key={categoryList.id}
+                    value={categoryList.id}
                   >
-                    <Accordion.Control icon={categoryList.icon}>
-                      <Title size="xl">{categoryList.category}</Title>
+                    <Accordion.Control>
+                      <Title size="xl">{categoryList.label}</Title>
                     </Accordion.Control>
 
                     <Accordion.Panel>

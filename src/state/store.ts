@@ -6,6 +6,8 @@ import questsReducer from "./quests/questsSlice";
 import recipesReducer from "./recipes/recipesSlice";
 import hydrangeaReducer from "./hydrangea/hydrangeaSlice";
 import shoppingListReducer from "./shoppingList/shoppingListSlice";
+import groceryItemsReducer from "./groceryItems/groceryItemsSlice";
+import shopsReducer from "./shops/shopsSlice";
 
 import type { Action, ThunkAction } from "@reduxjs/toolkit";
 
@@ -17,6 +19,8 @@ export const store = configureStore({
     recipes: recipesReducer,
     hydrangea: hydrangeaReducer,
     shoppingList: shoppingListReducer,
+    groceryItems: groceryItemsReducer,
+    shops: shopsReducer,
   },
 });
 

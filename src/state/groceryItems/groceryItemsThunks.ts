@@ -2,12 +2,12 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import supabase from "../../helpers/supabaseClient";
 
-export const fetchShoppingList = createAsyncThunk(
-  "shoppingList/fetchShoppingList",
+export const fetchGroceryItems = createAsyncThunk(
+  "groceryItem/fetchGroceryItems",
   async () => {
     const { data, error } = await supabase
-      .from("shopping_list")
-      .select(`*, item(*, shop(*))`);
+      .from("grocery_items")
+      .select(`*, shop(*)`);
 
     if (error) {
       console.error(error);
@@ -18,28 +18,28 @@ export const fetchShoppingList = createAsyncThunk(
   },
 );
 
-export const addShoppingListItem = createAsyncThunk(
-  "shoppingList/addShoppingListItem",
-  async (id: string) => {
+export const addGroceryItem = createAsyncThunk(
+  "groceryItems/addGroceryItem",
+  async (item: { label: string; shop: string }) => {
     const { data, error } = await supabase
-      .from("shopping_list")
-      .insert({ item: id })
-      .select(`*, item(*, shop(*))`);
+      .from("grocery_items")
+      .insert(item)
+      .select(`*, shop(*)`);
 
     if (error) {
       console.error(error);
       throw Error(error.message);
     }
 
-    return data;
+    return data[0];
   },
 );
 
-export const deleteShoppingListItem = createAsyncThunk(
-  "shoppingList/deleteShoppingListItem",
+export const deleteGroceryItem = createAsyncThunk(
+  "groceryItems/deleteGroceryItem",
   async (id: string) => {
     const { error } = await supabase
-      .from("shopping_list")
+      .from("grocery_items")
       .delete()
       .eq("id", id);
 

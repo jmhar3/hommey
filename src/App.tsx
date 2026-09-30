@@ -13,12 +13,63 @@ import magpie from "../public/assets/magpie.jpg";
 import oakland from "../public/assets/oakland.jpg";
 import clickSound from "../public/assets/click2.wav";
 
+import { useAppDispatch, useAppSelector } from "./state/hooks";
+import { selectGroceryItemsStatus } from "./state/groceryItems/groceryItemsSlice";
+import { fetchShoppingList } from "./state/shoppingList/shoppingListThunks";
+import { fetchGroceryItems } from "./state/groceryItems/groceryItemsThunks";
+import { selectHydrangeaStatus } from "./state/hydrangea/hydrangeaSlice";
+import { fetchHydrangea } from "./state/hydrangea/hydrangeaThunks";
+import { selectQuestsStatus } from "./state/quests/questsSlice";
+import { fetchQuests } from "./state/quests/questsThunks";
+import { selectRecipesStatus } from "./state/recipes/recipesSlice";
+import { fetchRecipes } from "./state/recipes/recipesThunks";
+import { selectShopsStatus } from "./state/shops/shopsSlice";
+import { selectShoppingListStatus } from "./state/shoppingList/shoppingListSlice";
+import { fetchShops } from "./state/shops/shopsThunks";
+
 const images = [airey, birdhouse, birds, magpie, oakland];
 
 const randomImageNum = Math.floor(Math.random() * images.length);
 
 function App() {
   const { colours } = Theme();
+
+  const dispatch = useAppDispatch();
+  const shoppingListStatus = useAppSelector(selectShoppingListStatus);
+  const groceryItemsStatus = useAppSelector(selectGroceryItemsStatus);
+  const hydrangeaStatus = useAppSelector(selectHydrangeaStatus);
+  const questsStatus = useAppSelector(selectQuestsStatus);
+  const recipesStatus = useAppSelector(selectRecipesStatus);
+  const shopsStatus = useAppSelector(selectShopsStatus);
+
+  useEffect(() => {
+    if (shoppingListStatus === "idle") {
+      dispatch(fetchShoppingList());
+    }
+    if (groceryItemsStatus === "idle") {
+      dispatch(fetchGroceryItems());
+    }
+    if (hydrangeaStatus === "idle") {
+      dispatch(fetchHydrangea());
+    }
+    if (questsStatus === "idle") {
+      dispatch(fetchQuests());
+    }
+    if (recipesStatus === "idle") {
+      dispatch(fetchRecipes());
+    }
+    if (shopsStatus === "idle") {
+      dispatch(fetchShops());
+    }
+  }, [
+    dispatch,
+    shoppingListStatus,
+    groceryItemsStatus,
+    hydrangeaStatus,
+    questsStatus,
+    recipesStatus,
+    shopsStatus,
+  ]);
 
   const [focusedWindow, setFocusedWindow] = useState<WindowType>();
 

@@ -34,29 +34,20 @@ export interface Recipe {
   tags?: string[];
 }
 
-export const ShoppingListCategory = {
-  Deli: "deli",
-  Butcher: "butcher",
-  GreenGrocer: "greengrocer",
-  SuperMarket: "supermarket",
-  FishMonger: "fishmonger",
-  Bakery: "bakery",
-  Chemist: "chemist",
-  Other: "other",
-} as const;
+export interface Shop {
+  id: string;
+  label: string;
+}
+
+export interface GroceryItem {
+  id: string;
+  label: string;
+  shop: Shop;
+}
 
 export interface ShoppingListItem {
   id: string;
-  label: string;
-  type?:
-    | "deli"
-    | "butcher"
-    | "greengrocer"
-    | "supermarket"
-    | "fishmonger"
-    | "bakery"
-    | "chemist"
-    | "other";
+  item: GroceryItem;
 }
 
 interface HourlyWeather {
