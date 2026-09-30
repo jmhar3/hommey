@@ -1,14 +1,10 @@
 import dayjs from "dayjs";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { Button, Stack } from "@mantine/core";
 
 import { useAppDispatch, useAppSelector } from "../../state/hooks";
-import { fetchQuests, upsertQuests } from "../../state/quests/questsThunks";
-
-import {
-  selectQuests,
-  selectQuestsStatus,
-} from "../../state/quests/questsSlice";
+import { upsertQuests } from "../../state/quests/questsThunks";
+import { selectQuests } from "../../state/quests/questsSlice";
 
 import Theme from "../../helpers/theme";
 
@@ -18,15 +14,7 @@ function QuestList() {
   const { contrastShadow, lightInset } = Theme();
 
   const dispatch = useAppDispatch();
-
-  const questsStatus = useAppSelector(selectQuestsStatus);
   const quests = useAppSelector(selectQuests);
-
-  useEffect(() => {
-    if (questsStatus === "idle") {
-      dispatch(fetchQuests());
-    }
-  }, [dispatch, questsStatus]);
 
   const completedQuests = useMemo(
     () =>
