@@ -4,12 +4,12 @@ import Theme from "../../helpers/theme";
 
 import type { ReactNode } from "react";
 
-interface GreetingButtonProps {
+interface IconButtonProps {
   icon: ReactNode;
   value: string;
 }
 
-function GreetingButton({ icon, value }: GreetingButtonProps) {
+function IconButton({ icon, value }: IconButtonProps) {
   const { colours } = Theme();
 
   return (
@@ -18,9 +18,9 @@ function GreetingButton({ icon, value }: GreetingButtonProps) {
       pt="xs"
       px="xs"
       bdrs={0}
+      bg="none"
       h="fit-content"
       c={colours.dark}
-      bg={colours.light}
       bd={`dotted 4px ${colours.blue}`}
     >
       <Stack gap="xs" align="center" justify="center">
@@ -32,4 +32,4 @@ function GreetingButton({ icon, value }: GreetingButtonProps) {
   );
 }
 
-export default GreetingButton;
+export default IconButton;
