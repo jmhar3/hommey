@@ -13,6 +13,8 @@ import {
   ActionIcon,
 } from "@mantine/core";
 
+import Container from "../Container";
+
 import { useAppSelector } from "../../state/hooks";
 import { useAppDispatch } from "../../state/hooks";
 import { selectShops } from "../../state/shops/shopsSlice";
@@ -23,7 +25,6 @@ import { addGroceryItem } from "../../state/groceryItems/groceryItemsThunks";
 import type { GroceryItem, Shop } from "../../state/types";
 
 import Theme from "../../helpers/theme";
-import Container from "../Container";
 
 function ShoppingListItemForm(props: { onComplete?: () => void }) {
   const { colours, button, input, contrastShadow } = Theme();
