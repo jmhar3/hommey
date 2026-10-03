@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BackgroundImage, Box, Button, Center, Stack } from "@mantine/core";
+import { BackgroundImage, Center, Stack } from "@mantine/core";
 
 import Navbar from "./components/Navbar";
 import Window, { type WindowType } from "./components/Window";
