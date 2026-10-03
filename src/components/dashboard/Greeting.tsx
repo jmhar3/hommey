@@ -1,7 +1,15 @@
 import dayjs from "dayjs";
 import { useMemo, useState } from "react";
 import advancedFormat from "dayjs/plugin/advancedFormat";
-import { Flex, Text, Stack, Title, ActionIcon, Group } from "@mantine/core";
+import {
+  Flex,
+  Text,
+  Stack,
+  Title,
+  ActionIcon,
+  Group,
+  Divider,
+} from "@mantine/core";
 
 import {
   FaSun,
@@ -29,7 +37,7 @@ import Theme from "../../helpers/theme";
 dayjs.extend(advancedFormat);
 
 function Greeting() {
-  const { contrastShadow } = Theme();
+  const { colours, contrastShadow } = Theme();
 
   // const dispatch = useAppDispatch();
 
@@ -65,7 +73,10 @@ function Greeting() {
           <Stack gap="0" w="100%">
             <Text size="1em">{date.toUpperCase()}</Text>
             <Title size="2.4em">{greeting}</Title>
-            <Text pt="xs">HOW ARE YOU FEELING?</Text>
+
+            <Divider my="5" size="lg" color={colours.blue} />
+
+            <Text>HOW ARE YOU FEELING?</Text>
           </Stack>
 
           <Flex w="fit-content" gap="xs">
