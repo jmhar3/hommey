@@ -14,7 +14,7 @@ import {
 } from "react-icons/fa";
 
 import Container from "../Container";
-import IconButton from "./IconButton";
+import IconButton from "../IconButton";
 
 import Theme from "../../helpers/theme";
 
