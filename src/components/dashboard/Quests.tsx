@@ -68,7 +68,7 @@ function Quests() {
         if (frequency === 1) return false;
         const today = dayjs();
         const lastCompletedAt = dayjs(last_completed_at);
-        const nextDueAt = lastCompletedAt.add(frequency, "day");
+        const nextDueAt = lastCompletedAt.add(frequency || 0, "day");
         return nextDueAt.isBefore(today) || nextDueAt.isSame(today, "day");
       }),
     [quests],
