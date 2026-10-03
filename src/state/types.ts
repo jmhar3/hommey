@@ -9,7 +9,7 @@ export interface Quest {
   created_at: string;
   last_completed_at: string;
   label: string;
-  frequency: number;
+  frequency: number | null;
   type: "attack" | "power_up" | "heal";
   value: number;
   mana_cost: number;
