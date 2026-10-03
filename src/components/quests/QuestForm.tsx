@@ -11,6 +11,7 @@ import {
   ActionIcon,
   NumberInput,
   Text,
+  Switch,
 } from "@mantine/core";
 
 import { useAppDispatch } from "../../state/hooks";
@@ -26,7 +27,7 @@ interface QuestFormProps {
 }
 
 function QuestForm({ quest, onComplete }: QuestFormProps) {
-  const { colours, contrastShadow, input } = Theme();
+  const { colours, contrastShadow, input, switchStyle } = Theme();
 
   const dispatch = useAppDispatch();
 
@@ -34,32 +35,13 @@ function QuestForm({ quest, onComplete }: QuestFormProps) {
     label: "",
   };
 
+  const [isRecurring, setIsRecurring] = useState(false);
   const [questForm, setQuestForm] = useState(quest || blankForm);
 
   const [isLoading, { open: beginLoading, close: stopLoading }] =
     useDisclosure();
   const [confirmDelete, { open: showConfirm, close: closeConfirm }] =
     useDisclosure();
-
-  const onSubmit = () => {
-    beginLoading();
-
-    dispatch(
-      upsertQuests([
-        {
-          ...questForm,
-          type: questForm.type as "attack" | "power_up" | "heal",
-        },
-      ]),
-    ).then((data) => {
-      if (data.payload) {
-        if (onComplete) onComplete();
-        setQuestForm(blankForm);
-      }
-    });
-
-    stopLoading();
-  };
 
   const handleDelete = () => {
     beginLoading();
@@ -74,6 +56,30 @@ function QuestForm({ quest, onComplete }: QuestFormProps) {
       });
 
     stopLoading();
+  };
+
+  const onSubmit = () => {
+    beginLoading();
+
+    if (quest?.frequency === null || quest?.frequency === 0) {
+      handleDelete();
+    } else {
+      dispatch(
+        upsertQuests([
+          {
+            ...questForm,
+            type: questForm.type as "attack" | "power_up" | "heal",
+          },
+        ]),
+      ).then((data) => {
+        if (data.payload) {
+          if (onComplete) onComplete();
+          setQuestForm(blankForm);
+        }
+      });
+
+      stopLoading();
+    }
   };
 
   if (confirmDelete)
@@ -100,6 +106,18 @@ function QuestForm({ quest, onComplete }: QuestFormProps) {
 
   return (
     <Stack gap="xs">
+      <Flex gap="xs" align="center" justify="center">
+        <Text>ONCE OFF</Text>
+
+        <Switch
+          checked={isRecurring}
+          {...switchStyle(isRecurring)}
+          onChange={(event) => setIsRecurring(event.currentTarget.checked)}
+        />
+
+        <Text>RECURRING</Text>
+      </Flex>
+
       <TextInput
         value={questForm.label?.toUpperCase()}
         placeholder="QUEST"
@@ -112,19 +130,21 @@ function QuestForm({ quest, onComplete }: QuestFormProps) {
         {...input}
       />
 
-      <NumberInput
-        value={questForm.frequency}
-        placeholder="FREQUENCY"
-        onChange={(value) =>
-          setQuestForm({ ...questForm, frequency: Number(value) })
-        }
-        {...input}
-      />
+      {isRecurring && (
+        <NumberInput
+          value={questForm.frequency || 0}
+          placeholder="FREQUENCY"
+          onChange={(value) =>
+            setQuestForm({ ...questForm, frequency: Number(value) })
+          }
+          {...input}
+        />
+      )}
 
       <Group grow gap="xs">
         <NumberInput
           value={questForm.value}
-          placeholder="DAMAGE DEALT"
+          placeholder="DMG"
           onChange={(value) =>
             setQuestForm({ ...questForm, value: Number(value) })
           }
@@ -133,7 +153,7 @@ function QuestForm({ quest, onComplete }: QuestFormProps) {
 
         <NumberInput
           value={questForm.mana_cost}
-          placeholder="MANA COST"
+          placeholder="MANA"
           onChange={(value) =>
             setQuestForm({ ...questForm, mana_cost: Number(value) })
           }
