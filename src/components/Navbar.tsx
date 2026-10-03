@@ -3,7 +3,7 @@ import { FaCog, FaDog } from "react-icons/fa";
 import { ActionIcon, Divider, Flex, Stack } from "@mantine/core";
 
 import NavButton from "./NavButton";
-import IconButton from "./dashboard/IconButton";
+import IconButton from "./IconButton";
 import Settings from "../screens/Settings";
 import Dashboard from "../screens/Dashboard";
 import Recipes from "../screens/Recipes";
