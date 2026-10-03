@@ -1,24 +1,31 @@
 import { useState } from "react";
-import { FaPlus } from "react-icons/fa";
+import { FaCheck, FaPlus, FaTimes } from "react-icons/fa";
+import { useDisclosure } from "@mantine/hooks";
 
 import {
   Flex,
   Stack,
+  Group,
   Select,
   TextInput,
   ActionIcon,
   NumberInput,
-  Group,
+  Text,
 } from "@mantine/core";
 
 import { useAppDispatch } from "../../state/hooks";
-import { upsertQuests } from "../../state/quests/questsThunks";
+import { deleteQuest, upsertQuests } from "../../state/quests/questsThunks";
 
 import Theme from "../../helpers/theme";
 
 import type { Quest } from "../../state/types";
 
-function QuestForm({ onComplete }: { onComplete?: () => void }) {
+interface QuestFormProps {
+  quest?: Quest;
+  onComplete?: () => void;
+}
+
+function QuestForm({ quest, onComplete }: QuestFormProps) {
   const { colours, contrastShadow, input } = Theme();
 
   const dispatch = useAppDispatch();
@@ -27,9 +34,16 @@ function QuestForm({ onComplete }: { onComplete?: () => void }) {
     label: "",
   };
 
-  const [questForm, setQuestForm] = useState(blankForm);
+  const [questForm, setQuestForm] = useState(quest || blankForm);
 
-  const addNewQuest = () => {
+  const [isLoading, { open: beginLoading, close: stopLoading }] =
+    useDisclosure();
+  const [confirmDelete, { open: showConfirm, close: closeConfirm }] =
+    useDisclosure();
+
+  const onSubmit = () => {
+    beginLoading();
+
     dispatch(
       upsertQuests([
         {
@@ -43,12 +57,51 @@ function QuestForm({ onComplete }: { onComplete?: () => void }) {
         setQuestForm(blankForm);
       }
     });
+
+    stopLoading();
   };
+
+  const handleDelete = () => {
+    beginLoading();
+
+    if (quest)
+      dispatch(deleteQuest(quest.id)).then((data) => {
+        if (data.payload) {
+          if (onComplete) onComplete();
+          setQuestForm(blankForm);
+          closeConfirm();
+        }
+      });
+
+    stopLoading();
+  };
+
+  if (confirmDelete)
+    return (
+      <Flex>
+        <Text fw="bold">ARE YOU SURE YOU WANT TO ABANDON THIS QUEST?</Text>
+
+        <ActionIcon
+          size="xl"
+          {...contrastShadow}
+          loading={isLoading}
+          onClick={handleDelete}
+          loaderProps={{ type: "bars", color: colours.contrast }}
+          style={{
+            boxShadow: isLoading
+              ? "none"
+              : `3px 3px 0px 1px ${colours.contrast}`,
+          }}
+        >
+          <FaCheck />
+        </ActionIcon>
+      </Flex>
+    );
 
   return (
     <Stack gap="xs">
       <TextInput
-        value={questForm.label}
+        value={questForm.label?.toUpperCase()}
         placeholder="QUEST"
         onChange={(event) =>
           setQuestForm({
@@ -61,7 +114,7 @@ function QuestForm({ onComplete }: { onComplete?: () => void }) {
 
       <NumberInput
         value={questForm.frequency}
-        placeholder="FREQUENCY (IN DAYS)"
+        placeholder="FREQUENCY"
         onChange={(value) =>
           setQuestForm({ ...questForm, frequency: Number(value) })
         }
@@ -120,8 +173,34 @@ function QuestForm({ onComplete }: { onComplete?: () => void }) {
           }}
         />
 
-        <ActionIcon size="xl" onClick={addNewQuest} {...contrastShadow}>
-          <FaPlus />
+        <ActionIcon
+          size="xl"
+          loading={isLoading}
+          onClick={onSubmit}
+          {...contrastShadow}
+          loaderProps={{ type: "bars", color: colours.contrast }}
+          style={{
+            boxShadow: isLoading
+              ? "none"
+              : `3px 3px 0px 1px ${colours.contrast}`,
+          }}
+        >
+          {quest ? <FaCheck /> : <FaPlus />}
+        </ActionIcon>
+
+        <ActionIcon
+          size="xl"
+          {...contrastShadow}
+          loading={isLoading}
+          onClick={showConfirm}
+          loaderProps={{ type: "bars", color: colours.contrast }}
+          style={{
+            boxShadow: isLoading
+              ? "none"
+              : `3px 3px 0px 1px ${colours.contrast}`,
+          }}
+        >
+          <FaTimes />
         </ActionIcon>
       </Flex>
     </Stack>

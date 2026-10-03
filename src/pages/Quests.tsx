@@ -14,7 +14,7 @@ import {
 import QuestForm from "../components/quests/QuestForm.tsx";
 import QuestActionIcon from "../components/quests/QuestActionIcon.tsx";
 
-import { fetchQuests, upsertQuests } from "../state/quests/questsThunks.ts";
+import { fetchQuests } from "../state/quests/questsThunks.ts";
 import { useAppDispatch, useAppSelector } from "../state/hooks.ts";
 
 import {
@@ -24,12 +24,12 @@ import {
 
 import Theme from "../helpers/theme.ts";
 
-import type { Quest } from "../state/types.ts";
+import QuestButton from "../components/quests/QuestButton.tsx";
 
 function Quests() {
-  const { colours, lightInset, contrastShadow } = Theme();
+  const { colours, lightInset, button } = Theme();
 
-  const [showForm, { open }] = useDisclosure();
+  const [showForm, { open, close }] = useDisclosure();
 
   const dispatch = useAppDispatch();
   const quests = useAppSelector(selectQuests);
@@ -83,20 +83,14 @@ function Quests() {
     [quests],
   );
 
-  const completeQuest = (quest: Quest) => {
-    dispatch(
-      upsertQuests([{ ...quest, last_completed_at: dayjs().toISOString() }]),
-    );
-  };
-
   return (
     <Stack bg={colours.mid} mih="100vh" p="xs" gap="xs">
       {showForm ? (
-        <Box p="xs" {...lightInset}>
+        <Box p="xs" {...lightInset} bg={colours.white}>
           <QuestForm onComplete={close} />
         </Box>
       ) : (
-        <Button {...contrastShadow} onClick={open}>
+        <Button {...button} onClick={open}>
           ADD NEW QUEST
         </Button>
       )}
@@ -118,13 +112,7 @@ function Quests() {
           <Divider bd={`2px solid ${colours.contrast}`} />
 
           {dueQuests.map((quest) => (
-            <Button
-              key={quest.id}
-              onClick={() => completeQuest(quest)}
-              {...contrastShadow}
-            >
-              {quest.label.toUpperCase()}
-            </Button>
+            <QuestButton key={quest.id} {...quest} />
           ))}
 
           {completedQuests.map((quest) => (

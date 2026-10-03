@@ -34,10 +34,10 @@ function QuestActionIcon({ quest, icon }: QuestActionIconProps) {
 
   return (
     <ActionIcon
-      onClick={() => completeQuest(quest)}
       {...button}
       c={isComplete ? colours.blue : colours.dark}
       bd={`solid 4px ${isComplete ? colours.blue : colours.dark}`}
+      onClick={() => completeQuest(quest)}
     >
       {isComplete ? <FaCheck /> : icon}
     </ActionIcon>

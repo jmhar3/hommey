@@ -92,6 +92,13 @@ function Theme() {
       ...contrastShadow,
     };
 
+    const focusedButton = {
+      px: "sm",
+      mih: "44px",
+      fz: "1em",
+      ...lightInset,
+    };
+
     const switchStyle = (checked: boolean) => ({
       radius: 0,
       size: "lg",
@@ -119,8 +126,9 @@ function Theme() {
       contrastShadow: contrastShadow,
       contrastInset: contrastInset,
       switchStyle: switchStyle,
-      button: button,
       input: input,
+      button: button,
+      focusedButton: focusedButton,
     };
   }
 
@@ -193,6 +201,13 @@ function Theme() {
     ...contrastShadow,
   };
 
+  const focusedButton = {
+    px: "sm",
+    h: "44px",
+    fz: "1em",
+    ...lightInset,
+  };
+
   const scrollBar = {
     offsetScrollbars: true,
     // scrollbarSize="xl"
@@ -240,8 +255,9 @@ function Theme() {
     contrastInset: contrastInset,
     switchStyle: switchStyle,
     scrollBar: scrollBar,
-    button: button,
     input: input,
+    button: button,
+    focusedButton: focusedButton,
   };
 }
 
