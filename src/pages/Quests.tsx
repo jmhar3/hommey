@@ -109,7 +109,7 @@ function Quests() {
             {robovac && <QuestActionIcon icon={<FaBroom />} quest={robovac} />}
           </Group>
 
-          <Divider bd={`2px solid ${colours.contrast}`} />
+          <Divider bd={`2px solid ${colours.blue}`} />
 
           {dueQuests.map((quest) => (
             <QuestButton key={quest.id} {...quest} />
