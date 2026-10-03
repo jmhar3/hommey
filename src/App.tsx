@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BackgroundImage, Box, Center, Stack } from "@mantine/core";
+import { BackgroundImage, Box, Button, Center, Stack } from "@mantine/core";
 
 import Navbar from "./components/Navbar";
 import Window, { type WindowType } from "./components/Window";
@@ -106,9 +106,7 @@ function App() {
         </Center>
       </BackgroundImage>
 
-      <Box h="5vh" bg="red">
-        <Navbar setFocusedWindow={setFocusedWindow} />
-      </Box>
+      <Navbar setFocusedWindow={setFocusedWindow} />
     </Stack>
   );
 }
