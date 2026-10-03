@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { useDisclosure } from "@mantine/hooks";
 import { FaCheck, FaPen, FaTimes } from "react-icons/fa";
-import { ActionIcon, Flex, Stack, Text } from "@mantine/core";
+import { ActionIcon, Divider, Flex, Stack, Text } from "@mantine/core";
 
 import QuestForm from "./QuestForm";
 
@@ -110,7 +110,11 @@ function QuestButton(quest: Quest) {
       </Flex>
 
       {isClicked && isEditing && (
-        <QuestForm quest={quest} onComplete={closeForm} />
+        <>
+          <Divider size="lg" color={colours.blue} />
+
+          <QuestForm quest={quest} onComplete={closeForm} />
+        </>
       )}
     </Stack>
   );
