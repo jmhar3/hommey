@@ -192,7 +192,7 @@ function QuestForm({ quest, onComplete }: QuestFormProps) {
           size="xl"
           {...contrastShadow}
           loading={isLoading}
-          onClick={showConfirm}
+          onClick={quest ? showConfirm : onComplete}
           loaderProps={{ type: "bars", color: colours.contrast }}
           style={{
             boxShadow: isLoading
