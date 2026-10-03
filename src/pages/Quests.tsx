@@ -34,7 +34,7 @@ function Quests() {
         </Box>
       ) : (
         <Button {...button} onClick={open}>
-          ADD NEW QUEST
+          INITIATE QUEST
         </Button>
       )}
 
