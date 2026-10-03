@@ -1,6 +1,6 @@
 import { Button, Stack, Text } from "@mantine/core";
 
-import Theme from "../../helpers/theme";
+import Theme from "../helpers/theme";
 
 import type { ReactNode } from "react";
 
