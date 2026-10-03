@@ -14,7 +14,7 @@ import {
 } from "react-icons/fa";
 
 import Container from "../Container";
-import GreetingButton from "./GreetingButton";
+import IconButton from "./IconButton";
 
 import Theme from "../../helpers/theme";
 
@@ -70,16 +70,16 @@ function Greeting() {
 
           <Flex w="fit-content" gap="xs">
             {/*{weatherData?.hourly.apparent_temperature}°C*/}
-            <GreetingButton
+            <IconButton
               icon={<FaThermometerHalf size="2.4em" />}
               value="28°C"
             />
 
-            <GreetingButton icon={<FaWind size="2.4em" />} value="24k" />
+            <IconButton icon={<FaWind size="2.4em" />} value="24k" />
 
-            <GreetingButton icon={<FaSun size="2.4em" />} value="2UV" />
+            <IconButton icon={<FaSun size="2.4em" />} value="2UV" />
 
-            <GreetingButton icon={<FaCloudRain size="2.4em" />} value="2mm" />
+            <IconButton icon={<FaCloudRain size="2.4em" />} value="2mm" />
 
             {/*<Button pb="0" pt="xs" px="xs" h="fit-content" {...contrastShadow}>
               <Stack gap="xs" align="center" justify="center">
