@@ -62,7 +62,7 @@ function ShoppingListItems({ view }: ShoppingListItemsProps) {
 
         {showList ? (
           <Stack gap="xs">
-            <Divider mb="5" bd={`2px solid ${colours.contrast}`} />
+            <Divider mb="5" size="lg" color={colours.contrast} />
 
             {categorisedList.flatMap(({ items }) =>
               items.length > 0
@@ -96,7 +96,7 @@ function ShoppingListItems({ view }: ShoppingListItemsProps) {
 
                     <Accordion.Panel>
                       <Stack gap="xs">
-                        <Divider mb="5" bd={`2px solid ${colours.contrast}`} />
+                        <Divider mb="5" size="lg" color={colours.contrast} />
 
                         {categoryList.items.map((item) => (
                           <ShoppingListItem key={item.id} {...item} />
