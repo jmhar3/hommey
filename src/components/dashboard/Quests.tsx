@@ -99,7 +99,7 @@ function Quests() {
           <ScrollArea
             h="52.5vh"
             type="auto"
-            offsetScrollbars
+            offsetScrollbars={[...dueQuests, ...completedQuests].length > 10}
             styles={{
               scrollbar: {
                 padding: 0,
@@ -115,7 +115,9 @@ function Quests() {
               },
             }}
           >
-            <Stack pr="xs">
+            <Stack
+              pr={[...dueQuests, ...completedQuests].length > 10 ? "xs" : 0}
+            >
               {dueQuests.map((quest) => (
                 <QuestButton key={quest.id} {...quest} />
               ))}
