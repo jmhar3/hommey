@@ -1,11 +1,12 @@
 import dayjs from "dayjs";
 import { useMemo } from "react";
+
 import {
-  FaAirFreshener,
+  FaDog,
   FaBeer,
   FaBroom,
-  FaDog,
   FaWalking,
+  FaAirFreshener,
 } from "react-icons/fa";
 
 import {
@@ -18,20 +19,17 @@ import {
 } from "@mantine/core";
 
 import Container from "../Container";
+import QuestButton from "../quests/QuestButton";
 import QuestActionIcon from "../quests/QuestActionIcon";
 
-import { useAppDispatch, useAppSelector } from "../../state/hooks";
-import { upsertQuests } from "../../state/quests/questsThunks";
+import { useAppSelector } from "../../state/hooks";
 import { selectQuests } from "../../state/quests/questsSlice";
 
 import Theme from "../../helpers/theme";
 
-import type { Quest } from "../../state/types";
-
 function Quests() {
-  const { colours, contrastShadow, lightInset } = Theme();
+  const { colours, lightInset } = Theme();
 
-  const dispatch = useAppDispatch();
   const quests = useAppSelector(selectQuests);
 
   const walk = quests.find(
@@ -76,12 +74,6 @@ function Quests() {
     [quests],
   );
 
-  const completeQuest = (quest: Quest) => {
-    dispatch(
-      upsertQuests([{ ...quest, last_completed_at: dayjs().toISOString() }]),
-    );
-  };
-
   return (
     <Container>
       <Stack gap="xs">
@@ -125,13 +117,7 @@ function Quests() {
           >
             <Stack pr="xs">
               {dueQuests.map((quest) => (
-                <Button
-                  key={quest.id}
-                  onClick={() => completeQuest(quest)}
-                  {...contrastShadow}
-                >
-                  {quest.label.toUpperCase()}
-                </Button>
+                <QuestButton key={quest.id} {...quest} />
               ))}
 
               {completedQuests.map((quest) => (

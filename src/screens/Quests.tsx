@@ -1,44 +1,16 @@
-import {
-  Box,
-  Button,
-  Container,
-  Flex,
-  Grid,
-  Stack,
-  Text,
-  Title,
-} from "@mantine/core";
+import { Box, Flex, Grid, Stack, Text } from "@mantine/core";
 
 import Theme from "../helpers/theme";
+import QuestList from "../components/quests/QuestList";
+import Container from "../components/Container";
 
 function BossBattle() {
-  const { button, lightInset } = Theme();
+  const { lightInset } = Theme();
 
   return (
     <Stack p="xs" h="100vh" gap="xs">
       <Grid>
-        <Grid.Col span={6}>
-          <Stack p="xs" {...lightInset}>
-            <Title>Daily Challenges</Title>
-
-            <Flex gap="xs">
-              <Button {...button}>BRUSH</Button>
-              <Button {...button}>WALK</Button>
-              <Button {...button}>ROBOVAC</Button>
-            </Flex>
-
-            <Flex gap="xs">
-              <Button {...button}>RELOAD DISHWASHER</Button>
-              <Button {...button}>WIPE BENCH</Button>
-            </Flex>
-          </Stack>
-        </Grid.Col>
-
-        <Grid.Col span={6}>
-          <Text>ATTACK</Text>
-        </Grid.Col>
-
-        <Grid.Col span={4}>
+        <Grid.Col span={8}>
           <Container>
             <Stack align="center">
               <Box h="12.5em" w="100%" {...lightInset}>
@@ -63,7 +35,9 @@ function BossBattle() {
         </Grid.Col>
 
         <Grid.Col span={4}>
-          <Text>Activity</Text>
+          <Container>
+            <QuestList />
+          </Container>
         </Grid.Col>
       </Grid>
     </Stack>
