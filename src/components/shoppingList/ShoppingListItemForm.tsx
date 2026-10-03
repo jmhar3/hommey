@@ -26,7 +26,7 @@ import Theme from "../../helpers/theme";
 import Container from "../Container";
 
 function ShoppingListItemForm(props: { onComplete?: () => void }) {
-  const { colours, contrastShadow, input } = Theme();
+  const { colours, button, input, contrastShadow } = Theme();
 
   const dispatch = useAppDispatch();
   const shops = useAppSelector(selectShops);
@@ -169,7 +169,7 @@ function ShoppingListItemForm(props: { onComplete?: () => void }) {
     );
 
   return (
-    <Button {...contrastShadow} onClick={open}>
+    <Button {...button} onClick={open}>
       ADD NEW ITEM
     </Button>
   );
