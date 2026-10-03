@@ -88,7 +88,7 @@ function Quests() {
         <Title>Quest Log</Title>
 
         <Stack gap="xs">
-          <Divider bd={`2px solid ${colours.contrast}`} />
+          <Divider size="lg" color={colours.contrast} />
 
           <Group grow pb="3">
             {walk && <QuestActionIcon icon={<FaWalking />} quest={walk} />}
@@ -102,7 +102,7 @@ function Quests() {
             {robovac && <QuestActionIcon icon={<FaBroom />} quest={robovac} />}
           </Group>
 
-          <Divider bd={`2px solid ${colours.contrast}`} />
+          <Divider size="lg" color={colours.contrast} />
 
           <ScrollArea
             h="52.5vh"

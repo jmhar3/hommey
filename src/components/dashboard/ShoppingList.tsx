@@ -35,7 +35,7 @@ function ShoppingList() {
         <Title>Shopping List</Title>
 
         <Stack gap={0}>
-          <Divider bd={`2px solid ${colours.contrast}`} />
+          <Divider size="lg" color={colours.contrast} />
 
           <ScrollArea
             mah="25vh"
@@ -63,7 +63,7 @@ function ShoppingList() {
             </Stack>
           </ScrollArea>
 
-          <Divider bd={`2px solid ${colours.contrast}`} />
+          <Divider size="lg" color={colours.contrast} />
         </Stack>
 
         <ShoppingListItemForm />
