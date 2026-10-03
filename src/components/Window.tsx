@@ -29,6 +29,7 @@ function Window(props: WindowProps) {
       maw={props.window.size === "full" ? undefined : "60vw"}
       miw={props.window.size === "full" ? undefined : "45vw"}
       mah={props.window.size === "full" ? "100%" : "fit-content"}
+      style={{ zIndex: 999 }}
     >
       <Flex
         p="xs"
