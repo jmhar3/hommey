@@ -65,24 +65,34 @@ function QuestList() {
     [quests],
   );
 
-  const healQuests = useMemo(
-    () => dueQuests.filter(({ type }) => type === "heal"),
+  const onceOffQuests = useMemo(
+    () => dueQuests.filter(({ frequency }) => !frequency || frequency === 0),
     [dueQuests],
+  );
+
+  const repeatedQuests = useMemo(
+    () => dueQuests.filter(({ frequency }) => frequency && frequency > 0),
+    [dueQuests],
+  );
+
+  const healQuests = useMemo(
+    () => repeatedQuests.filter(({ type }) => type === "heal"),
+    [repeatedQuests],
   );
 
   const attackQuests = useMemo(
-    () => dueQuests.filter(({ type }) => type === "attack"),
-    [dueQuests],
+    () => repeatedQuests.filter(({ type }) => type === "attack"),
+    [repeatedQuests],
   );
 
   const powerUpQuests = useMemo(
-    () => dueQuests.filter(({ type }) => type === "power_up"),
-    [dueQuests],
+    () => repeatedQuests.filter(({ type }) => type === "power_up"),
+    [repeatedQuests],
   );
 
   if (quests.length > 0)
     return (
-      <Stack p="xs" bd={`dotted 4px ${colours.blue}`}>
+      <Stack p="xs" gap="xs" bd={`dotted 4px ${colours.blue}`}>
         <Group grow pb="3">
           {walk && <QuestActionIcon icon={<FaWalking />} quest={walk} />}
           {brush && <QuestActionIcon icon={<FaDog />} quest={brush} />}
@@ -95,11 +105,37 @@ function QuestList() {
           {robovac && <QuestActionIcon icon={<FaBroom />} quest={robovac} />}
         </Group>
 
-        <Divider bd={`2px solid ${colours.blue}`} />
+        <Divider
+          mt={3}
+          size="md"
+          color={colours.blue}
+          label="DUE QUESTS"
+          styles={{ label: { color: colours.blue } }}
+        />
 
         {[...healQuests, ...powerUpQuests, ...attackQuests].map((quest) => (
           <QuestButton key={quest.id} {...quest} />
         ))}
+
+        <Divider
+          mt={3}
+          size="md"
+          color={colours.blue}
+          label="ONCE-OFF QUESTS"
+          styles={{ label: { color: colours.blue } }}
+        />
+
+        {onceOffQuests.map((quest) => (
+          <QuestButton key={quest.id} {...quest} />
+        ))}
+
+        <Divider
+          mt={3}
+          size="md"
+          color={colours.blue}
+          label="COMPELTED QUESTS"
+          styles={{ label: { color: colours.blue } }}
+        />
 
         {completedQuests.map((quest) => (
           <Button key={quest.id} disabled {...lightInset} td="line-through">
