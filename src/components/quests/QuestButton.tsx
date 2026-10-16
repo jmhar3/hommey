@@ -49,6 +49,8 @@ function QuestButton(quest: Quest) {
   return (
     <Stack
       {...style}
+      mih="44px"
+      h="fit-content"
       justify="center"
       bg={isClicked ? colours.white : colours.light}
       py={isClicked ? "xs" : undefined}
