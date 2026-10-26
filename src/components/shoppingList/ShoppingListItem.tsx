@@ -9,6 +9,9 @@ import Theme from "../../helpers/theme";
 import type { CheckboxProps } from "@mantine/core";
 import type { ShoppingListItem as ShoppingListItemType } from "../../state/types";
 
+const CheckboxIcon: CheckboxProps["icon"] = ({ indeterminate, ...others }) =>
+  indeterminate ? <FaLine {...others} /> : <FaDotCircle {...others} />;
+
 function ShoppingListItem(item: ShoppingListItemType) {
   const { colours } = Theme();
 
@@ -17,9 +20,6 @@ function ShoppingListItem(item: ShoppingListItemType) {
   const checkItem = () => {
     dispatch(deleteShoppingListItem(item.id));
   };
-
-  const CheckboxIcon: CheckboxProps["icon"] = ({ indeterminate, ...others }) =>
-    indeterminate ? <FaLine {...others} /> : <FaDotCircle {...others} />;
 
   return (
     <Checkbox
