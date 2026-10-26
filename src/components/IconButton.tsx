@@ -5,28 +5,28 @@ import Theme from "../helpers/theme";
 import type { ReactNode } from "react";
 
 interface IconButtonProps {
+  onClick: () => void;
   icon: ReactNode;
   value: string;
 }
 
-function IconButton({ icon, value }: IconButtonProps) {
+function IconButton({ icon, value, onClick }: IconButtonProps) {
   const { colours } = Theme();
 
   return (
     <Button
-      pb="0"
-      pt="xs"
-      px="xs"
+      p="xs"
       bdrs={0}
       bg="none"
       h="fit-content"
       c={colours.dark}
+      onClick={onClick}
       bd={`dotted 4px ${colours.blue}`}
     >
       <Stack gap="xs" align="center" justify="center">
         {icon}
 
-        <Text size="1.5em">{value}</Text>
+        <Text size="1em">{value}</Text>
       </Stack>
     </Button>
   );
