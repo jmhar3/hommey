@@ -82,15 +82,28 @@ function Greeting() {
           <Flex w="fit-content" gap="xs">
             {/*{weatherData?.hourly.apparent_temperature}°C*/}
             <IconButton
-              icon={<FaThermometerHalf size="2.4em" />}
               value="28°C"
+              onClick={() => {}}
+              icon={<FaThermometerHalf size="2.4em" />}
             />
 
-            <IconButton icon={<FaWind size="2.4em" />} value="24k" />
+            <IconButton
+              value="24k"
+              onClick={() => {}}
+              icon={<FaWind size="2.4em" />}
+            />
 
-            <IconButton icon={<FaSun size="2.4em" />} value="2UV" />
+            <IconButton
+              value="2UV"
+              onClick={() => {}}
+              icon={<FaSun size="2.4em" />}
+            />
 
-            <IconButton icon={<FaCloudRain size="2.4em" />} value="2mm" />
+            <IconButton
+              value="2mm"
+              onClick={() => {}}
+              icon={<FaCloudRain size="2.4em" />}
+            />
 
             {/*<Button pb="0" pt="xs" px="xs" h="fit-content" {...contrastShadow}>
               <Stack gap="xs" align="center" justify="center">

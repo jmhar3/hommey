@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { FaCog, FaDog } from "react-icons/fa";
+import { FaCog, FaDog, FaGamepad } from "react-icons/fa";
 import { ActionIcon, Divider, Flex, Stack } from "@mantine/core";
 
 import NavButton from "./NavButton";
@@ -17,6 +17,8 @@ import Film from "../screens/Film";
 import Theme from "../helpers/theme";
 
 import type { WindowType } from "./Window";
+import Louis from "../screens/Louis";
+import Games from "../screens/Games";
 
 const windows = [
   { title: "Weather", screen: <Weather />, size: "full" },
@@ -36,8 +38,29 @@ function Navbar({ setFocusedWindow }: NavbarProps) {
   return (
     <>
       <Stack pos="fixed" top={0} left={0} p="xs">
-        <IconButton icon={<FaDog size="2.4em" />} value="LOUIS" />
-        <IconButton icon={<FaDog size="2.4em" />} value="LOUIS" />
+        <IconButton
+          icon={<FaDog size="2.4em" />}
+          value="LOUIS"
+          onClick={() =>
+            setFocusedWindow({
+              title: "Louis",
+              screen: <Louis />,
+              size: "small",
+            })
+          }
+        />
+
+        <IconButton
+          icon={<FaGamepad size="2.4em" />}
+          value="GAMES"
+          onClick={() =>
+            setFocusedWindow({
+              title: "Games",
+              screen: <Games />,
+              size: "small",
+            })
+          }
+        />
       </Stack>
 
       <Flex
