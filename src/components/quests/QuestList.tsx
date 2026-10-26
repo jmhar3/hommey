@@ -105,42 +105,53 @@ function QuestList() {
           {robovac && <QuestActionIcon icon={<FaBroom />} quest={robovac} />}
         </Group>
 
-        <Divider
-          mt={3}
-          size="md"
-          color={colours.blue}
-          label="DUE QUESTS"
-          styles={{ label: { color: colours.blue } }}
-        />
+        {[...healQuests, ...powerUpQuests, ...attackQuests].map(
+          (quest, index) => (
+            <>
+              {index === 0 && (
+                <Divider
+                  mt={3}
+                  size="md"
+                  color={colours.blue}
+                  label="DUE QUESTS"
+                  styles={{ label: { color: colours.blue } }}
+                />
+              )}
+              <QuestButton key={quest.id} {...quest} />
+            </>
+          ),
+        )}
 
-        {[...healQuests, ...powerUpQuests, ...attackQuests].map((quest) => (
-          <QuestButton key={quest.id} {...quest} />
+        {onceOffQuests.map((quest, index) => (
+          <>
+            {index === 0 && (
+              <Divider
+                mt={3}
+                size="md"
+                color={colours.blue}
+                label="ONCE-OFF QUESTS"
+                styles={{ label: { color: colours.blue } }}
+              />
+            )}
+            <QuestButton key={quest.id} {...quest} />
+          </>
         ))}
 
-        <Divider
-          mt={3}
-          size="md"
-          color={colours.blue}
-          label="ONCE-OFF QUESTS"
-          styles={{ label: { color: colours.blue } }}
-        />
-
-        {onceOffQuests.map((quest) => (
-          <QuestButton key={quest.id} {...quest} />
-        ))}
-
-        <Divider
-          mt={3}
-          size="md"
-          color={colours.blue}
-          label="COMPELTED QUESTS"
-          styles={{ label: { color: colours.blue } }}
-        />
-
-        {completedQuests.map((quest) => (
-          <Button key={quest.id} disabled {...lightInset} td="line-through">
-            {quest.label.toUpperCase()}
-          </Button>
+        {completedQuests.map((quest, index) => (
+          <>
+            {index === 0 && (
+              <Divider
+                mt={3}
+                size="md"
+                color={colours.blue}
+                label="COMPELTED QUESTS"
+                styles={{ label: { color: colours.blue } }}
+              />
+            )}
+            <Button key={quest.id} disabled {...lightInset} td="line-through">
+              {quest.label.toUpperCase()}
+            </Button>
+          </>
         ))}
       </Stack>
     );
